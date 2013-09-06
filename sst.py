@@ -43,10 +43,10 @@ while True:
                         s.refresh()
                 lTime=cTime
                 os.system('clear')
-                print('Last Updated: '+str(gmtime().tm_hour)+':'+str(gmtime().tm_min))
+                print('Last Updated: '+str(gmtime().tm_hour)+':'+str(gmtime().tm_min).zfill(2))
                 for s in stocks:
                         percent = round(100*s.change/s.current,2)
                         if s.change < 0:
-                                print(upper(s.symbol)+":"+red+str(s.current)+' '+str(round(s.change,2))+' -%'+str(abs(percent))+endc)
+                                print(upper(s.symbol)+":"+red+'{0:7.2f} {1:5.2f}'.format(s.current,round(s.change,2))+' -%'+str(abs(percent)).zfill(5)+endc)
                         else:
-                                print(upper(s.symbol)+":"+green+str(s.current)+' +'+str(round(s.change,2))+' +%'+str(percent)+endc)
+                                print(upper(s.symbol)+":"+green+'{0:7.2f} +{1:4.2f}'.format(s.current,round(s.change,2))+' +%'+str(abs(percent)).zfill(5)+endc)

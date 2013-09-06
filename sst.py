@@ -3,14 +3,20 @@ import os
 from time import gmtime
 from string import upper
 
+#symbols to follow
 symbols = ['rai','amgn','goog','tsla']
+#interval in minutes to update
+interval = 1
+
 stocks = []
 lTime = 0
-interval = 1
+
+#currently using ansi to add minor coloring to output
 green = '\033[92m'
 red = '\033[91m'
 endc = '\033[0m'
 
+#basic stock object to contain pricing info
 class stock:
         def __init__(self,symbol):
                 self.symbol = symbol
@@ -24,12 +30,15 @@ class stock:
                 self.open = float(urllib2.urlopen(self.url+'&f=p').read())
                 self.change = self.current-self.open
 
+#populate stock list
 for s in symbols:
         stocks.append(stock(s))
 
+#run until terminated isn't very clean but works for my minor background needs
 while True:
         cTime = gmtime().tm_min
         if cTime-lTime >= interval:
+                #Every interval minutes, refresh the stocks and print the changes on a clean screen
                 for s in stocks:
                         s.refresh()
                 lTime=cTime

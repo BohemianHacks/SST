@@ -1,6 +1,6 @@
 import urllib2
 import os
-from time import gmtime
+import time
 from string import upper
 
 #symbols to follow
@@ -36,14 +36,15 @@ for s in symbols:
 
 #run until terminated isn't very clean but works for my minor background needs
 while True:
-        cTime = gmtime().tm_min
+        time.sleep(1)
+        cTime = time.gmtime().tm_min
         if cTime-lTime >= interval:
                 #Every interval minutes, refresh the stocks and print the changes on a clean screen
                 for s in stocks:
                         s.refresh()
                 lTime=cTime
                 os.system('clear')
-                print('Last Updated: '+str(gmtime().tm_hour)+':'+str(gmtime().tm_min).zfill(2))
+                print('Last Updated: '+str(time.gmtime().tm_hour)+':'+str(time.gmtime().tm_min).zfill(2))
                 for s in stocks:
                         percent = round(100*s.change/s.current,2)
                         if s.change < 0:

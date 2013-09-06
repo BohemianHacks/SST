@@ -7,10 +7,8 @@ from string import upper
 symbols = ['rai','amgn','goog','tsla']
 #interval in minutes to update
 interval = 1
-
+#container for stock objects
 stocks = []
-lTime = 0
-
 #currently using ansi to add minor coloring to output
 green = '\033[92m'
 red = '\033[91m'
@@ -36,18 +34,16 @@ for s in symbols:
 
 #run until terminated isn't very clean but works for my minor background needs
 while True:
-        time.sleep(1)
-        cTime = time.gmtime().tm_min
-        if cTime-lTime >= interval:
-                #Every interval minutes, refresh the stocks and print the changes on a clean screen
-                for s in stocks:
-                        s.refresh()
-                lTime=cTime
-                os.system('clear')
-                print('Last Updated: '+str(time.gmtime().tm_hour)+':'+str(time.gmtime().tm_min).zfill(2))
-                for s in stocks:
-                        percent = round(100*s.change/s.current,2)
-                        if s.change < 0:
-                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),red)+str(round(s.change,2)).zfill(6)+' -%'+str(abs(percent))+endc)
-                        else:
-                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),green)+'+'+str(round(s.change,2)).zfill(5)+' +%'+str(abs(percent))+endc)
+        sTime = time.clock()
+        for s in stocks:
+		s.refresh()
+        os.system('clear')
+	print('Last Updated: '+time.strftime("%H:%M:%S", time.gmtime()))
+        for s in stocks:
+        	percent = round(100*s.change/s.current,2)
+                if s.change < 0:
+                	print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),red)+str(round(s.change,2)).zfill(6)+' -%'+str(abs(percent))+endc)
+                else:
+                        print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),green)+'+'+str(round(s.change,2)).zfill(5)+' +%'+str(abs(percent))+endc)
+	eTime = time.clock()
+	time.sleep(60*interval-(eTime-sTime))

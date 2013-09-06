@@ -47,6 +47,6 @@ while True:
                 for s in stocks:
                         percent = round(100*s.change/s.current,2)
                         if s.change < 0:
-                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),red)+str(round(s.change,2)).zfill(6)+' -%'+str(abs(percent)).zfill(5)+endc)
+                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),red)+str(round(s.change,2)).zfill(6)+' -%'+str(abs(percent))+endc)
                         else:
-                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),green)+'+'+str(round(s.change,2)).zfill(5)+' +%'+str(abs(percent)).zfill(5)+endc)
+                                print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),green)+'+'+str(round(s.change,2)).zfill(5)+' +%'+str(abs(percent))+endc)

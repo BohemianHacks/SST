@@ -21,14 +21,14 @@ class stock:
         def __init__(self,symbol):
                 self.symbol = symbol
                 self.url = 'http://download.finance.yahoo.com/d/quotes.csv?s='+symbol
-                self.current = float(urllib2.urlopen(self.url+'&f=l1').read())
-                self.open = float(urllib2.urlopen(self.url+'&f=p').read())
+                self.current = float(urllib2.urlprevious(self.url+'&f=l1').read())
+                self.previous = float(urllib2.urlprevious(self.url+'&f=p').read())
                 self.change = 0.0
 
         def refresh(self):
-                self.current = float(urllib2.urlopen(self.url+'&f=l1').read())
-                self.open = float(urllib2.urlopen(self.url+'&f=p').read())
-                self.change = self.current-self.open
+                self.current = float(urllib2.urlprevious(self.url+'&f=l1').read())
+                self.previous = float(urllib2.urlprevious(self.url+'&f=p').read())
+                self.change = self.current-self.previous
 
 #populate stock list
 for s in symbols:

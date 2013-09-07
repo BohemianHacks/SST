@@ -5,8 +5,8 @@ from string import upper
 
 #symbols to follow
 symbols = ['rai','amgn','goog','tsla']
-#interval in minutes to update
-interval = 1
+#interval in seconds to update
+interval = 15
 #container for stock objects
 stocks = []
 #currently using ansi to add minor coloring to output
@@ -34,7 +34,7 @@ for s in symbols:
 
 #run until terminated isn't very clean but works for my minor background needs
 while True:
-        sTime = time.clock()
+        sTime = time.time()
         for s in stocks:
 		s.refresh()
         os.system('clear')
@@ -45,5 +45,5 @@ while True:
                 	print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),red)+str(round(s.change,2)).zfill(6)+' -%'+str(abs(percent))+endc)
                 else:
                         print('{1:4}:{2}{0:7.2f} '.format(s.current,upper(s.symbol),green)+'+'+str(round(s.change,2)).zfill(5)+' +%'+str(abs(percent))+endc)
-	eTime = time.clock()
-	time.sleep(60*interval-(eTime-sTime))
+	eTime = time.time()
+	time.sleep(float(interval)-float(eTime-sTime))

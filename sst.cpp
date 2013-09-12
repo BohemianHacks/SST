@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <cstring>
-#include <stdlib.h>
+#include <cstdlib>
 #include <curl/curl.h>
 
 using namespace std;

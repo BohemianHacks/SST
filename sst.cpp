@@ -3,9 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <string>
-#include <string.h>
-#include "stdafx.h"
+#include <cstring>
 #include <stdlib.h>
 #include <curl/curl.h>
 

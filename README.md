@@ -3,6 +3,7 @@ SST
 
 Shell Stock Ticker
 
-Just add stocks to the list, change the interval to your liking, and run.
+The python version is more complete at this time but won't be updated.
+C++ is still mostly being worked out but all updates will be here.
 
-May update down the line to be a bit more user friendly using ncurses or similar.
+May use ncurses or something similar soon before working on a windows version.

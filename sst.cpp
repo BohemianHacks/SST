@@ -17,7 +17,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
 }
 
 //scrape basic html or text based on curl example code
-bool getPage(const char* url, const string& readBuffer){
+bool getPage(const char* url, string& readBuffer){
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();

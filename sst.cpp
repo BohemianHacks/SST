@@ -67,17 +67,14 @@ class Stock {
 		double getCurrent(){return current;};
 		double getChange(){return change;};
 		const string getSymbol(){return symbol;};
-		Stock(string sym);
+		Stock(const string& sym);
 		void update(void);
 		void getEma(int days);
 };
 
-Stock::Stock(const string sym){
-	symbol = sym;
-	open = getPrice(symbol,"o");
-	close = getPrice(symbol,"p");
-	current = getPrice(symbol,"l1");
-	change = 100.0*(current-close)/current;
+Stock::Stock(const string& sym)
+	: symbol(sym), open (getPrice(symbol,"o")), close (getPrice(symbol,"p")),
+	current (getPrice(symbol,"l1")), change (100.0*(current-close)/current) {
 }
 
 
@@ -127,7 +124,7 @@ int main(int argc, char *argv[]){
 		double price = getPrice(stocks[i], "l1");
 		//check for a valid price before loading stock
 		if (price > 0.0){
-			Stock s(stocks[i]);
+			Stock s(&stocks[i]);
 			stockV.push_back(s);
 		}
 		//stop looking for stocks after a blank line

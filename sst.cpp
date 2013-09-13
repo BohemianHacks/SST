@@ -60,13 +60,13 @@ class Stock {
 		double close; //previous closing price
 		double current; //current price
 		double change; //percent change from previous close
-		string symbol; //stock ticker symbol
+		const string symbol; //stock ticker symbol
 	public:
 		double getOpen(){return open;};
 		double getClose(){return close;};
 		double getCurrent(){return current;};
 		double getChange(){return change;};
-		const string getSymbol(){return symbol;};
+		string getSymbol(){return symbol;};
 		Stock(const string& sym);
 		void update(void);
 		void getEma(int days);

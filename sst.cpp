@@ -67,12 +67,12 @@ class Stock {
 		double getCurrent(){return current;};
 		double getChange(){return change;};
 		const string getSymbol(){return symbol;};
-		Stock(const string& sym);
+		Stock(const string sym);
 		void update(void);
 		void getEma(int days);
 };
 
-Stock::Stock(const string& sym)
+Stock::Stock(const string sym)
 	: symbol(sym), open (getPrice(symbol,"o")), close (getPrice(symbol,"p")),
 	current (getPrice(symbol,"l1")), change (100.0*(current-close)/current) {
 }

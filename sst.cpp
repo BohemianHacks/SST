@@ -36,7 +36,7 @@ bool getPage(const char* url, string& readBuffer){
 }
 
 //gets csv data from yahoo finance and returns as a double
-double getPrice(const string& symbol, const string type){
+double getPrice(const string symbol, const string type){
 	stringstream urlBuilder;
 	string response;
 	double price;

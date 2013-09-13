@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstring>
 #include <cstdlib>
+#include <cstdint>
 #include <curl/curl.h>
 
 using namespace std;
@@ -40,7 +41,7 @@ double getPrice(const string& symbol, const string type){
 	string response;
 	double price;
 	urlBuilder << "http://download.finance.yahoo.com/d/quotes.csv?s=" << symbol << "&f=" << type;
-	for (size_t i = 0; i < 3; i++){
+	for (uint_fast8_t i = 0; i < 3; i++){
 		if (getPage(urlBuilder.str().c_str(),response)){
 			price = atof(response.c_str());
 		}
@@ -71,7 +72,6 @@ class Stock {
 		void getEma(int days);
 };
 
-//basic constructor to properly initialize variables
 Stock::Stock(const string sym){
 	symbol = sym;
 	open = getPrice(symbol,"o");

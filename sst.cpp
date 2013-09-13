@@ -124,7 +124,7 @@ int main(int argc, char *argv[]){
 		double price = getPrice(stocks[i], "l1");
 		//check for a valid price before loading stock
 		if (price > 0.0){
-			Stock s(&stocks[i]);
+			Stock s(stocks[i]);
 			stockV.push_back(s);
 		}
 		//stop looking for stocks after a blank line

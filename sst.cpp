@@ -72,9 +72,12 @@ class Stock {
 		void getEma(int days);
 };
 
-Stock::Stock(const string& sym)
-	: symbol(sym), open (getPrice(symbol,"o")), close (getPrice(symbol,"p")),
-	current (getPrice(symbol,"l1")), change (100.0*(current-close)/current) {
+Stock::Stock(const string& sym){
+	symbol = sym;
+	open = getPrice(symbol,"o");
+	close = getPrice(symbol,"p");
+	current = getPrice(symbol,"l1");
+	change = 100.0*(current-close)/current;
 }
 
 

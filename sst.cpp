@@ -68,7 +68,7 @@ class Stock {
 		double getChange(){return change;};
 		string getSymbol(){return symbol;};
 		Stock(const string& sym);
-		void update(void);
+		void update();
 		void getEma(int days);
 };
 

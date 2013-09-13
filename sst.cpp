@@ -27,7 +27,6 @@ bool getPage(const char* url, const string& readBuffer){
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){
-			fprintf(stderr,"Failed: %s\n",curl_easy_strerror(res));
 			return false;
 		}
 		return true;
@@ -39,11 +38,18 @@ bool getPage(const char* url, const string& readBuffer){
 double getPrice(const string& symbol, const string type){
 	stringstream urlBuilder;
 	string response;
+	double price;
 	urlBuilder << "http://download.finance.yahoo.com/d/quotes.csv?s=" << symbol << "&f=" << type;
-	if (getPage(urlBuilder.str().c_str(),response)){
-		return atof(response.c_str());
+	for (int i = 0; i < 3; i++){
+		if (getPage(urlBuilder.str().c_str(),response)){
+			price = atof(response.c_str());
+		}
+		if (price > 0.0){
+			return price;
+		}
 	}
-	return -1.0;
+	cout << "Could not fetch price: " << symbol << endl;
+	return price;
 }
 
 //start of stock class to hold all the data and compute technicals
@@ -59,7 +65,7 @@ class Stock {
 		double getClose(){return close;};
 		double getCurrent(){return current;};
 		double getChange(){return change;};
-		string getSymbol(){return symbol;};
+		const string getSymbol(){return symbol;};
 		Stock(string sym);
 		void update(void);
 		void getEma(int days);
@@ -81,7 +87,7 @@ int main(int argc, char *argv[]){
 	int interval = 30;
 	vector<string> stocks;
 	if (argc<2){
-		cout << "Usage: sst [options] <stock list>" << endl;
+		cout << "Usage: sst [options] <stock list>\n";
 		return 0;
 	}
 	else if (argc>=2){
@@ -105,13 +111,13 @@ int main(int argc, char *argv[]){
 					}
 				}
 				else{
-					cout << "Usage: sst [options] <stock list>" << endl;
+					cout << "Usage: sst [options] <stock list>\n";
 					return 0;
 				}
 			}
 		}
 		if (!(0 < stocks[0].length() < 6)){
-			cout << "Usage: sst [options] <stock list>" << endl;
+			cout << "Usage: sst [options] <stock list>\n";
 			return 0;
 		}
 	}
@@ -130,7 +136,7 @@ int main(int argc, char *argv[]){
 	}
 	//I would like to loop here and update after interval seconds.
 	//a good cross platform for unbuffered keyboard input is hard to find.
-	cout <<  "Symbol Current  %Change" << endl;
+	cout <<  "Symbol Current  %Change\n";
 	for (int s = 0;s < stockV.size();s++){
 		cout << setw(5) <<  stockV[s].getSymbol() << ":";
 		printf("%7.2f %8.2f%% \n", stockV[s].getCurrent(), stockV[s].getChange());

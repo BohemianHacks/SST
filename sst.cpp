@@ -47,7 +47,7 @@ double getPrice(const string& symbol, const string type){
 }
 
 //start of stock class to hold all the data and compute technicals
-class stock {
+class Stock {
 	private:
 		double open; //opening price
 		double close; //previous closing price
@@ -60,13 +60,13 @@ class stock {
 		double getCurrent(){return current;};
 		double getChange(){return change;};
 		string getSymbol(){return symbol;};
-		stock(string sym);
+		Stock(string sym);
 		void update(void);
 		void getEma(int days);
 };
 
 //basic constructor to properly initialize variables
-stock::stock(const string sym){
+Stock::Stock(const string sym){
 	symbol = sym;
 	open = getPrice(symbol,"o");
 	close = getPrice(symbol,"p");
@@ -116,12 +116,12 @@ int main(int argc, char *argv[]){
 		}
 	}
 	//vector to hold stock objects
-	vector<stock> stockV;
+	vector<Stock> stockV;
 	for (int i = 0; i < stocks.size(); i++){
 		double price = getPrice(stocks[i], "l1");
 		//check for a valid price before loading stock
 		if (price > 0.0){
-			stock s(stocks[i]);
+			Stock s(stocks[i]);
 			stockV.push_back(s);
 		}
 		//stop looking for stocks after a blank line
@@ -132,8 +132,9 @@ int main(int argc, char *argv[]){
 	//a good cross platform for unbuffered keyboard input is hard to find.
 	cout <<  "Symbol Current  %Change" << endl;
 	for (int s = 0;s < stockV.size();s++){
-		cout << setw(5) << stockV[s].getSymbol() << ": " << setw(7) <<setprecision(5) << stockV[s].getCurrent() << " " << setw(7) << setprecision(2) << stockV[s].getChange() << "%"  << endl;
-		}
+		cout << setw(5) <<  stockV[s].getSymbol() << ":";
+		printf("%7.2f %8.2f%% \n", stockV[s].getCurrent(), stockV[s].getChange());
+	}
 		cin.ignore();	
 	return 0;
 }

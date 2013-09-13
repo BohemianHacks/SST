@@ -36,7 +36,7 @@ bool getPage(const char* url, string& readBuffer){
 }
 
 //gets csv data from yahoo finance and returns as a double
-double getPrice(const string symbol, const string type){
+double getPrice(const string& symbol, const string type){
 	stringstream urlBuilder;
 	string response;
 	double price;
@@ -72,7 +72,7 @@ class Stock {
 		void getEma(int days);
 };
 
-Stock::Stock(const string sym)
+Stock::Stock(const string& sym)
 	: symbol(sym), open (getPrice(symbol,"o")), close (getPrice(symbol,"p")),
 	current (getPrice(symbol,"l1")), change (100.0*(current-close)/current) {
 }

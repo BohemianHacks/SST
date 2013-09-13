@@ -40,7 +40,7 @@ double getPrice(const string& symbol, const string type){
 	string response;
 	double price;
 	urlBuilder << "http://download.finance.yahoo.com/d/quotes.csv?s=" << symbol << "&f=" << type;
-	for (int i = 0; i < 3; i++){
+	for (size_t i = 0; i < 3; i++){
 		if (getPage(urlBuilder.str().c_str(),response)){
 			price = atof(response.c_str());
 		}
@@ -91,7 +91,7 @@ int main(int argc, char *argv[]){
 		return 0;
 	}
 	else if (argc>=2){
-		for (int i=1; i<argc; i++){
+		for (size_t i=1; i<argc; i++){
 			//look for flags or filename to load
 			if (strstr(argv[i],"-") != NULL){
 				if (strcmp(argv[i],"-c")==0){
@@ -123,7 +123,7 @@ int main(int argc, char *argv[]){
 	}
 	//vector to hold stock objects
 	vector<Stock> stockV;
-	for (int i = 0; i < stocks.size(); i++){
+	for (size_t i = 0; i < stocks.size(); i++){
 		double price = getPrice(stocks[i], "l1");
 		//check for a valid price before loading stock
 		if (price > 0.0){
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]){
 	//I would like to loop here and update after interval seconds.
 	//a good cross platform for unbuffered keyboard input is hard to find.
 	cout <<  "Symbol Current  %Change\n";
-	for (int s = 0;s < stockV.size();s++){
+	for (size_t s = 0;s < stockV.size();s++){
 		cout << setw(5) <<  stockV[s].getSymbol() << ":";
 		printf("%7.2f %8.2f%% \n", stockV[s].getCurrent(), stockV[s].getChange());
 	}

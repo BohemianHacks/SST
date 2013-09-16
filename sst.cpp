@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
     std::vector <Stock> stocks;
     std::ifstream list;
 
-    //load stocks
+    //load stock symbols from list
     list.open("stocks");
     if (list.is_open()){
         std::string sym;

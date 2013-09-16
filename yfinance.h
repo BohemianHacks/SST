@@ -1,5 +1,10 @@
 #include <curl/curl.h>
 #include <string>
+#include <sstream>
+#include <cstring>
+#include <cstdint>
+#include <vector>
+#define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 //callback function for curl
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -9,7 +14,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
 }
 
 //Scrape text from the web and return it to a string
-bool getPage(const char* url, string& readBuffer){
+bool getPage(const char* url, std::string& readBuffer){
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
@@ -26,6 +31,30 @@ bool getPage(const char* url, string& readBuffer){
 	curl_easy_cleanup(curl);
 }
 
-int main(int argc, char *argv[]){
-    return 0;
+bool getPrice(const std::string& symbol, int_fast64_t& price){
+    std::stringstream urlBuilder;
+    std::string response;
+    urlBuilder << baseURL << symbol << "&f=l1";
+    for (uint_fast8_t i = 0; i < 3; i++){
+        if (getPage(urlBuilder.str().c_str(),response)){
+            price = int(100*atof(response.c_str()));
+        }
+        if (price > 0){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool getData(std::vector <std::string> symbols, std::string format){
+    std::stringstream urlBuilder;
+    std::string response;
+    std::stringstream syms;
+    urlBuilder << baseURL << syms.str() << "&f=" << format;
+    for (uint_fast8_t i = 0; i < 3; i++){
+        if (getPage(urlBuilder.str().c_str(),response)){
+            break;
+        }
+    }
+    return true;
 }

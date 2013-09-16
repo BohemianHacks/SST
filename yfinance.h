@@ -60,6 +60,26 @@ bool getPrice(const std::string& symbol, int_fast64_t& price){
     return false;
 }
 
+bool loadStocks(const std::vector& <std::string> symbols, std::vector <std::vector <std::string>> stockstrings, std::vector <Stock> stocks){
+    if (getData(symbols, "nopl1", stockstrings)){
+        for(size_t i = 0; i < stockstrings.size(); i++){
+            Stock stock(symbols[i]);
+            while(stockstrings[i][0].find('"') != -1 ){
+                stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
+            }
+            stock.name = stockstrings[i][0];
+            stock.open = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
+            stock.close = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
+            stock.current = (int_fast32_t)(100*atof(stockstrings[i][3].c_str()));
+            stocks.push_back(stock);
+        }
+        return true;
+    }
+    else{
+    	return false;
+    }
+}
+
 bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
     std::stringstream urlBuilder;
     std::stringstream syms;

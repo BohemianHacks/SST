@@ -50,6 +50,7 @@ bool getPage(const char* url, std::string& readBuffer){
 	curl_easy_cleanup(curl);
 }
 
+//Get single stock's current price
 bool getPrice(const std::string& symbol, int_fast32_t& price){
     std::stringstream urlBuilder;
     std::string response;
@@ -65,6 +66,7 @@ bool getPrice(const std::string& symbol, int_fast32_t& price){
     return false;
 }
 
+//Get multiple stocks and values from one csv, then split them into string vectors
 bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
     std::stringstream urlBuilder;
     std::stringstream syms;
@@ -98,6 +100,7 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
     return false;
 }
 
+//load a list of ticker symbols with name, open, close, current, and change into Stock vector
 bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;
     if (getData(symbols, "nopl1", stockstrings)){

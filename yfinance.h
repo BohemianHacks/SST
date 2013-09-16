@@ -7,6 +7,7 @@
 #define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 class Stock{
+	friend bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
     protected:
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
@@ -15,7 +16,6 @@ class Stock{
         std::string symbol; //Ticker symbol
         std::string name;
     public:
-        friend bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
         void update();
         Stock(const std::string& sym):symbol(sym){};
 };

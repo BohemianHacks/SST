@@ -4,8 +4,21 @@
 #include <cstring>
 #include <cstdint>
 #include <vector>
-#include "stock.h"
 #define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
+
+class Stock{
+    protected:
+        int_fast32_t open; //Today's opening price
+        int_fast32_t close; //Yesterdays closing price
+        int_fast32_t current; //Current price
+        int_fast32_t change; //Percent change between current and close
+        std::string symbol; //Ticker symbol
+        std::string name;
+    public:
+        friend Stock getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
+        void update();
+        Stock(const std::string& sym):symbol(sym){};
+};
 
 //callback function for curl
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)

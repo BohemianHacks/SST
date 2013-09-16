@@ -92,7 +92,7 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
     }
 }
 
-bool loadStocks(const std::vector& <std::string> symbols, std::vector& <Stock> stocks){
+bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;
     if (getData(symbols, "nopl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){

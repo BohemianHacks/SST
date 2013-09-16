@@ -37,6 +37,7 @@ int main(int argc, char* argv[]){
         std::cout << "Could not load stocks file." << std::endl;
         return 1;
     }
+    list.close()
 
     //load stock objects
     loadStocks(symbols, stocks);

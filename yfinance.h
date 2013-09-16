@@ -12,7 +12,7 @@ class Stock{
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
-        int_fast32_t change; //Percent change between current and close
+        double change; //Percent change between current and close
         std::string symbol; //Ticker symbol
         std::string name;
     public:
@@ -20,7 +20,7 @@ class Stock{
         float getOpen(){return open/100.0;};
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
-        float getChange(){return 100*(float(current-close)/float(current));};
+        float getChange(){return change;};
         std::string getSymbol(){return symbol;};
         std::string getName(){return name;};
 };
@@ -50,7 +50,7 @@ bool getPage(const char* url, std::string& readBuffer){
 	curl_easy_cleanup(curl);
 }
 
-bool getPrice(const std::string& symbol, int_fast64_t& price){
+bool getPrice(const std::string& symbol, int_fast32_t& price){
     std::stringstream urlBuilder;
     std::string response;
     urlBuilder << baseURL << symbol << "&f=l1";
@@ -95,6 +95,7 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
             return false;
         }
     }
+    return false;
 }
 
 bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
@@ -109,13 +110,12 @@ bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& s
             stock.open = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
             stock.close = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
             stock.current = (int_fast32_t)(100*atof(stockstrings[i][3].c_str()));
+            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.current));
             stocks.push_back(stock);
         }
         return true;
     }
-    else{
     	return false;
-    }
 }
 
 

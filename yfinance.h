@@ -7,8 +7,7 @@
 #define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 class Stock{
-	friend bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
-    private:
+	friend bool loadStocks(const std::vector& <std::string> symbols, std::vector& <Stock> stocks); 
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
@@ -60,7 +59,8 @@ bool getPrice(const std::string& symbol, int_fast64_t& price){
     return false;
 }
 
-bool loadStocks(const std::vector& <std::string> symbols, std::vector <std::vector <std::string>> stockstrings, std::vector <Stock> stocks){
+bool loadStocks(const std::vector& <std::string> symbols, std::vector& <Stock> stocks){
+    std::vector <std::vector <std::string>> stockstrings;
     if (getData(symbols, "nopl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
             Stock stock(symbols[i]);

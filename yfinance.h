@@ -7,7 +7,7 @@
 #define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 class Stock{
-	friend bool loadStocks(const std::vector& <std::string> symbols, std::vector& <Stock> stocks);
+	friend bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks);
     protected:
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
@@ -16,8 +16,13 @@ class Stock{
         std::string symbol; //Ticker symbol
         std::string name;
     public:
-        void update();
         Stock(const std::string& sym):symbol(sym){};
+        float getOpen(){return open/100.0;};
+        float getClose(){return close/100.0;};
+        float getCurrent(){return current/100.0;};
+        float getChange(){return 100*(float(current-close)/float(current));};
+        std::string getSymbol(){return symbol;};
+        std::string getName(){return name;};
 };
 
 //callback function for curl

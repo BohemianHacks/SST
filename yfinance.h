@@ -15,7 +15,7 @@ class Stock{
         std::string symbol; //Ticker symbol
         std::string name;
     public:
-        friend Stock getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
+        friend bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
         void update();
         Stock(const std::string& sym):symbol(sym){};
 };
@@ -60,7 +60,7 @@ bool getPrice(const std::string& symbol, int_fast64_t& price){
     return false;
 }
 
-bool Stock getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
+bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
     std::stringstream urlBuilder;
     std::stringstream syms;
     for (size_t i = 0; i < symbols.size()-1; i++){

@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdint>
 #include <vector>
+#include "stock.h"
 #define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 //callback function for curl
@@ -46,15 +47,34 @@ bool getPrice(const std::string& symbol, int_fast64_t& price){
     return false;
 }
 
-bool getData(std::vector <std::string> symbols, std::string format){
+bool Stock getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
     std::stringstream urlBuilder;
-    std::string response;
     std::stringstream syms;
+    for (size_t i = 0; i < symbols.size()-1; i++){
+        syms << symbols[i] << ",";
+    }
+    syms << symbols[symbols.size()-1];
+    std::string response;
     urlBuilder << baseURL << syms.str() << "&f=" << format;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
-            break;
+            std::stringstream resp;
+            std::string line;
+            resp << response;
+            while(std::getline(resp, line)){
+                std::vector <std::string> stock;
+                std::stringstream l;
+                std::string value;
+                l << line;
+                while(std::getline(l,value,',')){
+                    stock.push_back(value);
+                }
+                stocks.push_back(stock);
+            }
+            if (stocks.size() == symbols.size()){
+                return true;
+            }
+            return false;
         }
     }
-    return true;
 }

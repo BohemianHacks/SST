@@ -8,7 +8,7 @@
 
 class Stock{
 	friend bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks);
-    protected:
+    private:
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price

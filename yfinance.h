@@ -113,7 +113,7 @@ bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& s
             stock.open = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
             stock.close = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
             stock.current = (int_fast32_t)(100*atof(stockstrings[i][3].c_str()));
-            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.current));
+            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
             stocks.push_back(stock);
         }
         return true;

@@ -11,14 +11,11 @@ int main(int argc, char* argv[]){
     //Initialize Timer for New York
     Timer timer("America/New_York");
 
-    //intialize stock holders
-    std::vector <std::string> symbols;
-    std::vector <Stock> stocks;
-    std::ifstream list;
-
     //load stock symbols from list
+    std::ifstream list;
     list.open("stocks");
     if (list.is_open()){
+        std::vector <std::string> symbols;
         std::string sym;
         while (list >> sym){
             symbols.push_back(sym);
@@ -31,6 +28,7 @@ int main(int argc, char* argv[]){
     list.close();
 
     //load stock objects into vector
+    std::vector <Stock> stocks;
     loadStocks(symbols, stocks);
 
     //initialize ncurses

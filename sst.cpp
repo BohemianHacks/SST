@@ -1,4 +1,5 @@
 #include "yfinance.h"
+#include "timer.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -6,19 +7,9 @@
 #include <cstdlib>
 #include <ncurses.h>
 
-std::string timeStamp(){
-    time_t rawtime;
-    struct tm * ptm;
-    time (&rawtime);
-    ptm = localtime( &rawtime );
-    char tStamp[50];
-    sprintf(tStamp, "%02d-%02d-%4d %2d:%02d EST", ptm->tm_mon+1, ptm->tm_mday, ptm->tm_year+1900, (ptm->tm_hour)%24, ptm->tm_min);
-    return tStamp;
-}
-
 int main(int argc, char* argv[]){
-    //Set timezone to new york
-    setenv("TZ", "America/New_York", 1);
+    //Initialize Timer for New York
+    Timer timer("America/New_York");
 
     //intialize stock holders
     std::vector <std::string> symbols;
@@ -37,16 +28,22 @@ int main(int argc, char* argv[]){
         std::cout << "Could not load stocks file." << std::endl;
         return 1;
     }
-    list.close()
+    list.close();
 
-    //load stock objects
+    //load stock objects into vector
     loadStocks(symbols, stocks);
 
-    //write screen
-    std::cout << "Last Updated: " << timeStamp() << std::endl;
+    //initialize ncurses
+    initscr();
+
+    //print stock info
+    printw("Last Updated: %s EST\n", timer.timeStamp().c_str());
     for(size_t i = 0; i < stocks.size(); i++){
-        std::cout << std::setw(17) << stocks[i].getName();
-        printf(" %7.2f %6.2f%% \n", stocks[i].getCurrent(), stocks[i].getChange());
+        printw("%17s %7.2f %6.2f%%\n", stocks[i].getName().c_str(), stocks[i].getCurrent(), stocks[i].getChange());
     }
+
+    refresh();
+    getch();
+    endwin();
     return(0);
 }

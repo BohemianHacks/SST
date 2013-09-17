@@ -120,5 +120,3 @@ bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& s
     }
     	return false;
 }
-
-

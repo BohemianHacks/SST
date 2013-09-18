@@ -10,7 +10,6 @@ class Stock{
 	friend bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks);
     friend bool updateStocks(std::vector <std::string>& symbols, std::vector <Stock>& stocks);
     protected:
-        int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
         double change; //Percent change between current and close
@@ -18,7 +17,6 @@ class Stock{
         std::string name;
     public:
         Stock(const std::string& sym):symbol(sym),color(0){};
-        float getOpen(){return open/100.0;};
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
         float getChange(){return change;};
@@ -123,19 +121,18 @@ bool updateStocks(std::vector <std::string>& symbols,std::vector <Stock>& stocks
         return(true);
     }
 }
-//load a list of ticker symbols with name, open, close, current, and change into Stock vector
+//load a list of ticker symbols with name, close, current, and change into Stock vector
 bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;
-    if (getData(symbols, "nopl1", stockstrings)){
+    if (getData(symbols, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
             Stock stock(symbols[i]);
             while(stockstrings[i][0].find('"') != -1 ){
                 stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
             }
             stock.name = stockstrings[i][0];
-            stock.open = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
-            stock.close = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
-            stock.current = (int_fast32_t)(100*atof(stockstrings[i][3].c_str()));
+            stock.close = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
+            stock.current = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
             stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
             if (stock.change > 0.0){
                 stock.color = 2;

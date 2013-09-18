@@ -7,6 +7,8 @@
 
 
 int main(int argc, char* argv[]){
+    //initialize timer for New York
+    Timer timer("America/New_York");
 
     //load stock symbols from list
     std::ifstream list;
@@ -41,7 +43,7 @@ int main(int argc, char* argv[]){
     size_t menuHeight = 2;
 
     while (!exit){
-        exit = mainScreen(stockList, selected, offset, end, menuHeight);
+        exit = mainScreen(stockList, timer, selected, offset, end, menuHeight);
     }
     endwin();
     return(0);

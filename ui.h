@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <iostream>
 #include "yfinance.h"
+#include "timer.h"
 
 bool startUI(){
     initscr();
@@ -27,11 +28,12 @@ bool startUI(){
     }
 }
 
-bool mainScreen(StockList& stockList, int& selected, size_t& offset, size_t& end, const size_t& menuHeight){
+bool mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offset, size_t& end, const size_t& menuHeight){
     int key = getch();
     bool exit = false;
     short invert;
     size_t x, y;
+    std::string& timeS = timer.timeStamp();
     
     //update screen size
     getmaxyx(stdscr, y, x);

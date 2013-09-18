@@ -8,7 +8,7 @@
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 class Stock{
-	friend StockList;
+	friend class StockList;
     protected:
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price

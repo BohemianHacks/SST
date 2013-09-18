@@ -1,5 +1,4 @@
 #include "yfinance.h"
-#include "timer.h"
 #include "ui.h"
 #include <iostream>
 #include <fstream>
@@ -8,8 +7,6 @@
 
 
 int main(int argc, char* argv[]){
-    //Initialize Timer for New York
-    Timer timer("America/New_York");
 
     //load stock symbols from list
     std::ifstream list;
@@ -42,8 +39,6 @@ int main(int argc, char* argv[]){
     size_t offset=0;
     size_t end = stockList.size();
     size_t menuHeight = 2;
-
-    std::string& timeS = timer.timeStamp();
 
     while (!exit){
         exit = mainScreen(stockList, selected, offset, end, menuHeight);

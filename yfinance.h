@@ -28,13 +28,13 @@ class Stock{
 
 class StockList{
     protected:
-        std::vector <Stock> list;
+        std::vector <Stock> stocks;
         std::vector <std::string> symbols;
     public:
         bool add(std::string symbol);
         bool remove(std::string symbol);
         bool updateStocks();
-        StockList(const std::vector <std::string>& syms);
+        StockList(const std::vector <std::string>& SYMBOLS);
 };
 
 //callback function for curl
@@ -62,22 +62,6 @@ bool getPage(const char* URL, std::string& readBuffer){
 		return true;
 	}
 	curl_easy_cleanup(curl);
-}
-
-//Get single stock's current price
-bool getPrice(const std::string& SYMBOL, int_fast32_t& price){
-    std::stringstream urlBuilder;
-    std::string response;
-    urlBuilder << BASE_URL << SYMBOL << "&f=l1";
-    for (uint_fast8_t i = 0; i < 3; i++){
-        if (getPage(urlBuilder.str().c_str(),response)){
-            price = int(100*atof(response.c_str()));
-        }
-        if (price > 0){
-            return true;
-        }
-    }
-    return false;
 }
 
 //Get multiple stocks and values from one csv, then split them into string vectors
@@ -124,29 +108,8 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     return false;
 }
 
-//Update list of stocks
-bool updateStocks(const std::vector <std::string>& SYMBOLS,std::vector <Stock>& stocks){
-    std::vector <std::vector <std::string>> data;
-    if (getData(SYMBOLS, "l1", data)){
-        for (size_t i = 0; i < stocks.size(); i++){
-            stocks[i].current = (int_fast32_t)(100*atof(data[i][0].c_str()));
-            stocks[i].change = 100.0*(double(stocks[i].current - stocks[i].close)/double(stocks[i].close));
-            if (stocks[i].change > 0.0){
-                stocks[i].color = 2;
-            }
-            else if (stocks[i].change == 0.0){
-                stocks[i].color = 3;
-            }
-            else{
-                stocks[i].color = 1;
-            }
-        }
-        return(true);
-    }
-}
-
 //load a list of ticker symbols with name, close, current, and change into Stock vector
-bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks){
+StockList::StockList(const std::vector <std::string>& SYMBOLS){
     std::vector <std::vector <std::string>> stockstrings;
     if (getData(SYMBOLS, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
@@ -169,7 +132,28 @@ bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& s
             }
             stocks.push_back(stock);
         }
-        return true;
+        symbols = SYMBOLS;
     }
-    	return false;
+}
+
+//Update list of stocks
+bool StockList::updateStocks(){
+    std::vector <std::vector <std::string>> data;
+    if (getData(symbols, "l1", data)){
+        for (size_t i = 0; i < stocks.size(); i++){
+            stocks[i].current = (int_fast32_t)(100*atof(data[i][0].c_str()));
+            stocks[i].change = 100.0*(double(stocks[i].current - stocks[i].close)/double(stocks[i].close));
+            if (stocks[i].change > 0.0){
+                stocks[i].color = 2;
+            }
+            else if (stocks[i].change == 0.0){
+                stocks[i].color = 3;
+            }
+            else{
+                stocks[i].color = 1;
+            }
+        }
+        return(true);
+    }
+    return(false);
 }

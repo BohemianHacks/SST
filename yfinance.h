@@ -8,6 +8,7 @@
 
 class Stock{
 	friend bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks);
+    friend bool updateStocks(std::vector <std::string>& symbols, std::vector <Stock>& stocks);
     protected:
         int_fast32_t open; //Today's opening price
         int_fast32_t close; //Yesterdays closing price
@@ -16,11 +17,12 @@ class Stock{
         std::string symbol; //Ticker symbol
         std::string name;
     public:
-        Stock(const std::string& sym):symbol(sym){};
+        Stock(const std::string& sym):symbol(sym),color(0){};
         float getOpen(){return open/100.0;};
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
         float getChange(){return change;};
+        short color;
         std::string getSymbol(){return symbol;};
         std::string getName(){return name;};
 };
@@ -85,6 +87,7 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
                 std::vector <std::string> stock;
                 std::stringstream l;
                 std::string value;
+
                 l << line;
                 while(std::getline(l,value,',')){
                     stock.push_back(value);
@@ -100,6 +103,26 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
     return false;
 }
 
+//Update list of stocks
+bool updateStocks(std::vector <std::string>& symbols,std::vector <Stock>& stocks){
+    std::vector <std::vector <std::string>> data;
+    if (getData(symbols, "l1", data)){
+        for (size_t i = 0; i < stocks.size(); i++){
+            stocks[i].current = (int_fast32_t)(100*atof(data[i][0].c_str()));
+            stocks[i].change = 100.0*(double(stocks[i].current - stocks[i].close)/double(stocks[i].close));
+            if (stocks[i].change > 0.0){
+                stocks[i].color = 2;
+            }
+            else if (stocks[i].change == 0.0){
+                stocks[i].color = 3;
+            }
+            else{
+                stocks[i].color = 1;
+            }
+        }
+        return(true);
+    }
+}
 //load a list of ticker symbols with name, open, close, current, and change into Stock vector
 bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;
@@ -114,6 +137,15 @@ bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& s
             stock.close = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
             stock.current = (int_fast32_t)(100*atof(stockstrings[i][3].c_str()));
             stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
+            if (stock.change > 0.0){
+                stock.color = 2;
+            }
+            else if (stock.change == 0.0){
+                stock.color = 3;
+            }
+            else{
+                stock.color = 1;
+            }
             stocks.push_back(stock);
         }
         return true;

@@ -85,7 +85,7 @@ int main(int argc, char* argv[]){
         erase();
 
         //print stock info
-        printw("Last Updated: %s EST Stocks:%d Symbols:%d\n", timeS.c_str(), stocks.size(), symbols.size());
+        printw("Last Updated: %s EST\n", timeS.c_str());
         for(size_t i = offset; i < end; i++){
             if (i == selected){
                 invert = 3;

@@ -70,7 +70,7 @@ bool getPrice(const std::string& SYMBOL, int_fast32_t& price){
 }
 
 //Get multiple stocks and values from one csv, then split them into string vectors
-bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT, std::vector <std::vector <std::string>>& stocks){
+bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT, std::vector <std::vector <std::string>>& data){
     std::stringstream urlBuilder;
     std::stringstream syms;
     for (size_t i = 0; i < SYMBOLS.size()-1; i++){
@@ -102,9 +102,9 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
                 while(std::getline(l,value,',')){
                     stock.push_back(value);
                 }
-                stocks.push_back(stock);
+                data.push_back(stock);
             }
-            if (stocks.size() == symbols.size()){
+            if (data.size() == SYMBOLS.size()){
                 return true;
             }
             return false;

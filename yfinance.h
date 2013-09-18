@@ -43,8 +43,10 @@ bool getPage(const char* url, std::string& readBuffer){
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){
+            curl_easy_cleanup(curl);
 			return false;
 		}
+        curl_easy_cleanup(curl);
 		return true;
 	}
 	curl_easy_cleanup(curl);
@@ -78,15 +80,24 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
     urlBuilder << baseURL << syms.str() << "&f=" << format;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
-            std::stringstream resp;
+            std::stringstream resp(response);
             std::string line;
-            resp << response;
             while(std::getline(resp, line)){
                 std::vector <std::string> stock;
-                std::stringstream l;
                 std::string value;
-
-                l << line;
+                while ((line.find('"') != -1) and (line.find('"') < line.length())){
+                    size_t pos1 = line.find('"');
+                    size_t pos2 = line.find('"', pos1+1);
+                    size_t pos3 = line.find(',', pos2);
+                    stock.push_back(line.substr(pos1, pos2-pos1));
+                    if (pos3 != -1){
+                        line.erase(pos1, pos3-pos1+1);
+                    }
+                    else{
+                        line.erase(pos1, pos2-pos1);
+                    }
+                }
+                std::stringstream l(line); 
                 while(std::getline(l,value,',')){
                     stock.push_back(value);
                 }
@@ -121,6 +132,7 @@ bool updateStocks(std::vector <std::string>& symbols,std::vector <Stock>& stocks
         return(true);
     }
 }
+
 //load a list of ticker symbols with name, close, current, and change into Stock vector
 bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;

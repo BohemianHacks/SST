@@ -31,6 +31,7 @@ bool mainScreen(StockList& stockList, int& selected, size_t& offset, size_t& end
     int key = getch();
     bool exit = false;
     short invert;
+    size_t x, y;
     
     //update screen size
     getmaxyx(stdscr, y, x);

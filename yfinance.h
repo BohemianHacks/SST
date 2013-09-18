@@ -26,6 +26,17 @@ class Stock{
         std::string getName(){return name;};
 };
 
+class StockList{
+    protected:
+        std::vector <Stock> list;
+        std::vector <std::string> symbols;
+    public:
+        bool add(std::string symbol);
+        bool remove(std::string symbol);
+        bool updateStocks();
+        StockList(const std::vector <std::string>& syms);
+};
+
 //callback function for curl
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {

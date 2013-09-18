@@ -38,9 +38,7 @@ int main(int argc, char* argv[]){
     bool exit = false;
     int key;
 
-    size_t x, y;
     int selected = -1;
-    short invert = 0;
     size_t offset=0;
     size_t end = stockList.size();
     size_t menuHeight = 2;

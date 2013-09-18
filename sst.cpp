@@ -51,16 +51,12 @@ int main(int argc, char* argv[]){
 
         //key handling
         key = getch();
-        if (key == ERR){
+        if ((key == ERR) or (key == 'u')){
             updateStocks(symbols, stocks);
             timeS = timer.timeStamp();
         }
         if (key == 'q'){
             exit = true;
-        }
-        if (key == 'u'){
-            updateStocks(symbols, stocks);
-            timeS = timer.timeStamp();
         }
         if (key == KEY_UP){
             if (selected > -1){

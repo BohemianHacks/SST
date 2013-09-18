@@ -8,8 +8,7 @@
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 class Stock{
-	friend bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks);
-    friend bool updateStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks);
+	friend StockList;
     protected:
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price

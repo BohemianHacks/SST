@@ -8,8 +8,8 @@
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 class Stock{
-	friend bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks);
-    friend bool updateStocks(std::vector <std::string>& symbols, std::vector <Stock>& stocks);
+	friend bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks);
+    friend bool updateStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks);
     protected:
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
@@ -34,12 +34,12 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
 }
 
 //Scrape text from the web and return it to a string
-bool getPage(const char* url, std::string& readBuffer){
+bool getPage(const char* URL, std::string& readBuffer){
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 	if(curl){ 
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		res = curl_easy_perform(curl);
@@ -54,10 +54,10 @@ bool getPage(const char* url, std::string& readBuffer){
 }
 
 //Get single stock's current price
-bool getPrice(const std::string& symbol, int_fast32_t& price){
+bool getPrice(const std::string& SYMBOL, int_fast32_t& price){
     std::stringstream urlBuilder;
     std::string response;
-    urlBuilder << BASE_URL << symbol << "&f=l1";
+    urlBuilder << BASE_URL << SYMBOL << "&f=l1";
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
             price = int(100*atof(response.c_str()));
@@ -70,13 +70,13 @@ bool getPrice(const std::string& symbol, int_fast32_t& price){
 }
 
 //Get multiple stocks and values from one csv, then split them into string vectors
-bool getData(const std::vector <std::string>& symbols, const std::string& format, std::vector <std::vector <std::string>>& stocks){
+bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT, std::vector <std::vector <std::string>>& stocks){
     std::stringstream urlBuilder;
     std::stringstream syms;
-    for (size_t i = 0; i < symbols.size()-1; i++){
-        syms << symbols[i] << ",";
+    for (size_t i = 0; i < SYMBOLS.size()-1; i++){
+        syms << SYMBOLS[i] << ",";
     }
-    syms << symbols[symbols.size()-1];
+    syms << SYMBOLS[SYMBOLS.size()-1];
     std::string response;
     urlBuilder << BASE_URL << syms.str() << "&f=" << format;
     for (uint_fast8_t i = 0; i < 3; i++){
@@ -114,9 +114,9 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
 }
 
 //Update list of stocks
-bool updateStocks(std::vector <std::string>& symbols,std::vector <Stock>& stocks){
+bool updateStocks(const std::vector <std::string>& SYMBOLS,std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> data;
-    if (getData(symbols, "l1", data)){
+    if (getData(SYMBOLS, "l1", data)){
         for (size_t i = 0; i < stocks.size(); i++){
             stocks[i].current = (int_fast32_t)(100*atof(data[i][0].c_str()));
             stocks[i].change = 100.0*(double(stocks[i].current - stocks[i].close)/double(stocks[i].close));
@@ -135,9 +135,9 @@ bool updateStocks(std::vector <std::string>& symbols,std::vector <Stock>& stocks
 }
 
 //load a list of ticker symbols with name, close, current, and change into Stock vector
-bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks){
+bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& stocks){
     std::vector <std::vector <std::string>> stockstrings;
-    if (getData(symbols, "npl1", stockstrings)){
+    if (getData(SYMBOLS, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
             Stock stock(symbols[i]);
             while(stockstrings[i][0].find('"') != -1 ){

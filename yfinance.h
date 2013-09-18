@@ -32,9 +32,9 @@ class StockList{
     public:
         bool add(std::string symbol);
         bool remove(std::string symbol);
-        bool updateStocks();
+        bool update();
         size_t size(){return stocks.size();};
-        Stock& getStock(const size_t index){return stocks[index];};
+        Stock& stock(const size_t index){return stocks[index];};
         StockList(const std::vector <std::string>& SYMBOLS);
 };
 
@@ -138,7 +138,7 @@ StockList::StockList(const std::vector <std::string>& SYMBOLS){
 }
 
 //Update list of stocks
-bool StockList::updateStocks(){
+bool StockList::update(){
     std::vector <std::vector <std::string>> data;
     if (getData(symbols, "l1", data)){
         for (size_t i = 0; i < stocks.size(); i++){

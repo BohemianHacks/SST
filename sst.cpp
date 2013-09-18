@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
         //key handling
         key = getch();
         if ((key == ERR) or (key == 'u')){
-            stockList.updateStocks();
+            stockList.update();
             timer.timeStamp();
         }
         if (key == 'q'){
@@ -95,9 +95,9 @@ int main(int argc, char* argv[]){
             else{
                 invert = 0;
             }
-            attron(COLOR_PAIR(stockList.getStock(i).color+invert));
-            printw("%17s %7.2f %7.2f%%\n", stockList.getStock(i).getName().c_str(), stockList.getStock(i).getCurrent(), stockList.getStock(i).getChange());
-            attroff(COLOR_PAIR(stockList.getStock(i).color+invert));
+            attron(COLOR_PAIR(stockList.stock(i).color+invert));
+            printw("%17s %7.2f %7.2f%%\n", stockList.stock(i).getName().c_str(), stockList.stock(i).getCurrent(), stockList.stock(i).getChange());
+            attroff(COLOR_PAIR(stockList.stock(i).color+invert));
         }
 
         //print menu

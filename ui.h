@@ -90,5 +90,6 @@ bool mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offse
     printw("(Q)uit (S)ort (A)dd stock (D)elete");
     attroff(COLOR_PAIR(7));
     refresh();
+    return exit;
 }
 

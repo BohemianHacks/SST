@@ -4,7 +4,8 @@
 #include <cstring>
 #include <cstdint>
 #include <vector>
-#define baseURL "http://download.finance.yahoo.com/d/quotes.csv?s="
+
+const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 class Stock{
 	friend bool loadStocks(const std::vector <std::string>& symbols, std::vector <Stock>& stocks);
@@ -56,7 +57,7 @@ bool getPage(const char* url, std::string& readBuffer){
 bool getPrice(const std::string& symbol, int_fast32_t& price){
     std::stringstream urlBuilder;
     std::string response;
-    urlBuilder << baseURL << symbol << "&f=l1";
+    urlBuilder << BASE_URL << symbol << "&f=l1";
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
             price = int(100*atof(response.c_str()));
@@ -77,7 +78,7 @@ bool getData(const std::vector <std::string>& symbols, const std::string& format
     }
     syms << symbols[symbols.size()-1];
     std::string response;
-    urlBuilder << baseURL << syms.str() << "&f=" << format;
+    urlBuilder << BASE_URL << syms.str() << "&f=" << format;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
             std::stringstream resp(response);

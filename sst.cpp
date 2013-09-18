@@ -28,8 +28,7 @@ int main(int argc, char* argv[]){
     list.close();
 
     //load stock objects into vector
-    std::vector <Stock> stocks;
-    loadStocks(symbols, stocks);
+    StockList stockList(symbols);
 
     //initialize ncurses
     if (startUI() == false){
@@ -41,7 +40,7 @@ int main(int argc, char* argv[]){
     int selected = -1;
     short invert = 0;
     size_t offset=0;
-    size_t end = stocks.size();
+    size_t end = stockList.size();
     size_t x, y;
     size_t menuHeight = 2;
     std::string timeS = timer.timeStamp();
@@ -52,7 +51,7 @@ int main(int argc, char* argv[]){
         //key handling
         key = getch();
         if ((key == ERR) or (key == 'u')){
-            updateStocks(symbols, stocks);
+            stockList.updateStocks();
             timeS = timer.timeStamp();
         }
         if (key == 'q'){
@@ -67,15 +66,15 @@ int main(int argc, char* argv[]){
             }
         }
         if (key == KEY_DOWN){
-            if (selected < int(stocks.size())-1){
+            if (selected < int(stockList.size())-1){
                 selected++;
             }
-            if ((selected >= y + offset - menuHeight) and (selected < stocks.size())){
+            if ((selected >= y + offset - menuHeight) and (selected < stockList.size())){
                 offset++;
             }
         }
-        if (offset + y - menuHeight > stocks.size()){
-                end = stocks.size();
+        if (offset + y - menuHeight > stockList.size()){
+                end = stockList.size();
         }
         else{
             end = offset + y - menuHeight;
@@ -93,9 +92,9 @@ int main(int argc, char* argv[]){
             else{
                 invert = 0;
             }
-            attron(COLOR_PAIR(stocks[i].color+invert));
-            printw("%17s %7.2f %7.2f%%\n", stocks[i].getName().c_str(), stocks[i].getCurrent(), stocks[i].getChange());
-            attroff(COLOR_PAIR(stocks[i].color+invert));
+            attron(COLOR_PAIR(stockList.getStock(i).color+invert));
+            printw("%17s %7.2f %7.2f%%\n", stockList.getStock(i).getName().c_str(), stockList.getStock(i).getCurrent(), stockList.getStock(i).getChange());
+            attroff(COLOR_PAIR(stockList.getStock(i).color+invert));
         }
 
         //print menu

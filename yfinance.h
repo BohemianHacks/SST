@@ -33,7 +33,8 @@ class StockList{
         bool add(std::string symbol);
         bool remove(std::string symbol);
         bool updateStocks();
-        Stock& getStock(const size_t index){return &stocks[index])};
+        size_t size(){return stocks.size();};
+        Stock& getStock(const size_t index){return stocks[index];};
         StockList(const std::vector <std::string>& SYMBOLS);
 };
 

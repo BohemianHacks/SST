@@ -78,7 +78,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     }
     syms << SYMBOLS[SYMBOLS.size()-1];
     std::string response;
-    urlBuilder << BASE_URL << syms.str() << "&f=" << format;
+    urlBuilder << BASE_URL << syms.str() << "&f=" << FORMAT;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
             std::stringstream resp(response);
@@ -139,7 +139,7 @@ bool loadStocks(const std::vector <std::string>& SYMBOLS, std::vector <Stock>& s
     std::vector <std::vector <std::string>> stockstrings;
     if (getData(SYMBOLS, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
-            Stock stock(symbols[i]);
+            Stock stock(SYMBOLS[i]);
             while(stockstrings[i][0].find('"') != -1 ){
                 stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
             }

@@ -37,13 +37,16 @@ int main(int argc, char* argv[]){
     //key handling variables
     bool exit = false;
     int key;
+
+    size_t x, y;
     int selected = -1;
     short invert = 0;
     size_t offset=0;
     size_t end = stockList.size();
-    size_t x, y;
     size_t menuHeight = 2;
-    std::string timeS = timer.timeStamp();
+
+    std::string& timeS = timer.timeStamp();
+
     while (!exit){
         //update screen size
         getmaxyx(stdscr, y, x);
@@ -52,7 +55,7 @@ int main(int argc, char* argv[]){
         key = getch();
         if ((key == ERR) or (key == 'u')){
             stockList.updateStocks();
-            timeS = timer.timeStamp();
+            timer.timeStamp();
         }
         if (key == 'q'){
             exit = true;

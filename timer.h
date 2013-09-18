@@ -62,8 +62,10 @@ uint_fast8_t Timer::yr(){
 }
 
 std::string& Timer::timeStamp(){
+    time(&rawtime);
+    ptm = localtime(&rawtime);
     char ts[20];
-    sprintf(ts, "%02d-%02d-%4d %2d:%02d", ptm->tm_mon+1, ptm->tm_mday, ptm->tm_year+1900, (ptm->tm_hour)%24, ptm->tm_min);
+    sprintf(ts, "%02d-%02d-%4d %2d:%02d:%02d", ptm->tm_mon+1, ptm->tm_mday, ptm->tm_year+1900, (ptm->tm_hour)%24, ptm->tm_min, ptm->tm_sec);
     stamp = ts;
     return stamp;
 }

@@ -39,7 +39,6 @@ bool mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offse
     getmaxyx(stdscr, y, x);
 
     //key handling
-    key = getch();
     if ((key == ERR) or (key == 'u')){
         stockList.update();
         timer.timeStamp();

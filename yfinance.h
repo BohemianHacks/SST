@@ -139,13 +139,35 @@ StockList::StockList(const std::vector <std::string>& SYMBOLS){
 
 StockList::add(const std::string SYMBOLS){
     std::vector <std::vector <std::string>> stockstrings;
-    std::vector <std::string> symbols;
+    std::vector <std::string> syms;
     std::stringstream l(SYMBOLS); 
     while(std::getline(l,value,',')){
-        symbols.push_back(value);
+        syms.push_back(value);
     }
-    if (getData(symbols, "npl1", stockstrings)){
-
+    if (getData(syms, "npl1", stockstrings)){
+        for(size_t i = 0; i < stockstrings.size(); i++){
+            Stock stock(syms[i]);
+            while(stockstrings[i][0].find('"') != -1 ){
+                stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
+            }
+            stock.name = stockstrings[i][0];
+            stock.close = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
+            stock.current = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
+            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
+            if (stock.change > 0.0){
+                stock.color = 2;
+            }
+            else if (stock.change == 0.0){
+                stock.color = 3;
+            }
+            else{
+                stock.color = 1;
+            }
+            stocks.push_back(stock);
+        }
+        symbols.insert(symbols.end(),syms.begin(),syms.end());
+    }
+}
 
 //Update list of stocks
 bool StockList::update(){

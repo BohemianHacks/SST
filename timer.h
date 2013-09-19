@@ -3,26 +3,30 @@
 #include <cstring>
 #include <string>
 
+//Basic timer object that simplifies time tracking and stamping
+
 class Timer{
     private:
-        time_t rawtime; // Time since epoch
+        time_t rawtime; //Time since epoch
         struct tm * ptm; //Time struct pointer
     public:
-        Timer(const std::string timeZone);
-        uint_fast8_t hr();
+        Timer();
+        uint_fast8_t hr(); //Hour in 24 hour format
         uint_fast8_t min();
         uint_fast8_t sec();
-        uint_fast8_t day();
-        uint_fast8_t mon();
-        uint_fast8_t yr();
-        std::string stamp;
+        uint_fast8_t day(); //Day of month
+        uint_fast8_t mon(); //Month 1-12
+        uint_fast8_t yr(); //Actual year for date
+        std::string stamp; //Time Stamp string from last time timeStamp() was called
         std::string& timeStamp();
 };
 
-Timer::Timer(const std::string timeZone){
-        setenv("TZ", timeZone.c_str(), 1);
+Timer::Timer(){
         time(&rawtime);
         ptm = localtime(&rawtime);
+        char ts[20];
+        sprintf(ts, "%02d-%02d-%4d %2d:%02d:%02d", ptm->tm_mon+1, ptm->tm_mday, ptm->tm_year+1900, (ptm->tm_hour)%24, ptm->tm_min, ptm->tm_sec);
+        stamp = ts;
 }
 
 uint_fast8_t Timer::hr(){

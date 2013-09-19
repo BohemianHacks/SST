@@ -29,17 +29,17 @@ bool startUI(){
     }
 }
 
-uint_fast8_t mainScreen(StockList& stockList, Timer& timer){
+uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& interval){
     
-    int key;    
-    size_t menuHeight = 2;
-    int selected = -1;
-    size_t offset=0;
-    size_t end = stockList.size();
-    uint_fast8_t mode = 1;
-    short invert;
-    size_t x, y;
-    std::string& timeS = timer.stamp;
+    int key; //Hold key codes for processing
+    size_t menuHeight = 2; //Lines to leave for extra info
+    int selected = -1; //Which stock is selected. -1 is no stock
+    size_t offset=0; //Number of lines to offset for viewing in a smaller window
+    size_t end = stockList.size(); //Where to stop printing stocks to avoid over filling screen
+    uint_fast8_t mode = 1; //Flow control variable returned on mode change
+    short invert; //Each stocks color(1-3) has an inverse(4-6). When selected we invert the colors.
+    size_t x, y; //size of the screen
+    std::string& timeS = timer.stamp; //reference to latest time stamp string
     
     while (mode == 1){
         //update screen size
@@ -47,15 +47,20 @@ uint_fast8_t mainScreen(StockList& stockList, Timer& timer){
 
         //key handling
         key = getch();
+        
+        //'u' Updates prices, %change, color, and time stamp. We also update if getch() times out.
         if ((key == ERR) or (key == 'u')){
             if (stockList.update()){
                 timer.timeStamp();
             }
         }
+        //'q' exits program
         if (key == 'q'){
             mode = 0;
             return(mode);
         }
+        
+        //arrow keys control what is selected
         if (key == KEY_UP){
             if (selected > -1){
                 selected--;
@@ -72,6 +77,8 @@ uint_fast8_t mainScreen(StockList& stockList, Timer& timer){
                 offset++;
             }
         }
+        
+        //Make sure we dont overfill the screen or request something past the end of the stock list
         if (offset + y - menuHeight > stockList.size()){
             end = stockList.size();
         }
@@ -95,12 +102,13 @@ uint_fast8_t mainScreen(StockList& stockList, Timer& timer){
             printw("%17s %7.2f %7.2f%%\n", stockList.stock(i).getName().c_str(), stockList.stock(i).getCurrent(), stockList.stock(i).getChange());
             attroff(COLOR_PAIR(stockList.stock(i).color+invert));
         }
-        //print menu
+        
+        //print menu keys
         attron(COLOR_PAIR(7));
-        printw("(Q)uit (S)ort (A)dd stock (D)elete");
+        printw("(Q)uit (S)ort (U)pdate (A)dd (D)elete (H)elp");
         attroff(COLOR_PAIR(7));
         refresh();
-        timeout(1000);
+        timeout(interval);
     }
     return(mode);
 }

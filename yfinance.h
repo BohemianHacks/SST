@@ -38,6 +38,43 @@ class StockList{
         StockList(const std::vector <std::string>& SYMBOLS);
 };
 
+//turn csv string into multidimensional vector
+std::vector <std::vector <std::string> > csvStringVector(std::string csv){
+    std::stringstream csvStream(csv);
+    std::string line;
+    std::vector <std::vector <std::string> > csvVector;
+    while(std::getline(csvStream, line)){
+        std::vector <std::string> lineVector;
+        lineVector.clear();
+        while(line.find(',') != -1){
+            std::string value;
+            size_t qPos1 = line.find('"');
+            size_t qPos2 = line.find('"', qPos1+1);
+            size_t cPos1 = line.find(',');
+            size_t cPos2 = line.find(',',cPos1+1);
+
+
+            if ((qPos1 < cPos1) && (cPos1 < qPos2) && (qPos2 != -1)){
+                value = line.substr(qPos1, qPos2+1);
+                if (cPos2 != -1){
+                    line.erase(0,qPos2+2);
+                }
+                else{
+                    line.erase(0, line.length());
+                }
+            }
+            else{
+                value = line.substr(0, cPos1);
+                line.erase(0, cPos1+1);
+            }
+            lineVector.push_back(value);
+        }
+        lineVector.push_back(line);
+        csvVector.push_back(lineVector);
+    }
+    return(csvVector);
+}
+
 //callback function for curl
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -77,29 +114,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     urlBuilder << BASE_URL << syms.str() << "&f=" << FORMAT;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
-            std::stringstream resp(response);
-            std::string line;
-            while(std::getline(resp, line)){
-                std::vector <std::string> stock;
-                std::string value;
-                while ((line.find('"') != -1) and (line.find('"') < line.length())){
-                    size_t pos1 = line.find('"');
-                    size_t pos2 = line.find('"', pos1+1);
-                    size_t pos3 = line.find(',', pos2);
-                    stock.push_back(line.substr(pos1, pos2-pos1));
-                    if (pos3 != -1){
-                        line.erase(pos1, pos3-pos1+1);
-                    }
-                    else{
-                        line.erase(pos1, pos2-pos1);
-                    }
-                }
-                std::stringstream l(line); 
-                while(std::getline(l,value,',')){
-                    stock.push_back(value);
-                }
-                data.push_back(stock);
-            }
+		data = csvStringVector(response);
             if (data.size() == SYMBOLS.size()){
                 return true;
             }

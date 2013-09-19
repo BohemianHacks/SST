@@ -53,7 +53,6 @@ std::vector <std::vector <std::string> > csvStringVector(std::string csv){
             size_t cPos1 = line.find(',');
             size_t cPos2 = line.find(',',cPos1+1);
 
-
             if ((qPos1 < cPos1) && (cPos1 < qPos2) && (qPos2 != -1)){
                 value = line.substr(qPos1, qPos2+1);
                 if (cPos2 != -1){
@@ -76,8 +75,7 @@ std::vector <std::vector <std::string> > csvStringVector(std::string csv){
 }
 
 //callback function for curl
-static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
-{
+static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp){
             ((std::string*)userp)->append((char*)contents, size * nmemb);
                         return size * nmemb;
 }
@@ -89,7 +87,7 @@ bool getPage(const char* URL, std::string& readBuffer){
 	curl = curl_easy_init();
 	if(curl){ 
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){

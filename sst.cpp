@@ -39,13 +39,16 @@ int main(int argc, char* argv[]){
 
     //flow control
     uint_fast8_t mode = 1;
+    
+    //Interval to update stocks in milliseconds
+    int interval = 1000;
 
     while (mode != 0){
 
         timeout(1);
 
         if (mode == 1){
-            mode = mainScreen(stockList, timer);
+            mode = mainScreen(stockList, timer, interval);
         }
         if (mode == 2){
             mode = addStocks(stockList, newStocks);

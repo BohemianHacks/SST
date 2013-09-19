@@ -137,6 +137,16 @@ StockList::StockList(const std::vector <std::string>& SYMBOLS){
     }
 }
 
+StockList::add(const std::string SYMBOLS){
+    std::vector <std::vector <std::string>> stockstrings;
+    std::vector <std::string> symbols;
+    std::stringstream l(SYMBOLS); 
+    while(std::getline(l,value,',')){
+        symbols.push_back(value);
+    }
+    if (getData(symbols, "npl1", stockstrings)){
+
+
 //Update list of stocks
 bool StockList::update(){
     std::vector <std::vector <std::string>> data;

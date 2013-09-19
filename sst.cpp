@@ -1,4 +1,3 @@
-#include "yfinance.h"
 #include "ui.h"
 #include <iostream>
 #include <fstream>
@@ -26,8 +25,9 @@ int main(int argc, char* argv[]){
     }
     list.close();
 
-    //load stock objects into vector
+    //load stock objects and timestamp
     StockList stockList(symbols);
+    timer.timeStamp();
 
     //initialize ncurses
     if (startUI() == false){
@@ -36,14 +36,27 @@ int main(int argc, char* argv[]){
     //key handling variables
     bool exit = false;
     int key;
-
+    
+    //mainScreen variables
     int selected = -1;
     size_t offset=0;
     size_t end = stockList.size();
-    size_t menuHeight = 2;
 
-    while (!exit){
-        exit = mainScreen(stockList, timer, selected, offset, end, menuHeight);
+    //addStock variables
+    std::string newStocks;
+
+    //control flow and universal variables
+    size_t menuHeight = 2;
+    uint_fast8_t mode = 2;
+
+    while (mode != 0){
+        timeout(1);
+        if (mode == 1){
+            mode = mainScreen(stockList, timer, selected, offset, end, menuHeight);
+        }
+        if (mode == 2){
+            mode = addStocks(stockList, newStocks);
+        }
     }
     endwin();
     return(0);

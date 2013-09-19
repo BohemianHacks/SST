@@ -14,10 +14,11 @@ bool startUI(){
         init_pair(5, COLOR_BLACK, COLOR_GREEN);
         init_pair(6, COLOR_BLACK, COLOR_YELLOW);
         init_pair(7, COLOR_WHITE, COLOR_BLUE);
-        init_pair(8, COLOR_WHITE, COLOR_CYAN);
-        timeout(5000);
+        init_pair(8, COLOR_BLACK, COLOR_CYAN);
+        timeout(1);
         noecho();
-        keypad(stdscr, TRUE);
+        nonl();
+        keypad(stdscr, true);
         curs_set(0);
         return true;
     }
@@ -28,23 +29,24 @@ bool startUI(){
     }
 }
 
-bool mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offset, size_t& end, const size_t& menuHeight){
+uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offset, size_t& end, const size_t& menuHeight){
     int key = getch();
-    bool exit = false;
+    timeout(1000);
     short invert;
     size_t x, y;
-    std::string& timeS = timer.timeStamp();
+    std::string& timeS = timer.stamp;
     
     //update screen size
     getmaxyx(stdscr, y, x);
 
     //key handling
     if ((key == ERR) or (key == 'u')){
-        stockList.update();
-        timer.timeStamp();
+        if (stockList.update()){
+            timer.timeStamp();
+        }
     }
     if (key == 'q'){
-        exit = true;
+        return(0);
     }
     if (key == KEY_UP){
         if (selected > -1){
@@ -90,6 +92,40 @@ bool mainScreen(StockList& stockList, Timer& timer, int& selected, size_t& offse
     printw("(Q)uit (S)ort (A)dd stock (D)elete");
     attroff(COLOR_PAIR(7));
     refresh();
-    return exit;
+    return(1);
 }
 
+uint_fast8_t addStocks(StockList& stockList, std::string& stocks){
+    size_t x, y;
+    timeout(-1);
+    wchar_t key;
+    getmaxyx(stdscr,y,x);
+    std::string prompt = "Add stocks seperated by commas";
+    const size_t width = (x-prompt.length()+2)/2;
+    const size_t height = 4;
+        
+    erase();
+    attron(COLOR_PAIR(8));
+    mvprintw(y/2-height,width," %s ",prompt.c_str());
+    attroff(COLOR_PAIR(8));
+    attron(COLOR_PAIR(7));
+    for (size_t i = 0; i < height; i++){
+        mvprintw(y/2-i,width,"                                ");
+    }
+    attroff(COLOR_PAIR(7));
+    attron(COLOR_PAIR(8));
+    mvprintw(y/2-2,width+1,"%s",stocks.c_str());
+    key = getch();
+    attroff(COLOR_PAIR(8)); 
+    if (key < KEY_MIN){
+        stocks.push_back(char(key));
+    }
+    if ((key == KEY_BACKSPACE) and (stocks.length() > 0)){
+        stocks.erase(stocks.length()-1,1);
+    }
+    if (key == 13){
+        stockList.add(stocks);
+        return(1);
+    }
+    return(2);
+}

@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
     //load stock objects and timestamp
     StockList stockList(symbols);
     timer.timeStamp();
-
+    stockList.add("amgn,yhoo");
     //initialize ncurses
     if (startUI() == false){
         return 1;
@@ -38,11 +38,12 @@ int main(int argc, char* argv[]){
     std::string newStocks;
 
     //flow control
-    uint_fast8_t mode = 2;
-    bool exit = false;
+    uint_fast8_t mode = 1;
 
     while (mode != 0){
+
         timeout(1);
+
         if (mode == 1){
             mode = mainScreen(stockList, timer);
         }

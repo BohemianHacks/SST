@@ -150,10 +150,11 @@ StockList::StockList(const std::vector <std::string>& SYMBOLS){
     }
 }
 
-StockList::add(const std::string SYMBOLS){
+bool StockList::add(const std::string SYMBOLS){
     std::vector <std::vector <std::string>> stockstrings;
     std::vector <std::string> syms;
-    std::stringstream l(SYMBOLS); 
+    std::stringstream l(SYMBOLS);
+    std::string value; 
     while(std::getline(l,value,',')){
         syms.push_back(value);
     }
@@ -179,7 +180,9 @@ StockList::add(const std::string SYMBOLS){
             stocks.push_back(stock);
         }
         symbols.insert(symbols.end(),syms.begin(),syms.end());
+        return true;
     }
+    return false;
 }
 
 //Update list of stocks

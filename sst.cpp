@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
             mode = mainScreen(stockList, timer, interval);
         }
         if (mode == 2){
-            mode = addStocks(stockList, newStocks);
+
         }
     }
     endwin();

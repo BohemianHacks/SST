@@ -200,10 +200,10 @@ bool StockList::del(const std::string SYMBOLS){
 	std::vector <std::vector <std::string> > symbolList = csvStringVector(SYMBOLS);
 	std::stringstream deletedStocks;
 	std::stringstream unfoundStocks;
-	for (size_t i = 0; i < symbolList[0]; i++){
+	for (size_t i = 0; i < symbolList[0].size(); i++){
 		if(findStock(symbolList[0][i]) != -1){
-			stocks.erase(stocks.begin() + int(i));
-			symbols.erase(symbols.begin() + int(i));
+			stocks.erase(stocks.begin() + i);
+			symbols.erase(symbols.begin() + i);
 			deletedStocks << symbolList[0][i] << " ";
 		}
 		else{

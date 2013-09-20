@@ -2,8 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <cstdlib>
-
 
 int main(int argc, char* argv[]){
     //initialize timer and set timezone to New York

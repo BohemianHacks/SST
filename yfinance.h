@@ -198,8 +198,8 @@ bool StockList::add(const std::string SYMBOLS){
 
 bool StockList::del(const std::string SYMBOLS){
 	std::vector <std::vector <std::string> > symbolList = csvStringVector(SYMBOLS);
-	stringstream deletedStocks;
-	stringstream unfoundStocks;
+	std::stringstream deletedStocks;
+	std::stringstream unfoundStocks;
 	for (size_t i = 0; i < symbolList[0]; i++){
 		if(findStock(symbolList[0][i]) != -1){
 			stocks.erase(i);

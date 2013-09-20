@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <vector>
 
+namespace yfinance{
+
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 class Stock{
@@ -196,4 +198,6 @@ bool StockList::update(){
         return(true);
     }
     return(false);
+}
+
 }

@@ -3,7 +3,19 @@ SST
 
 Shell Stock Ticker
 
-The python version is more complete at this time but won't be updated.
-C++ is still mostly being worked out but all updates will be here.
+Small utility to monitor stocks. Still under heavy development and potentially buggy.
 
-May use ncurses or something similar soon before working on a windows version.
+TODO:
+
+StockList.remove()
+Test multiple stock lists and add portfolio class
+Configurable StockList display
+Detailed View
+-Generic string vector display
+-Add container for details
+-Function to find technicals
+Sort by various metrics
+Find minimum screen size
+Arg processing
+Following indexes and sectors
+Historical stock class

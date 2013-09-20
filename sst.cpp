@@ -11,11 +11,11 @@ int main(int argc, char* argv[]){
     yfinance::StockList stockList;
     timer.timeStamp();
     //initialize ncurses
-    if (startUI() == false){
+    if (sst::startUI() == false){
         return 1;
     }
     const std::string prompt = "Enter symbols seperated by commas.";
-    std::string symbols = textBox(prompt, prompt.length()+2);
+    std::string symbols = sst::textBox(prompt, prompt.length()+2);
     if (symbols.length() > 0){
         stockList.add(symbols);
     }
@@ -40,10 +40,10 @@ int main(int argc, char* argv[]){
         timeout(1);
 
         if (mode == 1){
-            mode = mainScreen(stockList, timer, interval);
+            mode = sst::mainScreen(stockList, timer, interval);
         }
         if (mode == 2){
-            symbols = textBox(prompt, prompt.length()+2);
+            symbols = sst::textBox(prompt, prompt.length()+2);
             if (symbols.length() > 0){
                 stockList.add(symbols);
             }

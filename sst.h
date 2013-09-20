@@ -69,7 +69,7 @@ std::string textBox(const std::string title, const size_t width){
     return(userText); 
 }
 
-uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& interval){
+uint_fast8_t mainScreen(yfinance::StockList& stockList, Timer& timer, int& interval){
     
     int key; //Hold key codes for processing
     size_t menuHeight = 2; //Lines to leave for extra info

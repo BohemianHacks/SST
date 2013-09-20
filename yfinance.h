@@ -20,9 +20,9 @@ class Stock{
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
         float getChange(){return change;};
-        short color;
         std::string getSymbol(){return symbol;};
         std::string getName(){return name;};
+        short color; //1 = red. 2 = green. 3 = yellow.
 };
 
 class StockList{
@@ -30,10 +30,12 @@ class StockList{
         std::vector <Stock> stocks;
         std::vector <std::string> symbols;
     public:
+    	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
         bool add(std::string symbol);
-        bool remove(std::string symbol);
-        bool update();
-        size_t size(){return stocks.size();};
+        //deletes stocks by same method. returns true if all stocks found and deleted
+        bool del(std::string symbol);
+        bool update(); //updates current price, %change, and color
+        size_t size(){return stocks.size();}; //Number of stocks contained
         Stock& stock(const size_t index){return stocks[index];};
         StockList(const std::vector <std::string>& SYMBOLS);
 };
@@ -52,7 +54,8 @@ std::vector <std::vector <std::string> > csvStringVector(std::string csv){
             size_t qPos2 = line.find('"', qPos1+1);
             size_t cPos1 = line.find(',');
             size_t cPos2 = line.find(',',cPos1+1);
-
+		
+            //Check for comma inside quotes
             if ((qPos1 < cPos1) && (cPos1 < qPos2) && (qPos2 != -1)){
                 value = line.substr(qPos1, qPos2+1);
                 if (cPos2 != -1){
@@ -74,7 +77,7 @@ std::vector <std::vector <std::string> > csvStringVector(std::string csv){
     return(csvVector);
 }
 
-//callback function for curl
+//callback function for curl that writes text to readBuffer
 static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp){
             ((std::string*)userp)->append((char*)contents, size * nmemb);
                         return size * nmemb;
@@ -101,6 +104,7 @@ bool getPage(const char* URL, std::string& readBuffer){
 }
 
 //Get multiple stocks and values from one csv, then split them into string vectors
+//FORMAT is a string of tags found here https://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
 bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT, std::vector <std::vector <std::string>>& data){
     std::stringstream urlBuilder;
     std::stringstream syms;
@@ -122,7 +126,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     return false;
 }
 
-//load a list of ticker symbols with name, close, current, and change into Stock vector
+//load a list of ticker symbols with name, close, current, and change
 StockList::StockList(const std::vector <std::string>& SYMBOLS){
     std::vector <std::vector <std::string>> stockstrings;
     if (getData(SYMBOLS, "npl1", stockstrings)){

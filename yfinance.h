@@ -178,14 +178,20 @@ bool StockList::add(const std::string SYMBOLS){
             	invalidStocks << syms[i] << " ";
             }
         }
-        logging << "Added stocks: " << validStocks.str() << std::endl;
-        logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
-        logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
+        if (validStocks.str().length() > 0)
+        	logging << "Added stocks: " << validStocks.str() << std::endl;
+        if (duplicateStocks.str().length() > 0)
+        	logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
+        if (invalidStocks.str().length() > 0)
+        	logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
         return(true);
     }
-    logging << "Added stocks: " << validStocks.str() << std::endl;
-    logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
-    logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
+    if (validStocks.str().length() > 0)
+    	logging << "Added stocks: " << validStocks.str() << std::endl;
+    if (duplicateStocks.str().length() > 0)
+    	logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
+    if (invalidStocks.str().length() > 0)
+    	logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
     return(false);
 }
 

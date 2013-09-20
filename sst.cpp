@@ -8,8 +8,7 @@ int main(int argc, char* argv[]){
     Timer timer;
 
     //create empty stock list and timestamp
-    std::vector <std::string> symbols;
-    StockList stockList(symbols);
+    StockList stockList;
     timer.timeStamp();
     //initialize ncurses
     if (startUI() == false){

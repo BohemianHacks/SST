@@ -5,7 +5,7 @@
 int main(int argc, char* argv[]){
     //initialize timer and set timezone to New York
     setenv("TZ", "America/New_York", 1);
-    Timer timer;
+    BH::Timer timer;
 
     //create empty stock list and timestamp
     yfinance::StockList stockList;

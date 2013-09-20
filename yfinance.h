@@ -196,6 +196,28 @@ bool StockList::add(const std::string SYMBOLS){
     return(false);
 }
 
+bool StockList::del(const std::string SYMBOLS){
+	std::vector <std::vector <std::string> > symbolList = csvStringVector(SYMBOLS);
+	stringstream deletedStocks;
+	stringstream unfoundStocks;
+	for (size_t i = 0; i < symbolList[0]; i++){
+		if(findStock(symbolList[0][i]) != -1){
+			stocks.erase(i);
+			symbols.erase(i);
+			deletedStocks << symbolList[0][i] << " ";
+		}
+		else{
+			unfoundStocks << symbolList[0][i] << " ";
+		}
+	}
+	if (deletedStocks.str().length() > 0)
+		logging << "Deleted Stocks: " << deletedStocks.str() << std::endl;
+	if (unfoundStocks.str().length() > 0)
+		logging << "Could not find: " << unfoundStocks.str() << std::endl;
+}
+	
+		
+
 size_t StockList::findStock(const std::string SYMBOL){
     for (size_t i = 0; i < stocks.size(); i++){
         if (stocks[i].symbol == SYMBOL){

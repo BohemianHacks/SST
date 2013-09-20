@@ -8,7 +8,7 @@ int main(int argc, char* argv[]){
     Timer timer;
 
     //create empty stock list and timestamp
-    StockList stockList;
+    yfinance::StockList stockList;
     timer.timeStamp();
     //initialize ncurses
     if (startUI() == false){

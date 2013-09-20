@@ -3,6 +3,8 @@
 #include "yfinance.h"
 #include "timer.h"
 
+namespace sst{
+
 bool startUI(){
     initscr();
     if (has_colors()){
@@ -154,4 +156,6 @@ uint_fast8_t mainScreen(yfinance::StockList& stockList, BH::Timer& timer, int& i
         timeout(interval);
     }
     return(mode);
+}
+
 }

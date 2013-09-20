@@ -8,6 +8,7 @@
 namespace yfinance{
 
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
+std::stringstream logging;
 
 class Stock{
 	friend class StockList;
@@ -102,7 +103,8 @@ bool getPage(const char* URL, std::string& readBuffer){
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){
-            curl_easy_cleanup(curl);
+            		curl_easy_cleanup(curl);
+            		logging << "yfinance::getPage() Could not fetch URL: " << URL << std::endl;
 			return false;
 		}
         curl_easy_cleanup(curl);
@@ -128,9 +130,11 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
             if (data.size() == SYMBOLS.size()){
                 return true;
             }
+            logging << "yfinance::getData() Mismatch in number of symbols and data returned." << std::endl;
             return false;
         }
     }
+    loggin << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
     return false;
 }
 
@@ -140,6 +144,9 @@ bool StockList::add(const std::string SYMBOLS){
     std::vector <std::vector <std::string> > stockstrings = csvStringVector(SYMBOLS);
     std::vector <std::string> syms = stockstrings[0];
     stockstrings.clear();
+    std::stringstream duplicateStocks;
+    std::stringstream invalidStocks;
+    std::stringstream validStocks;
     if (getData(syms, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
             if ((findStock(syms[i]) == -1) && (stockstrings[i][1].compare("N/A") != 0)){
@@ -162,11 +169,24 @@ bool StockList::add(const std::string SYMBOLS){
                 }
                 stocks.push_back(stock);
                 symbols.push_back(syms[i]);
+                validStocks << syms[i] << " ";
+            }
+            if (findStock(syms[i]) != -1){
+            	duplicateStocks << syms[i] << " ";
+            }
+            else if (stockstrings[i][1].compare("N/A") == 0){
+            	invalidStocks << syms[i] << " ";
             }
         }
-        return true;
+        logging << "Added stocks: " << validStocks.str() << std::endl;
+        logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
+        logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
+        return(true);
     }
-    return false;
+    logging << "Added stocks: " << validStocks.str() << std::endl;
+    logging << "Duplicate stocks: " << duplicateStocks.str() << std::endl;
+    logging << "Invalid stocks: " << invalidStocks.str() << std::endl;
+    return(false);
 }
 
 size_t StockList::findStock(const std::string SYMBOL){
@@ -197,6 +217,7 @@ bool StockList::update(){
         }
         return(true);
     }
+    logging << "Could not update stocks." << std::endl;
     return(false);
 }
 

@@ -108,9 +108,10 @@ bool getPage(const char* URL, std::string& readBuffer){
 			return false;
 		}
         curl_easy_cleanup(curl);
-		return true;
+	return true;
 	}
 	curl_easy_cleanup(curl);
+	return false;
 }
 
 //Get multiple stocks and values from one csv, then split them into string vectors

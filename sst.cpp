@@ -8,7 +8,7 @@
 int main(int argc, char* argv[]){
     //initialize timer and set timezone to New York
     setenv("TZ", "America/New_York", 1);
-    Timer timer();
+    Timer timer;
 
     //load stock symbols from list
     std::ifstream list;

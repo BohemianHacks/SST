@@ -46,5 +46,6 @@ int main(int argc, char* argv[]){
         }
     }
     endwin();
+    std::cout << yfinance::logging;
     return(0);
 }

@@ -1,6 +1,5 @@
 #include "sst.h"
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 
 int main(int argc, char* argv[]){
@@ -8,31 +7,16 @@ int main(int argc, char* argv[]){
     setenv("TZ", "America/New_York", 1);
     Timer timer;
 
-    //load stock symbols from list
-    std::ifstream list;
+    //create empty stock list and timestamp
     std::vector <std::string> symbols;
-    list.open("stocks");
-    if (list.is_open()){
-        std::string sym;
-        while (list >> sym){
-            symbols.push_back(sym);
-        }
-    }
-    else{
-        std::cout << "Could not load stocks file." << std::endl;
-        return 1;
-    }
-    list.close();
-
-    //load stock objects and timestamp
     StockList stockList(symbols);
     timer.timeStamp();
-    stockList.add("amgn,yhoo");
     //initialize ncurses
     if (startUI() == false){
         return 1;
     }
-    
+
+    stockList.add(textBox("Enter symbols seperated by commas.",30));    
     //addStock variables
     std::string newStocks;
 
@@ -41,7 +25,6 @@ int main(int argc, char* argv[]){
     
     //Interval to update stocks in milliseconds
     int interval = 1000;
-
     while (mode != 0){
 
         timeout(1);

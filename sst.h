@@ -29,6 +29,41 @@ bool startUI(){
     }
 }
 
+std::string textBox(const std::string title, const size_t width){
+    std::string userText;
+    int key;
+    timeout(100);
+    while (key != 13){
+        size_t x, y;
+        getmaxyx(stdscr,y,x);
+        size_t startX = (x-width)/2;
+        size_t startY = y/2-4;
+        std::string fill;
+        fill.append(width,' ');
+        
+        erase();
+        attron(COLOR_PAIR(8));
+        mvprintw(startY,startX,fill.c_str());
+        mvprintw(startY, (x-title.length())/2,"%s",title.c_str());
+        attroff(COLOR_PAIR(8));
+        attron(COLOR_PAIR(7));
+        for (size_t i = 1; i < 4; i++){
+            mvprintw(startY+i,startX,fill.c_str());
+        }
+        mvprintw(startY+2, startX+1, userText.c_str());
+
+        refresh();
+        key = getch();
+        if (('A' <= key) && (key <= 'z') || (key == ',')){
+            userText.append(1,char(key));
+        }
+        if ((key == KEY_BACKSPACE) && (userText.length() > 0)){
+            userText.erase(userText.length()-1,1);
+        }
+    }
+    return(userText); 
+}
+
 uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& interval){
     
     int key; //Hold key codes for processing

@@ -153,38 +153,3 @@ uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& interval){
     }
     return(mode);
 }
-
-uint_fast8_t addStocks(StockList& stockList, std::string& stocks){
-    size_t x, y;
-    timeout(-1);
-    wchar_t key;
-    getmaxyx(stdscr,y,x);
-    std::string prompt = "Add stocks seperated by commas";
-    const size_t width = (x-prompt.length()+2)/2;
-    const size_t height = 4;
-        
-    erase();
-    attron(COLOR_PAIR(8));
-    mvprintw(y/2-height,width," %s ",prompt.c_str());
-    attroff(COLOR_PAIR(8));
-    attron(COLOR_PAIR(7));
-    for (size_t i = 0; i < height; i++){
-        mvprintw(y/2-i,width,"                                ");
-    }
-    attroff(COLOR_PAIR(7));
-    attron(COLOR_PAIR(8));
-    mvprintw(y/2-2,width+1,"%s",stocks.c_str());
-    key = getch();
-    attroff(COLOR_PAIR(8)); 
-    if (key < KEY_MIN){
-        stocks.push_back(char(key));
-    }
-    if ((key == KEY_BACKSPACE) and (stocks.length() > 0)){
-        stocks.erase(stocks.length()-1,1);
-    }
-    if (key == 13){
-        stockList.add(stocks);
-        return(1);
-    }
-    return(2);
-}

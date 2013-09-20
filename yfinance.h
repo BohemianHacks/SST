@@ -1,4 +1,4 @@
-#include <curl>
+#include <curl/curl.h>
 #include <string>
 #include <sstream>
 #include <cstring>

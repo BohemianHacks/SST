@@ -57,7 +57,9 @@ std::string textBox(const std::string title, const size_t width){
         refresh();
 
         key = getch();
-        if (userText.length() < width-2 && (('A' <= key) && (key <= 'z') || (key == ','))){
+        if (userText.length() < width-2 && ((('A' <= key) && (key <= 'Z')) 
+                    || (('a' <= key) && (key <='z'))
+                    || (key == ',') || (key == '.'))){
             userText.append(1,char(key));
         }
         if ((key == KEY_BACKSPACE) && (userText.length() > 0)){

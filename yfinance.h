@@ -31,9 +31,11 @@ class StockList{
         std::vector <std::string> symbols;
     public:
     	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
-        bool add(std::string symbol);
+        bool add(const std::string SYMBOLS);
         //deletes stocks by same method. returns true if all stocks found and deleted
-        bool del(std::string symbol);
+        bool del(const std::string SYMBOLS);
+        //returns index of stock found by symbol
+        size_t findStock(const std::string SYMBOL);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
         Stock& stock(const size_t index){return stocks[index];};
@@ -69,9 +71,13 @@ std::vector <std::vector <std::string> > csvStringVector(std::string csv){
                 value = line.substr(0, cPos1);
                 line.erase(0, cPos1+1);
             }
-            lineVector.push_back(value);
+            if (value.length() > 0){
+                lineVector.push_back(value);
+            }
         }
-        lineVector.push_back(line);
+        if (line.length() > 0){
+            lineVector.push_back(line);
+        }
         csvVector.push_back(lineVector);
     }
     return(csvVector);
@@ -129,38 +135,45 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
 StockList::StockList(){};
 
 bool StockList::add(const std::string SYMBOLS){
-    std::vector <std::vector <std::string>> stockstrings;
-    std::vector <std::string> syms;
-    std::stringstream l(SYMBOLS);
-    std::string value; 
-    while(std::getline(l,value,',')){
-        syms.push_back(value);
-    }
+    std::vector <std::vector <std::string> > stockstrings = csvStringVector(SYMBOLS);
+    std::vector <std::string> syms = stockstrings[0];
+    stockstrings.clear();
     if (getData(syms, "npl1", stockstrings)){
         for(size_t i = 0; i < stockstrings.size(); i++){
-            Stock stock(syms[i]);
-            while(stockstrings[i][0].find('"') != -1 ){
-                stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
+            if ((findStock(syms[i]) == -1) && (stockstrings[i][1].compare("N/A") != 0)){
+                Stock stock(syms[i]);
+                while(stockstrings[i][0].find('"') != -1 ){
+                    stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
+                }
+                stock.name = stockstrings[i][0];
+                stock.close = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
+                stock.current = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
+                stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
+                if (stock.change > 0.0){
+                    stock.color = 2;
+                }
+                else if (stock.change == 0.0){
+                    stock.color = 3;
+                }
+                else{
+                    stock.color = 1;
+                }
+                stocks.push_back(stock);
+                symbols.push_back(syms[i]);
             }
-            stock.name = stockstrings[i][0];
-            stock.close = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
-            stock.current = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
-            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
-            if (stock.change > 0.0){
-                stock.color = 2;
-            }
-            else if (stock.change == 0.0){
-                stock.color = 3;
-            }
-            else{
-                stock.color = 1;
-            }
-            stocks.push_back(stock);
         }
-        symbols.insert(symbols.end(),syms.begin(),syms.end());
         return true;
     }
     return false;
+}
+
+size_t StockList::findStock(const std::string SYMBOL){
+    for (size_t i = 0; i < stocks.size(); i++){
+        if (stocks[i].symbol == SYMBOL){
+            return(i);
+        }
+    }
+    return(size_t(-1));
 }
 
 //Update list of stocks

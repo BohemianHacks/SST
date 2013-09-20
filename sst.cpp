@@ -29,6 +29,7 @@ int main(int argc, char* argv[]){
     
     //Interval to update stocks in milliseconds
     int interval = 1000;
+
     while (mode != 0){
 
         timeout(1);

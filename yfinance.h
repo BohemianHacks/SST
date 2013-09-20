@@ -202,8 +202,8 @@ bool StockList::del(const std::string SYMBOLS){
 	std::stringstream unfoundStocks;
 	for (size_t i = 0; i < symbolList[0]; i++){
 		if(findStock(symbolList[0][i]) != -1){
-			stocks.erase(i);
-			symbols.erase(i);
+			stocks.erase(stocks[i]);
+			symbols.erase(symbols[i]);
 			deletedStocks << symbolList[0][i] << " ";
 		}
 		else{

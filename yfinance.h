@@ -37,7 +37,7 @@ class StockList{
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
         Stock& stock(const size_t index){return stocks[index];};
-        StockList(const std::vector <std::string>& SYMBOLS);
+        StockList();
 };
 
 //turn csv string into multidimensional vector
@@ -124,34 +124,6 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
         }
     }
     return false;
-}
-
-//load a list of ticker symbols with name, close, current, and change
-StockList::StockList(const std::vector <std::string>& SYMBOLS){
-    std::vector <std::vector <std::string>> stockstrings;
-    if (getData(SYMBOLS, "npl1", stockstrings)){
-        for(size_t i = 0; i < stockstrings.size(); i++){
-            Stock stock(SYMBOLS[i]);
-            while(stockstrings[i][0].find('"') != -1 ){
-                stockstrings[i][0].erase(stockstrings[i][0].find('"'),1);
-            }
-            stock.name = stockstrings[i][0];
-            stock.close = (int_fast32_t)(100*atof(stockstrings[i][1].c_str()));
-            stock.current = (int_fast32_t)(100*atof(stockstrings[i][2].c_str()));
-            stock.change = 100.0*(double(stock.current-stock.close)/double(stock.close));
-            if (stock.change > 0.0){
-                stock.color = 2;
-            }
-            else if (stock.change == 0.0){
-                stock.color = 3;
-            }
-            else{
-                stock.color = 1;
-            }
-            stocks.push_back(stock);
-        }
-        symbols = SYMBOLS;
-    }
 }
 
 bool StockList::add(const std::string SYMBOLS){

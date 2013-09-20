@@ -171,7 +171,7 @@ bool StockList::add(const std::string SYMBOLS){
                 symbols.push_back(syms[i]);
                 validStocks << syms[i] << " ";
             }
-            if (!(findStock(syms[i]) == -1)){
+            else if (findStock(syms[i]) != -1){
             	duplicateStocks << syms[i] << " ";
             }
             else if (stockstrings[i][1].compare("N/A") == 0){

@@ -89,7 +89,7 @@ uint_fast8_t mainScreen(yfinance::StockList& stockList, BH::Timer& timer, int& i
         key = getch();
         
         //'u' Updates prices, %change, color, and time stamp. We also update if getch() times out.
-        if ((key == ERR) or (key == 'u')){
+        if (key == ERR){
             if (stockList.update()){
                 timer.timeStamp();
             }
@@ -148,7 +148,7 @@ uint_fast8_t mainScreen(yfinance::StockList& stockList, BH::Timer& timer, int& i
         
         //print menu keys
         attron(COLOR_PAIR(7));
-        printw("(Q)uit (S)ort (U)pdate (A)dd (D)elete (H)elp");
+        printw("(Q)uit (S)ort (A)dd (D)el (C)onfig (H)elp");
         attroff(COLOR_PAIR(7));
         refresh();
         timeout(interval);

@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
     }
     if (stockList.size() < 1){
         endwin();
-        std::cout << "No valid stocks given." << std::endl;
+        std::cout << "No valid stocks given or unable to reach server." << std::endl;
         return(1);
     }
     //flow control

@@ -126,6 +126,8 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     return false;
 }
 
+StockList::StockList(){};
+
 bool StockList::add(const std::string SYMBOLS){
     std::vector <std::vector <std::string>> stockstrings;
     std::vector <std::string> syms;

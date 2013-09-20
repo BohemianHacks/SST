@@ -14,11 +14,16 @@ int main(int argc, char* argv[]){
     if (startUI() == false){
         return 1;
     }
-
-    stockList.add(textBox("Enter symbols seperated by commas.",30));    
-    //addStock variables
-    std::string newStocks;
-
+    const std::string prompt = "Enter symbols seperated by commas.";
+    std::string symbols = textBox(prompt, prompt.length()+2);
+    if (symbols.length() > 0){
+        stockList.add(symbols);
+    }
+    else{
+        endwin();
+        std::cout << "No stocks given." << std::endl;
+        return(1);
+    }
     //flow control
     uint_fast8_t mode = 1;
     
@@ -32,7 +37,11 @@ int main(int argc, char* argv[]){
             mode = mainScreen(stockList, timer, interval);
         }
         if (mode == 2){
-
+            symbols = textBox(prompt, prompt.length()+2);
+            if (symbols.length() > 0){
+                stockList.add(symbols);
+            }
+            mode = 1;
         }
     }
     endwin();

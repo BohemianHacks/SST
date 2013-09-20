@@ -42,19 +42,22 @@ std::string textBox(const std::string title, const size_t width){
         fill.append(width,' ');
         
         erase();
-        attron(COLOR_PAIR(8));
-        mvprintw(startY,startX,fill.c_str());
-        mvprintw(startY, (x-title.length())/2,"%s",title.c_str());
-        attroff(COLOR_PAIR(8));
         attron(COLOR_PAIR(7));
         for (size_t i = 1; i < 4; i++){
             mvprintw(startY+i,startX,fill.c_str());
         }
+        attroff(COLOR_PAIR(7));
+        attron(COLOR_PAIR(8));
+        mvprintw(startY,startX,fill.c_str());
+        fill.erase(0,2);
+        mvprintw(startY, (x-title.length())/2,title.c_str());
+        mvprintw(startY+2, startX+1, fill.c_str());
         mvprintw(startY+2, startX+1, userText.c_str());
-
+        attroff(COLOR_PAIR(8));
         refresh();
+
         key = getch();
-        if (('A' <= key) && (key <= 'z') || (key == ',')){
+        if (userText.length() < width-2 && (('A' <= key) && (key <= 'z') || (key == ','))){
             userText.append(1,char(key));
         }
         if ((key == KEY_BACKSPACE) && (userText.length() > 0)){
@@ -94,7 +97,10 @@ uint_fast8_t mainScreen(StockList& stockList, Timer& timer, int& interval){
             mode = 0;
             return(mode);
         }
-        
+        if (key == 'a'){
+            mode = 2;
+            return(mode);
+        }
         //arrow keys control what is selected
         if (key == KEY_UP){
             if (selected > -1){

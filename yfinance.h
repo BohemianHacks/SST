@@ -134,7 +134,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
             return false;
         }
     }
-    loggin << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+    logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
     return false;
 }
 

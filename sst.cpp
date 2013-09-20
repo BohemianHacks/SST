@@ -24,6 +24,11 @@ int main(int argc, char* argv[]){
         std::cout << "No stocks given." << std::endl;
         return(1);
     }
+    if (stockList.size() < 1){
+        endwin();
+        std::cout << "No valid stocks given." << std::endl;
+        return(1);
+    }
     //flow control
     uint_fast8_t mode = 1;
     

@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <vector>
+#include <map>
 #include <string>
 #include <sstream>
 #include <curl/curl.h>

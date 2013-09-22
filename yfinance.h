@@ -81,7 +81,7 @@ std::vector <line> csvStringVector(std::string csv){
             }
         }
         if (csvLine.length() > 0){
-            lineVector.push_back(line);
+            lineVector.push_back(csvLine);
         }
         csvVector.push_back(lineVector);
     }

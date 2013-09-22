@@ -137,7 +137,7 @@ StockList::StockList(){};
 
 bool StockList::add(const std::string SYMBOLS){
     std::vector <line> stockstrings;
-    std::vector <std::string> syms = splitCsv(SYMBOLS);
+    line syms = splitCsv(SYMBOLS);
     std::stringstream duplicateStocks;
     std::stringstream invalidStocks;
     std::stringstream validStocks;

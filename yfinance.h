@@ -1,10 +1,10 @@
-#include <curl/curl.h>
-#include <string>
-#include <sstream>
 #include <cstring>
 #include <cstdint>
-#include <vector>
 #include <cstdlib>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <curl/curl.h>
 
 namespace yfinance{
 
@@ -31,8 +31,8 @@ class Stock{
 
 class StockList{
     private:
-        std::vector <Stock> stocks;
-        line symbols;
+        std::map <std::string,Stock> stocks;
+        std::vector <std::string> symbols;
     public:
     	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
         bool add(const std::string SYMBOLS);

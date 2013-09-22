@@ -2,6 +2,24 @@
 
 namespace yfinance{
 
+StockList::StockList(const std::vector <std::string>& SYMBOLS):symbols(SYMBOLS){
+    std::string rawData;
+    if (getData(SYMBOLS,"s0n0pl1",rawData)){
+    	std::stringstream csvStream(rawData);
+        while(std::getline(csvStream, csvLine)){
+            std::vector <std::string> data = splitCsv(csvLine);
+            if (data[2] != "N/A"){
+            	Stock stock(data[0]);
+            	stock.name = data[1];
+            	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
+            	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
+            	stocks[data[0]] = stock;
+            }
+        }
+    }
+	
+}
+
 std::vector <std::string> splitCsv(std::string csvLine){
     std::string value;
     std::vector <std::string> lineVector;

@@ -6,6 +6,7 @@ StockList::StockList(const std::vector <std::string>& SYMBOLS):symbols(SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
     	std::stringstream csvStream(rawData);
+    	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
             if (data[2] != "N/A"){

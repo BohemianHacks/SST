@@ -48,7 +48,7 @@ class StockList{
 };
 
 //turn csv string into string vector/line
-line splitCsv(std::string& csv){
+line splitCsv(std::string csv){
     line csvLine;
     while(csv.find(',') != -1){
         std::string value;

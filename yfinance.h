@@ -48,7 +48,7 @@ class StockList{
 };
 
 //turn csv string into multidimensional vector
-std::vector <line> csvStringVector(std::string csv){
+std::vector <line> csvLineVector(std::string csv){
     std::stringstream csvStream(csv);
     std::string csvLine;
     std::vector <line> csvVector;
@@ -129,7 +129,7 @@ bool getData(const line& SYMBOLS, const std::string& FORMAT, std::vector <line>&
     urlBuilder << BASE_URL << syms.str() << "&f=" << FORMAT;
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
-		data = csvStringVector(response);
+		data = csvLineVector(response);
             if (data.size() == SYMBOLS.size()){
                 return true;
             }
@@ -144,7 +144,7 @@ bool getData(const line& SYMBOLS, const std::string& FORMAT, std::vector <line>&
 StockList::StockList(){};
 
 bool StockList::add(const std::string SYMBOLS){
-    std::vector <line> stockstrings = csvStringVector(SYMBOLS);
+    std::vector <line> stockstrings = csvLineVector(SYMBOLS);
     line syms = stockstrings[0];
     stockstrings.clear();
     std::stringstream duplicateStocks;
@@ -199,7 +199,7 @@ bool StockList::add(const std::string SYMBOLS){
 }
 
 bool StockList::del(const std::string SYMBOLS){
-	std::vector <line> symbolList = csvStringVector(SYMBOLS);
+	std::vector <line> symbolList = csvLineVector(SYMBOLS);
 	std::stringstream deletedStocks;
 	std::stringstream unfoundStocks;
 	for (size_t i = 0; i < symbolList[0].size(); i++){

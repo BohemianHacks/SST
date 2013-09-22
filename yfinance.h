@@ -50,37 +50,37 @@ class StockList{
 //turn csv string into multidimensional vector
 std::vector <line> csvStringVector(std::string csv){
     std::stringstream csvStream(csv);
-    std::string line;
+    std::string csvLine;
     std::vector <line> csvVector;
-    while(std::getline(csvStream, line)){
+    while(std::getline(csvStream, csvLine)){
         line lineVector;
         lineVector.clear();
-        while(line.find(',') != -1){
+        while(csvLine.find(',') != -1){
             std::string value;
-            size_t qPos1 = line.find('"');
-            size_t qPos2 = line.find('"', qPos1+1);
-            size_t cPos1 = line.find(',');
-            size_t cPos2 = line.find(',',cPos1+1);
+            size_t qPos1 = csvLine.find('"');
+            size_t qPos2 = csvLine.find('"', qPos1+1);
+            size_t cPos1 = csvLine.find(',');
+            size_t cPos2 = csvLine.find(',',cPos1+1);
 		
             //Check for comma inside quotes
             if ((qPos1 < cPos1) && (cPos1 < qPos2) && (qPos2 != -1)){
-                value = line.substr(qPos1, qPos2+1);
+                value = csvLine.substr(qPos1, qPos2+1);
                 if (cPos2 != -1){
-                    line.erase(0,qPos2+2);
+                    csvLine.erase(0,qPos2+2);
                 }
                 else{
-                    line.erase(0, line.length());
+                    csvLine.erase(0, csvLine.length());
                 }
             }
             else{
-                value = line.substr(0, cPos1);
-                line.erase(0, cPos1+1);
+                value = csvLine.substr(0, cPos1);
+                csvLine.erase(0, cPos1+1);
             }
             if (value.length() > 0){
                 lineVector.push_back(value);
             }
         }
-        if (line.length() > 0){
+        if (csvLine.length() > 0){
             lineVector.push_back(line);
         }
         csvVector.push_back(lineVector);

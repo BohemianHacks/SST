@@ -2,6 +2,8 @@
 
 namespace yfinance{
 
+Stock(const std::string& sym):symbol(sym),color(0){};
+
 StockList::StockList(const std::vector <std::string>& SYMBOLS):symbols(SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){

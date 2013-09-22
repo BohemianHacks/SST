@@ -10,6 +10,7 @@ namespace yfinance{
 
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 std::stringstream logging;
+typedef std::vector <std::string> line;
 
 class Stock{
 	friend class StockList;
@@ -32,7 +33,7 @@ class Stock{
 class StockList{
     protected:
         std::vector <Stock> stocks;
-        std::vector <std::string> symbols;
+        line symbols;
     public:
     	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
         bool add(const std::string SYMBOLS);
@@ -47,12 +48,12 @@ class StockList{
 };
 
 //turn csv string into multidimensional vector
-std::vector <std::vector <std::string> > csvStringVector(std::string csv){
+std::vector <line> csvStringVector(std::string csv){
     std::stringstream csvStream(csv);
     std::string line;
-    std::vector <std::vector <std::string> > csvVector;
+    std::vector <line> csvVector;
     while(std::getline(csvStream, line)){
-        std::vector <std::string> lineVector;
+        line lineVector;
         lineVector.clear();
         while(line.find(',') != -1){
             std::string value;
@@ -117,7 +118,7 @@ bool getPage(const char* URL, std::string& readBuffer){
 
 //Get multiple stocks and values from one csv, then split them into string vectors
 //FORMAT is a string of tags found here https://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
-bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT, std::vector <std::vector <std::string>>& data){
+bool getData(const line& SYMBOLS, const std::string& FORMAT, std::vector <line>& data){
     std::stringstream urlBuilder;
     std::stringstream syms;
     for (size_t i = 0; i < SYMBOLS.size()-1; i++){
@@ -143,8 +144,8 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
 StockList::StockList(){};
 
 bool StockList::add(const std::string SYMBOLS){
-    std::vector <std::vector <std::string> > stockstrings = csvStringVector(SYMBOLS);
-    std::vector <std::string> syms = stockstrings[0];
+    std::vector <line> stockstrings = csvStringVector(SYMBOLS);
+    line syms = stockstrings[0];
     stockstrings.clear();
     std::stringstream duplicateStocks;
     std::stringstream invalidStocks;
@@ -198,7 +199,7 @@ bool StockList::add(const std::string SYMBOLS){
 }
 
 bool StockList::del(const std::string SYMBOLS){
-	std::vector <std::vector <std::string> > symbolList = csvStringVector(SYMBOLS);
+	std::vector <line> symbolList = csvStringVector(SYMBOLS);
 	std::stringstream deletedStocks;
 	std::stringstream unfoundStocks;
 	for (size_t i = 0; i < symbolList[0].size(); i++){
@@ -230,7 +231,7 @@ size_t StockList::findStock(const std::string SYMBOL){
 
 //Update list of stocks
 bool StockList::update(){
-    std::vector <std::vector <std::string>> data;
+    std::vector <line> data;
     if (getData(symbols, "l1", data)){
         for (size_t i = 0; i < stocks.size(); i++){
             stocks[i].current = (int_fast32_t)(100*atof(data[i][0].c_str()));

@@ -45,6 +45,9 @@ class StockList{
         StockList(const std::vector <std::string>& SYMBOLS);
 };
 
+//split a line of csv text into a string vector
+std::vector <std::string> splitCsv(std::string csvLine);
+
 //callback function for curl that writes text to readBuffer
 static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
 

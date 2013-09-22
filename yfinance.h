@@ -14,7 +14,7 @@ typedef std::vector <std::string> line;
 
 class Stock{
 	friend class StockList;
-    protected:
+    private:
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
         double change; //Percent change between current and close
@@ -31,7 +31,7 @@ class Stock{
 };
 
 class StockList{
-    protected:
+    private:
         std::vector <Stock> stocks;
         line symbols;
     public:

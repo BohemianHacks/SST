@@ -1,8 +1,12 @@
 #include "yfinance.h"
 
 namespace yfinance{
-
+	
 StockList::StockList(const std::vector <std::string>& SYMBOLS):symbols(SYMBOLS){
+	add(SYMBOLS);
+}
+
+StockList::add(const std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
     	std::stringstream csvStream(rawData);

@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
     const std::string prompt = "Enter symbols seperated by commas.";
-    yfinance::StockList stockList(yfinance::splitCsv(sst::textBox(prompt, prompt.length()+2)));
+    yfinance::StockList stockList(yfinance::splitCsv("amgn,rai,goog"));
     timer.timeStamp();
 
     if (stockList.size() < 1){
@@ -35,7 +35,6 @@ int main(int argc, char* argv[]){
             mode = sst::mainScreen(stockList, timer, interval);
         }
         if (mode == 2){
-            stockList.add(yfinance::splitCsv(sst::textBox(prompt, prompt.length()+2)));
             mode = 1;
         }
     }

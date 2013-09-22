@@ -51,7 +51,7 @@ std::vector <std::string> splitCsv(std::string csvLine);
 //callback function for curl that writes text to readBuffer
 static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
 
-//Scrape text from the web and return it to a string
-bool getPage(const char* URL, std::string& readBuffer);
+//Scrape data from yahoo finance and return it to a string
+bool getData(symbols, format, std::string& readBuffer);
 
 }

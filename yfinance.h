@@ -118,6 +118,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& FORMAT
     for (uint_fast8_t i = 0; i < 3; i++){
         if (getPage(urlBuilder.str().c_str(),response)){
             std::stringstream csvStream(response);
+            std::string csvLine;
             while(std::getline(csvStream, csvLine)){
 	        data.push_back(splitCsv(csvLine));
             }

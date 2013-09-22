@@ -47,7 +47,7 @@ class StockList{
         StockList();
 };
 
-//turn csv string into multidimensional vector
+//turn csv string into line vector
 std::vector <line> csvLineVector(std::string csv){
     std::stringstream csvStream(csv);
     std::string csvLine;
@@ -116,7 +116,7 @@ bool getPage(const char* URL, std::string& readBuffer){
 	return false;
 }
 
-//Get multiple stocks and values from one csv, then split them into string vectors
+//Get multiple stocks and values from one csv, then split them into a line vector
 //FORMAT is a string of tags found here https://code.google.com/p/yahoo-finance-managed/wiki/enumQuoteProperty
 bool getData(const line& SYMBOLS, const std::string& FORMAT, std::vector <line>& data){
     std::stringstream urlBuilder;

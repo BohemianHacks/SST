@@ -52,6 +52,6 @@ std::vector <std::string> splitCsv(std::string csvLine);
 static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
 
 //Scrape data from yahoo finance and return it to a string
-bool getData(symbols, format, std::string& readBuffer);
+bool getData(std::vector <std::string>& symbols, std::string& format, std::string& readBuffer);
 
 }

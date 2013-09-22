@@ -35,15 +35,13 @@ class StockList{
         std::vector <std::string> symbols;
     public:
     	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
-        bool add(const std::string SYMBOLS);
+        bool add(const std::vector <std::string>& SYMBOLS);
         //deletes stocks by same method. returns true if all stocks found and deleted
-        bool del(const std::string SYMBOLS);
-        //returns index of stock found by symbol
-        size_t findStock(const std::string SYMBOL);
+        bool del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
-        Stock& stock(const size_t index){return stocks[index];};
-        StockList();
+        Stock& stock(const std::string symbol){return stocks.at(symbol);};
+        StockList(const std::vector <std::string>& SYMBOLS);
 };
 
 //callback function for curl that writes text to readBuffer

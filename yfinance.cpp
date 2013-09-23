@@ -7,10 +7,37 @@ std::stringstream logging;
 std::map <std::string,std::string> numberProperties;
 std::map <std::string,std::string> stringProperties;
 
+	
+StockList::StockList(std::vector <std::string>& SYMBOLS){
+	add(SYMBOLS);
+}
+
+void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){
+    std::string rawData;
+    if (getData(SYMBOLS,createFormat(properties),rawData)){
+    	std::stringstream csvStream(rawData);
+    	std::string csvLine;
+        while(std::getline(csvStream, csvLine)){
+            std::vector <std::string> data = splitCsv(csvLine);
+            if (true){
+            	Stock stock;
+            	stock.symbol = data[0];
+            	stock.name = data[1];
+            	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
+            	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
+            	stocks[data[0]] = stock;
+            	symbols.push_back(data[0]);
+            }
+        }
+    }
+	
+}
+
 void init(){
 numberProperties["ASK"] = "b2";
 numberProperties["ASK_SIZE"] = "a5";
 numberProperties["AVERAGE_VOL"] = "a2";
+numberProperties["VOLUME"] = "v0";
 numberProperties["BID"] = "b3";
 numberProperties["BID_SIZE"] = "b6";
 numberProperties["BOOK_VALUE_PER_SHARE"] = "b4";
@@ -30,8 +57,6 @@ numberProperties["EPS_EST_NEXT_QTR"] = "e9";
 numberProperties["EPS_EST_NEXT_YEAR"] = "e8";
 numberProperties["LAST_TRADE_PRICE"] = "l1";
 numberProperties["LAST_TRADE_SIZE"] = "k3";
-numberProperties["MARKET_CAP"] = "j1";
-numberProperties["MARKET_CAP_RT"] = "j3";
 numberProperties["YEAR_TARGET_PRICE"] = "t8";
 numberProperties["OPEN"] = "o0";
 numberProperties["PEG"] = "r5";
@@ -41,6 +66,8 @@ numberProperties["PERCENT_CHANGE_YEAR_HIGH"] = "k5";
 numberProperties["PERCENT_CHANGE_YEAR_LOW"] = "j6";
 numberProperties["CLOSE"] = "p0";
 numberProperties["PRICE_BOOK"] = "p6";
+stringProperties["MARKET_CAP"] = "j1";
+stringProperties["MARKET_CAP_RT"] = "j3";
 stringProperties["CURRENCY"] = "c4";
 stringProperties["LAST_TRADE_TIME"] = "t1";
 stringProperties["EX_DIVIDEND_DATE"] = "q0";
@@ -50,30 +77,18 @@ stringProperties["EXCHANGE"] = "x0";
 stringProperties["NAME"] = "n0";
 stringProperties["SYMBOL"] = "s0";
 }
-	
-StockList::StockList(std::vector <std::string>& SYMBOLS){
-	add(SYMBOLS);
-}
 
-void StockList::add(std::vector <std::string>& SYMBOLS){
-    std::string rawData;
-    if (getData(SYMBOLS,"s0n0pl1",rawData)){
-    	std::stringstream csvStream(rawData);
-    	std::string csvLine;
-        while(std::getline(csvStream, csvLine)){
-            std::vector <std::string> data = splitCsv(csvLine);
-            if (true){
-            	Stock stock;
-            	stock.symbol = data[0];
-            	stock.name = data[1];
-            	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
-            	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
-            	stocks[data[0]] = stock;
-            	symbols.push_back(data[0]);
-            }
-        }
+std::string createFormat(std::vector <std::string>& properties){
+    std::string format;
+    for (size_t i = 0; i < properties.size(); i++){
+    	if (numberProperties.count(properties[i]) == 1){
+    	    format += numberProperties[properties[i]];
+    	}
+    	else if (stringProperties.count(properties[i]) == 1){
+    	    format += stringProperties(properties[i]);
+    	}
     }
-	
+    return(format);
 }
 
 std::vector <std::string> splitCsv(std::string csvLine){

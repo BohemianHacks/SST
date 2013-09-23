@@ -82,10 +82,10 @@ std::string createFormat(std::vector <std::string>& properties){
     std::string format;
     for (size_t i = 0; i < properties.size(); i++){
     	if (numberProperties.count(properties[i]) == 1){
-    	    format += numberProperties[properties[i]];
+    	    format = format + numberProperties[properties[i]];
     	}
     	else if (stringProperties.count(properties[i]) == 1){
-    	    format += stringProperties[properties[i]];
+    	    format = format + stringProperties[properties[i]];
     	}
     }
     return(format);

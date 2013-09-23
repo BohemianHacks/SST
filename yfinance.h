@@ -22,8 +22,8 @@ class Stock{
     	std::map <std::string,std::string> strings;
     	int_fast32_t volume;
     	int_fast32_t avgVol;
-    	Stock(){};
     public:
+    	Stock(){};
         std::string get(std::string);
 };
 

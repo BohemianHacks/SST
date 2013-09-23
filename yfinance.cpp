@@ -2,11 +2,11 @@
 
 namespace yfinance{
 	
-StockList::StockList(const std::vector <std::string>& SYMBOLS):symbols(SYMBOLS){
+StockList::StockList(std::vector <std::string>& SYMBOLS){
 	add(SYMBOLS);
 }
 
-void StockList::add(const std::vector <std::string>& SYMBOLS){
+void StockList::add(std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
     	std::stringstream csvStream(rawData);
@@ -19,6 +19,7 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
             	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
             	stocks.at(data[0]) = stock;
+            	symbols.push_back(data[0]);
             }
         }
     }

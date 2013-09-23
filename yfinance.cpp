@@ -5,6 +5,8 @@ namespace yfinance{
 
 std::stringstream logging;
 std::map <std::string,std::string> PROPERTIES;
+
+void init(){
 PROPERTIES["ASK"] = "b2";
 PROPERTIES["ASK_SIZE"] = "a5";
 PROPERTIES["AVERAGE_VOL"] = "a2";
@@ -46,12 +48,7 @@ PROPERTIES["REVENUE"] = "s6";
 PROPERTIES["EXCHANGE"] = "x0";
 PROPERTIES["NAME"] = "n0";
 PROPERTIES["SYMBOL"] = "s0";
-
-
-
-
-
-
+}
 	
 StockList::StockList(std::vector <std::string>& SYMBOLS){
 	add(SYMBOLS);
@@ -141,14 +138,14 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){
             		curl_easy_cleanup(curl);
-            		std::cout << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+            		logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 			return false;
 		}
         curl_easy_cleanup(curl);
 	return true;
 	}
 	curl_easy_cleanup(curl);
-	std::cout << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+	loggin << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 	return false;
 }
 

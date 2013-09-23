@@ -3,6 +3,8 @@
 #endif
 
 namespace yfinance{
+
+std::stringstream logging;
 	
 StockList::StockList(std::vector <std::string>& SYMBOLS){
 	add(SYMBOLS);

@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdint>
 #include <cstdlib>
+#include <cstdio>
 #include <vector>
 #include <map>
 #include <string>
@@ -19,37 +20,27 @@ class Stock{
     private:
     	std::vector <int_fast32_t> numbers;
     	std::vector <std::string> strings;
-    	int_fast64_t volume;
-    	int_fast64_t avgVol;
-        int_fast32_t close; //Yesterdays closing price
-        int_fast32_t current; //Current price
-        double change; //Percent change between current and close
-        std::string symbol; //Ticker symbol
-        std::string name;
+    	int_fast32_t volume;
+    	int_fast32_t avgVol;
+    	Stock(){};
     public:
-        Stock(){};
         std::string operator[](std::string);
-        float getClose(){return close/100.0;};
-        float getCurrent(){return current/100.0;};
-        float getChange(){return change;};
-        std::string getSymbol(){return symbol;};
-        std::string getName(){return name;};
-        short color; //1 = red. 2 = green. 3 = yellow.
 };
 
 class StockList{
     private:
         std::map <std::string,Stock> stocks;
         std::vector <std::string> symbols;
+        std::vector <std::string> properties;
     public:
     	//adds new stocks in vector of ticker symbols.
-        void add(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties);
+        void add(const std::vector <std::string>& SYMBOLS);
         //deletes stocks by same method.
         void del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
         Stock operator[](std::string symbol){return(stocks[symbol]);};
-        StockList(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties);
+        StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES);
 };
 
 //initialize variables

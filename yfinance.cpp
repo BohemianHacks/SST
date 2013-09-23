@@ -12,6 +12,7 @@ StockList::StockList(std::vector <std::string>& SYMBOLS){
 void StockList::add(std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
+    	std::cout << rawData << std::endl;
     	std::stringstream csvStream(rawData);
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){

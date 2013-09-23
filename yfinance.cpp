@@ -54,9 +54,10 @@ std::vector <std::string> splitCsv(std::string csvLine){
             value = csvLine.substr(0, cPos1);
             csvLine.erase(0, cPos1+1);
         }
-        std::cout << value << std::endl;
         lineVector.push_back(value);
     }
+    lineVector.push_back(csvLine);
+    return(csvLine);
 }
 
 static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp){

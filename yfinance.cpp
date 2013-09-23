@@ -1,4 +1,6 @@
+#ifndef BH_YFINANCE_H
 #include "yfinance.h"
+#endif
 
 namespace yfinance{
 	

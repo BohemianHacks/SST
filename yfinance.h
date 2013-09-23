@@ -24,7 +24,7 @@ class Stock{
     	int_fast32_t avgVol;
     public:
     	Stock(){};
-        std::string get(std::string);
+        std::string operator[](std::string);
 };
 
 class StockList{

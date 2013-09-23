@@ -7,7 +7,7 @@ std::stringstream logging;
 std::map <std::string,std::string> numberProperties;
 std::map <std::string,std::string> stringProperties;
 
-std::string Stock::operator[](std::string property){
+std::string Stock::get(std::string property){
     std::ostringstream value;
     if (numberProperties.count(property) == 1){
     	if (property == "VOLUME"){

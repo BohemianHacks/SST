@@ -7,12 +7,31 @@ std::stringstream logging;
 std::map <std::string,std::string> numberProperties;
 std::map <std::string,std::string> stringProperties;
 
+std::string Stock::operator[](std::string property){
+    std::ostringstream value;
+    if (numberProperties.count(property) == 1){
+    	if (property == "VOLUME"){
+    	    value << std::fixed << volume;
+    	}
+    	else if (property == "AVERAGE_VOL"){
+    	    value << std::fixed << avgVol;
+    	}
+    	else{
+    	    value << std::fixed << numbers[property]/100.0;
+    	}
+    }
+    else if (stringProperties.count(property) == 1){
+    	value << strings[property];
+    }
+    return(value.str());
+}
 	
-StockList::StockList(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){
-	add(SYMBOLS, properties);
+StockList::StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES){
+	properties = PROPERTIES;
+	add(SYMBOLS);
 }
 
-void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){
+void StockList::add(const std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,createFormat(properties),rawData)){
     	std::stringstream csvStream(rawData);
@@ -21,10 +40,22 @@ void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string
             std::vector <std::string> data = splitCsv(csvLine);
             if (stocks.count(data[0]) == 0){
             	Stock stock;
-            	stock.symbol = data[0];
-            	stock.name = data[1];
-            	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
-            	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
+            	for (size_t i = 0; i < properties.size(); i++){
+            	    if (numberProperties.count(properties[i]) == 1){
+            	    	if (properties[i] == "VOLUME"){
+            	    	    stock.volume = (int_fast32_t)atoi(data[i].c_str());
+            	    	}
+            	    	else if (properties[i] == "AVERAGE_VOL"){
+            	    	    stock.avgVol = (int_fast32_t)atoi(data[i].c_str())
+            	    	}
+            	    	else{
+            	    	    stock.numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i].c_str()));
+            	    	}
+            	    }
+            	    else if (stringProperties.count(properties[i]) == 1){
+            	    	stock.strings[properties[i]] = data[i];
+            	    }
+            	}
             	stocks[data[0]] = stock;
             	symbols.push_back(data[0]);
             }
@@ -80,6 +111,7 @@ stringProperties["SYMBOL"] = "s0";
 
 std::string createFormat(std::vector <std::string>& properties){
     std::stringstream format;
+    format << "s0";
     for (size_t i = 0; i < properties.size(); i++){
     	if (numberProperties.count(properties[i]) == 1){
     	    format << numberProperties[properties[i]];

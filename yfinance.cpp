@@ -16,6 +16,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
+            std::cout << "data[0]:" << data[0] << std::endl;
             if (true){
             	std::cout << data[0] << std::endl;
             	Stock stock(data[0]);
@@ -72,7 +73,6 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 		urlBuilder << SYMBOLS[i] << ",";
 	}
 	urlBuilder << SYMBOLS[SYMBOLS.size()-1] << "&f=" << format;
-	std::cout << "URL: " << urlBuilder.str() << std::endl;
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();

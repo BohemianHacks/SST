@@ -19,7 +19,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
-            if (true){
+            if (stocks.count(data[0]) == 0){
             	Stock stock;
             	stock.symbol = data[0];
             	stock.name = data[1];
@@ -88,7 +88,6 @@ std::string createFormat(std::vector <std::string>& properties){
     	    format << stringProperties[properties[i]];
     	}
     }
-    std::cout << format.str() << std::endl;
     return(format.str());
 }
 
@@ -145,7 +144,6 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 		urlBuilder << SYMBOLS[i] << ",";
 	}
 	urlBuilder << SYMBOLS[SYMBOLS.size()-1] << "&f=" << format;
-	std::cout << urlBuilder.str() << std::endl;
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();

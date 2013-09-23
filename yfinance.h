@@ -17,6 +17,10 @@ const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s="
 class Stock{
 	friend class StockList;
     private:
+    	std::vector <int_fast32_t> numbers;
+    	std::vector <std::string> strings;
+    	int_fast64_t volume;
+    	int_fast64_t avgVol;
         int_fast32_t close; //Yesterdays closing price
         int_fast32_t current; //Current price
         double change; //Percent change between current and close
@@ -24,6 +28,7 @@ class Stock{
         std::string name;
     public:
         Stock(){};
+        std::string operator[](std::string);
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
         float getChange(){return change;};

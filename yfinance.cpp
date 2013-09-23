@@ -88,6 +88,7 @@ std::string createFormat(std::vector <std::string>& properties){
     	    format << stringProperties[properties[i]];
     	}
     }
+    std::cout << format.str() << std::endl;
     return(format.str());
 }
 

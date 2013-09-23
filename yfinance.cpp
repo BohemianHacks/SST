@@ -1,6 +1,5 @@
-#ifndef BH_YFINANCE_H
 #include "yfinance.h"
-#endif
+#include <iostream>
 
 namespace yfinance{
 
@@ -18,6 +17,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
             if (data[2] != "N/A"){
+            	std::cout << data[0] << std::endl;
             	Stock stock(data[0]);
             	stock.name = data[1];
             	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));

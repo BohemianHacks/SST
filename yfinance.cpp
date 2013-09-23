@@ -46,7 +46,7 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             	    	    stock.volume = (int_fast32_t)atoi(data[i].c_str());
             	    	}
             	    	else if (properties[i] == "AVERAGE_VOL"){
-            	    	    stock.avgVol = (int_fast32_t)atoi(data[i].c_str())
+            	    	    stock.avgVol = (int_fast32_t)atoi(data[i].c_str());
             	    	}
             	    	else{
             	    	    stock.numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i].c_str()));

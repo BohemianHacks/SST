@@ -61,7 +61,33 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             }
         }
     }
-	
+}
+
+bool StockList::update(){
+    std::string rawData;
+    if (getData(symbols,createFormat(properties),rawData)){
+    	std::stringstream csvStream(rawData);
+    	std::string csvLine;
+        while(std::getline(csvStream, csvLine)){
+            std::vector <std::string> data = splitCsv(csvLine);
+            for (size_t i = 0; i < properties.size(); i++){
+                if (numberProperties.count(properties[i]) == 1){
+               	    if (properties[i] == "VOLUME"){
+            	        stocks[data[0]].volume = (int_fast32_t)atoi(data[i+1].c_str());
+            	    }
+            	    else if (properties[i] == "AVERAGE_VOL"){
+            	        stocks[data[0]].avgVol = (int_fast32_t)atoi(data[i+1].c_str());
+            	    }
+            	    else{
+            	        stocks[data[0]].numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i+1].c_str()));
+            	    }
+            	}
+            	else if (stringProperties.count(properties[i]) == 1){
+            	    stocks[data[0]].strings[properties[i]] = data[i+1];
+            	}
+            }
+        }
+    }
 }
 
 void init(){

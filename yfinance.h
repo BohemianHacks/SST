@@ -36,7 +36,7 @@ class StockList{
         std::vector <std::string> symbols;
     public:
     	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
-        void add(const std::vector <std::string>& SYMBOLS);
+        void add(std::vector <std::string>& SYMBOLS);
         //deletes stocks by same method. returns true if all stocks found and deleted
         void del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color

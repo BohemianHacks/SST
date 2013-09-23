@@ -42,7 +42,7 @@ class StockList{
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
         Stock operator[](std::string symbol){return(stocks.at(symbol));};
-        StockList(const std::vector <std::string>& SYMBOLS);
+        StockList(std::vector <std::string>& SYMBOLS);
 };
 
 //split a line of csv text into a string vector

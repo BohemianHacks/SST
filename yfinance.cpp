@@ -21,7 +21,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
             	stock.name = data[1];
             	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
             	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
-            	stocks.at(data[0]) = stock;
+            	stocks[data[0]] = stock;
             	symbols.push_back(data[0]);
             }
         }

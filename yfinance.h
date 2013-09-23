@@ -23,7 +23,7 @@ class Stock{
         std::string symbol; //Ticker symbol
         std::string name;
     public:
-        Stock(const std::string& sym):symbol(sym),color(0){};
+        Stock(std::string& sym):symbol(sym),color(0){};
         float getClose(){return close/100.0;};
         float getCurrent(){return current/100.0;};
         float getChange(){return change;};

@@ -24,7 +24,7 @@ class Stock{
     	int_fast32_t avgVol;
     	Stock(){};
     public:
-        std::string operator[](std::string);
+        std::string get(std::string);
 };
 
 class StockList{
@@ -39,7 +39,7 @@ class StockList{
         void del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
-        Stock get(std::string symbol){return(stocks[symbol]);};
+        Stock operator[](std::string symbol){return(stocks[symbol]);};
         StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES);
 };
 

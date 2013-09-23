@@ -85,7 +85,7 @@ std::string createFormat(std::vector <std::string>& properties){
     	    format += numberProperties[properties[i]];
     	}
     	else if (stringProperties.count(properties[i]) == 1){
-    	    format += stringProperties(properties[i]);
+    	    format += stringProperties[properties[i]];
     	}
     }
     return(format);

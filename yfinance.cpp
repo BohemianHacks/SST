@@ -12,7 +12,6 @@ StockList::StockList(std::vector <std::string>& SYMBOLS){
 void StockList::add(std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
-    	std::cout << rawData << std::endl;
     	std::stringstream csvStream(rawData);
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
@@ -55,6 +54,7 @@ std::vector <std::string> splitCsv(std::string csvLine){
             value = csvLine.substr(0, cPos1);
             csvLine.erase(0, cPos1+1);
         }
+        std::cout << value << std::endl;
         lineVector.push_back(value);
     }
 }

@@ -22,7 +22,6 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
             	stock.name = data[1];
             	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
             	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
-            	std::cout << stock.name << " " << data[0] << std::endl;
             	stocks[data[0]] = stock;
             	symbols.push_back(data[0]);
             }
@@ -34,6 +33,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
 std::vector <std::string> splitCsv(std::string csvLine){
     std::string value;
     std::vector <std::string> lineVector;
+    //while we have commas to split data, get each cell and push into a vector
     while(csvLine.find(',') != -1){
         std::string value;
         size_t qPos1 = csvLine.find('"');
@@ -43,21 +43,31 @@ std::vector <std::string> splitCsv(std::string csvLine){
 		
         //Check for comma inside quotes
         if ((qPos1 < cPos1) && (cPos1 < qPos2) && (qPos2 != -1)){
+            //add everything in the quotes to escape commas
             value = csvLine.substr(qPos1, qPos2+1);
             if (cPos2 != -1){
+            	//erase the comma after the second quote
                 csvLine.erase(0,qPos2+2);
             }
             else{
+            	//if no second comma then the line is done
                 csvLine.erase(0, csvLine.length());
             }
         }
         else{
+            //add from the start to the first comma then clear it
             value = csvLine.substr(0, cPos1);
             csvLine.erase(0, cPos1+1);
         }
+        //strip quotes and add to vector
+        while (value.find('"')){value.erase(value.find('"'),1);}
         lineVector.push_back(value);
     }
-    lineVector.push_back(csvLine);
+    //strip quotes and add to vector if anything is left
+    if (csvLine.length() > 0){
+        while (csvLine.find('"')){value.erase(csvLine.find('"'),1);}
+        lineVector.push_back(csvLine);
+    }
     return(lineVector);
 }
 

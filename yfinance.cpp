@@ -1,3 +1,5 @@
+#include "yfinance.h"
+
 namespace yfinance{
 	
 StockList::StockList(std::vector <std::string>& SYMBOLS){

@@ -79,14 +79,14 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK){
             		curl_easy_cleanup(curl);
-            		logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+            		std::cout << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 			return false;
 		}
         curl_easy_cleanup(curl);
 	return true;
 	}
 	curl_easy_cleanup(curl);
-	logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+	std::cout << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 	return false;
 }
 

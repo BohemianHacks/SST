@@ -3,51 +3,52 @@
 
 namespace yfinance{
 
-std::stringstream logging;
-std::map <std::string,std::string> PROPERTIES;
+std::stringPropertiestream logging;
+std::map <std::string,std::string> numberProperties;
+std::map <std::string,std::string> stringProperties;
 
 void init(){
-PROPERTIES["ASK"] = "b2";
-PROPERTIES["ASK_SIZE"] = "a5";
-PROPERTIES["AVERAGE_VOL"] = "a2";
-PROPERTIES["BID"] = "b3";
-PROPERTIES["BID_SIZE"] = "b6";
-PROPERTIES["BOOK_VALUE_PER_SHARE"] = "b4";
-PROPERTIES["CHANGE"] = "c6";
-PROPERTIES["CHANGE_PERCENT"] = "p2";
-PROPERTIES["CHANGE_YEAR_HIGH"] = "k4";
-PROPERTIES["CHANGE_YEAR_LOW"] = "j5";
-PROPERTIES["CURRENCY"] = "c4";
-PROPERTIES["DAY_HIGH"] = "h0";
-PROPERTIES["DAY_LOW"] = "g0";
-PROPERTIES["DIVIDEND_PAY_DATE"] = "r1";
-PROPERTIES["TRAILING_DIVIDEND"] = "d0";
-PROPERTIES["TRAILING_DIVIDEND_PERCENT"] = "y0";
-PROPERTIES["DILUTED_EPS"] = "e0";
-PROPERTIES["EBITDA"] = "j4";
-PROPERTIES["EPS_EST_CURRENT_YEAR"] = "e7";
-PROPERTIES["EPS_EST_NEXT_QTR"] = "e9";
-PROPERTIES["EPS_EST_NEXT_YEAR"] = "e8";
-PROPERTIES["EX_DIVIDEND_DATE"] = "q0";
-PROPERTIES["LAST_TRADE_DATE"] = "d1";
-PROPERTIES["LAST_TRADE_PRICE"] = "l1";
-PROPERTIES["LAST_TRADE_SIZE"] = "k3";
-PROPERTIES["LAST_TRADE_TIME"] = "t1";
-PROPERTIES["MARKET_CAP"] = "j1";
-PROPERTIES["MARKET_CAP_RT"] = "j3";
-PROPERTIES["YEAR_TARGET_PRICE"] = "t8";
-PROPERTIES["OPEN"] = "o0";
-PROPERTIES["PEG"] = "r5";
-PROPERTIES["PE"] = "r0";
-PROPERTIES["PE_RT"] = "h0";
-PROPERTIES["PERCENT_CHANGE_YEAR_HIGH"] = "k5";
-PROPERTIES["PERCENT_CHANGE_YEAR_LOW"] = "j6";
-PROPERTIES["CLOSE"] = "p0";
-PROPERTIES["PRICE_BOOK"] = "p6";
-PROPERTIES["REVENUE"] = "s6";
-PROPERTIES["EXCHANGE"] = "x0";
-PROPERTIES["NAME"] = "n0";
-PROPERTIES["SYMBOL"] = "s0";
+numberProperties["ASK"] = "b2";
+numberProperties["ASK_SIZE"] = "a5";
+numberProperties["AVERAGE_VOL"] = "a2";
+numberProperties["BID"] = "b3";
+numberProperties["BID_SIZE"] = "b6";
+numberProperties["BOOK_VALUE_PER_SHARE"] = "b4";
+numberProperties["CHANGE"] = "c6";
+numberProperties["CHANGE_PERCENT"] = "p2";
+numberProperties["CHANGE_YEAR_HIGH"] = "k4";
+numberProperties["CHANGE_YEAR_LOW"] = "j5";
+numberProperties["DAY_HIGH"] = "h0";
+numberProperties["DAY_LOW"] = "g0";
+numberProperties["DIVIDEND_PAY_DATE"] = "r1";
+numberProperties["TRAILING_DIVIDEND"] = "d0";
+numberProperties["TRAILING_DIVIDEND_PERCENT"] = "y0";
+numberProperties["DILUTED_EPS"] = "e0";
+numberProperties["EBITDA"] = "j4";
+numberProperties["EPS_EST_CURRENT_YEAR"] = "e7";
+numberProperties["EPS_EST_NEXT_QTR"] = "e9";
+numberProperties["EPS_EST_NEXT_YEAR"] = "e8";
+numberProperties["LAST_TRADE_PRICE"] = "l1";
+numberProperties["LAST_TRADE_SIZE"] = "k3";
+numberProperties["MARKET_CAP"] = "j1";
+numberProperties["MARKET_CAP_RT"] = "j3";
+numberProperties["YEAR_TARGET_PRICE"] = "t8";
+numberProperties["OPEN"] = "o0";
+numberProperties["PEG"] = "r5";
+numberProperties["PE"] = "r0";
+numberProperties["PE_RT"] = "h0";
+numberProperties["PERCENT_CHANGE_YEAR_HIGH"] = "k5";
+numberProperties["PERCENT_CHANGE_YEAR_LOW"] = "j6";
+numberProperties["CLOSE"] = "p0";
+numberProperties["PRICE_BOOK"] = "p6";
+stringProperties["CURRENCY"] = "c4";
+stringProperties["LAST_TRADE_TIME"] = "t1";
+stringProperties["EX_DIVIDEND_DATE"] = "q0";
+stringProperties["LAST_TRADE_DATE"] = "d1";
+stringProperties["REVENUE"] = "s6";
+stringProperties["EXCHANGE"] = "x0";
+stringProperties["NAME"] = "n0";
+stringProperties["SYMBOL"] = "s0";
 }
 	
 StockList::StockList(std::vector <std::string>& SYMBOLS){
@@ -57,7 +58,7 @@ StockList::StockList(std::vector <std::string>& SYMBOLS){
 void StockList::add(std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
-    	std::stringstream csvStream(rawData);
+    	std::stringPropertiestream csvStream(rawData);
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
@@ -122,7 +123,7 @@ static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *use
 }
 
 bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format, std::string& readBuffer){
-	std::stringstream urlBuilder;
+	std::stringPropertiestream urlBuilder;
 	urlBuilder << BASE_URL;
 	for (size_t i = 0; i < SYMBOLS.size()-1; i++){
 		urlBuilder << SYMBOLS[i] << ",";
@@ -145,7 +146,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 	return true;
 	}
 	curl_easy_cleanup(curl);
-	loggin << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
+	logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 	return false;
 }
 

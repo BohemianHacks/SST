@@ -39,7 +39,7 @@ class StockList{
         void del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
-        Stock operator[](std::string symbol){return(stocks[symbol]);};
+        Stock get(std::string symbol){return(stocks[symbol]);};
         StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES);
 };
 

@@ -50,6 +50,9 @@ class StockList{
 //initialize variables
 void init();
 
+//create format from property list
+std::string createFormat(std::vector <std::string>& properties);
+
 //split a line of csv text into a string vector
 std::vector <std::string> splitCsv(std::string csvLine);
 

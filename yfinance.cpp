@@ -123,7 +123,7 @@ static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *use
 }
 
 bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format, std::string& readBuffer){
-	std::stringPropertiestream urlBuilder;
+	std::stringstream urlBuilder;
 	urlBuilder << BASE_URL;
 	for (size_t i = 0; i < SYMBOLS.size()-1; i++){
 		urlBuilder << SYMBOLS[i] << ",";

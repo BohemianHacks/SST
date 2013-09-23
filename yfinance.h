@@ -47,6 +47,9 @@ class StockList{
         StockList(std::vector <std::string>& SYMBOLS);
 };
 
+//initialize variables
+void init();
+
 //split a line of csv text into a string vector
 std::vector <std::string> splitCsv(std::string csvLine);
 

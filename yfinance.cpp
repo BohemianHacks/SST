@@ -43,17 +43,17 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             	for (size_t i = 0; i < properties.size(); i++){
             	    if (numberProperties.count(properties[i]) == 1){
             	    	if (properties[i] == "VOLUME"){
-            	    	    stock.volume = (int_fast32_t)atoi(data[i].c_str());
+            	    	    stock.volume = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
             	    	else if (properties[i] == "AVERAGE_VOL"){
-            	    	    stock.avgVol = (int_fast32_t)atoi(data[i].c_str());
+            	    	    stock.avgVol = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
             	    	else{
-            	    	    stock.numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i].c_str()));
+            	    	    stock.numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i+1].c_str()));
             	    	}
             	    }
             	    else if (stringProperties.count(properties[i]) == 1){
-            	    	stock.strings[properties[i]] = data[i];
+            	    	stock.strings[properties[i]] = data[i+1];
             	    }
             	}
             	stocks[data[0]] = stock;

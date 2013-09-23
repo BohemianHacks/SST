@@ -60,12 +60,12 @@ std::vector <std::string> splitCsv(std::string csvLine){
             csvLine.erase(0, cPos1+1);
         }
         //strip quotes and add to vector
-        while (value.find('"')){value.erase(value.find('"'),1);}
+        while (value.find('"') != -1){value.erase(value.find('"'),1);}
         lineVector.push_back(value);
     }
     //strip quotes and add to vector if anything is left
     if (csvLine.length() > 0){
-        while (csvLine.find('"')){csvLine.erase(csvLine.find('"'),1);}
+        while (csvLine.find('"') != -1){csvLine.erase(csvLine.find('"'),1);}
         lineVector.push_back(csvLine);
     }
     return(lineVector);

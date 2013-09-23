@@ -18,8 +18,8 @@ const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s="
 class Stock{
 	friend class StockList;
     private:
-    	std::vector <int_fast32_t> numbers;
-    	std::vector <std::string> strings;
+    	std::map <std::string,int_fast32_t> numbers;
+    	std::map <std::string,std::string> strings;
     	int_fast32_t volume;
     	int_fast32_t avgVol;
     	Stock(){};

@@ -17,12 +17,12 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
             if (true){
-            	Stock stock(data.at(0));
-            	stock.name = data.at(1);
-            	stock.close = (int_fast32_t)(100*atof(data.at(2).c_str()));
-            	stock.current = (int_fast32_t)(100*atof(data.at(3).c_str()));
-            	stocks[data[0]] = stock;
-            	symbols.push_back(data.at(0));
+            	Stock stock(data[0]);
+            	stock.name = data[1];
+            	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
+            	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));
+            	stocks.at(data[0]) = stock;
+            	symbols.push_back(data[0]);
             }
         }
     }

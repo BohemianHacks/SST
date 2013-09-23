@@ -3,7 +3,7 @@
 
 namespace yfinance{
 
-std::stringPropertiestream logging;
+std::stringstream logging;
 std::map <std::string,std::string> numberProperties;
 std::map <std::string,std::string> stringProperties;
 
@@ -58,7 +58,7 @@ StockList::StockList(std::vector <std::string>& SYMBOLS){
 void StockList::add(std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,"s0n0pl1",rawData)){
-    	std::stringPropertiestream csvStream(rawData);
+    	std::stringstream csvStream(rawData);
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);

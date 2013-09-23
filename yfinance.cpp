@@ -65,7 +65,7 @@ std::vector <std::string> splitCsv(std::string csvLine){
     }
     //strip quotes and add to vector if anything is left
     if (csvLine.length() > 0){
-        while (csvLine.find('"')){value.erase(csvLine.find('"'),1);}
+        while (csvLine.find('"')){csvLine.erase(csvLine.find('"'),1);}
         lineVector.push_back(csvLine);
     }
     return(lineVector);

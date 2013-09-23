@@ -16,7 +16,7 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
-            if (data[2] != "N/A"){
+            if (true){
             	std::cout << data[0] << std::endl;
             	Stock stock(data[0]);
             	stock.name = data[1];

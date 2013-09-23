@@ -8,8 +8,8 @@ std::map <std::string,std::string> numberProperties;
 std::map <std::string,std::string> stringProperties;
 
 	
-StockList::StockList(std::vector <std::string>& SYMBOLS){
-	add(SYMBOLS);
+StockList::StockList(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){
+	add(SYMBOLS, properties);
 }
 
 void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){

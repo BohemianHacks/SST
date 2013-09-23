@@ -81,16 +81,16 @@ stringProperties["SYMBOL"] = "s0";
 }
 
 std::string createFormat(std::vector <std::string>& properties){
-    std::string format;
+    std::stringstream format;
     for (size_t i = 0; i < properties.size(); i++){
     	if (numberProperties.count(properties[i]) == 1){
-    	    format = format + numberProperties[properties[i]];
+    	    format << numberProperties[properties[i]];
     	}
     	else if (stringProperties.count(properties[i]) == 1){
-    	    format = format + stringProperties[properties[i]];
+    	    format << stringProperties[properties[i]];
     	}
     }
-    return(format);
+    return(format.str());
 }
 
 std::vector <std::string> splitCsv(std::string csvLine){

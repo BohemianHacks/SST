@@ -144,6 +144,7 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 		urlBuilder << SYMBOLS[i] << ",";
 	}
 	urlBuilder << SYMBOLS[SYMBOLS.size()-1] << "&f=" << format;
+	std::cout << urlBuilder.str() << std::endl;
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();

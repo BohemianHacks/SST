@@ -37,9 +37,9 @@ class StockList{
         std::map <std::string,Stock> stocks;
         std::vector <std::string> symbols;
     public:
-    	//adds new stocks by csv string of ticker symbols. returns true if all stocks added
+    	//adds new stocks in vector of ticker symbols.
         void add(std::vector <std::string>& SYMBOLS);
-        //deletes stocks by same method. returns true if all stocks found and deleted
+        //deletes stocks by same method.
         void del(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained

@@ -14,7 +14,9 @@ StockList::StockList(std::vector <std::string>& SYMBOLS, std::vector <std::strin
 
 void StockList::add(std::vector <std::string>& SYMBOLS, std::vector <std::string>& properties){
     std::string rawData;
-    if (getData(SYMBOLS,createFormat(properties),rawData)){
+    std::string format = createFormat(properties)
+    std::cout << format << std::endl;
+    if (getData(SYMBOLS,format,rawData)){
     	std::stringstream csvStream(rawData);
     	std::string csvLine;
         while(std::getline(csvStream, csvLine)){

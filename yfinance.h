@@ -13,7 +13,6 @@
 namespace yfinance{
 
 const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
-std::stringstream logging;
 
 class Stock{
 	friend class StockList;

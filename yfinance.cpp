@@ -17,7 +17,8 @@ void StockList::add(std::vector <std::string>& SYMBOLS){
         while(std::getline(csvStream, csvLine)){
             std::vector <std::string> data = splitCsv(csvLine);
             if (true){
-            	Stock stock(data[0]);
+            	Stock stock;
+            	stock.symbol = data[0];
             	stock.name = data[1];
             	stock.close = (int_fast32_t)(100*atof(data[2].c_str()));
             	stock.current = (int_fast32_t)(100*atof(data[3].c_str()));

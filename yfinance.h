@@ -1,3 +1,6 @@
+#ifndef BH_YFINANCE_H
+#define BH_YFINANCE_H
+
 #include <cstring>
 #include <cstdint>
 #include <cstdlib>
@@ -55,3 +58,5 @@ static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *use
 bool getData(const std::vector <std::string>& symbols, const std::string& format, std::string& readBuffer);
 
 }
+
+#endif

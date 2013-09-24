@@ -34,7 +34,7 @@ class StockList{
         std::vector <std::string> symbols;
         std::vector <std::string> properties;
     public:
-    	StockList();
+    	StockList(){};
     	//adds new stocks in vector of ticker symbols.
         void addStocks(const std::vector <std::string>& SYMBOLS);
         //deletes stocks by same method.

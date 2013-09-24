@@ -92,6 +92,10 @@ bool StockList::update(){
 }
 
 void init(){
+numberProperties["OPEN"] = "o0";
+numberProperties["CLOSE"] = "p0";
+numberProperties["LAST TRADE PRICE"] = "l1";
+numberProperties["LAST TRADE SIZE"] = "k3";
 numberProperties["ASK"] = "b2";
 numberProperties["ASK SIZE"] = "a5";
 numberProperties["AVERAGE VOLUME"] = "a2";
@@ -101,27 +105,25 @@ numberProperties["BID SIZE"] = "b6";
 numberProperties["BOOK VALUE PER SHARE"] = "b4";
 numberProperties["CHANGE"] = "c6";
 numberProperties["PERCENT CHANGE"] = "p2";
+numberProperties["YEAR HIGH"] = "k0";
+numberProperties["YEAR HIGH"] = "j0";
 numberProperties["CHANGE YEAR HIGH"] = "k4";
 numberProperties["CHANGE YEAR LOW"] = "j5";
+numberProperties["PERCENT CHANGE YEAR HIGH"] = "k5";
+numberProperties["PERCENT CHANGE YEAR LOW"] = "j6";
+numberProperties["YEAR TARGET PRICE"] = "t8";
 numberProperties["DAY HIGH"] = "h0";
 numberProperties["DAY LOW"] = "g0";
 numberProperties["TRAILING DIVIDEND"] = "d0";
 numberProperties["PERCENT TRAILING DIVIDEND"] = "y0";
 numberProperties["DILUTED EPS"] = "e0";
-numberProperties["EBITDA"] = "j4";
 numberProperties["EPS CURRENT YEAR"] = "e7";
 numberProperties["EPS NEXT QUARTER"] = "e9";
 numberProperties["EPS NEXT YEAR"] = "e8";
-numberProperties["LAST TRADE PRICE"] = "l1";
-numberProperties["LAST TRADE SIZE"] = "k3";
-numberProperties["YEAR TARGET PRICE"] = "t8";
-numberProperties["OPEN"] = "o0";
+numberProperties["EBITDA"] = "j4";
 numberProperties["PEG"] = "r5";
 numberProperties["PE"] = "r0";
 numberProperties["PE RT"] = "h0";
-numberProperties["PERCENT CHANGE YEAR HIGH"] = "k5";
-numberProperties["PERCENT CHANGE YEAR LOW"] = "j6";
-numberProperties["CLOSE"] = "p0";
 numberProperties["PRICE BOOK"] = "p6";
 stringProperties["DIVIDEND PAY DATE"] = "r1";
 stringProperties["MARKET CAP"] = "j1";

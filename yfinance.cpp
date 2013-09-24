@@ -99,7 +99,7 @@ bool StockList::update(){
 
 bool StockList::setProperties(std::vector <std::string>& newProperties){
     if (cleanProperties(newProperties)){
-	properties = newProperties
+	properties = newProperties;
 	return(true);
     }
     return(false);
@@ -110,7 +110,7 @@ bool StockList::addProperties(std::vector <std::string>& newProperties){
     if (cleanProperties(newProperties)){
 	for (size_t i = 0; i < newProperties.size(); i++){
 	    if (std::find(properties.begin(), properties.end(), newProperties[i]) == properties.end()){
-	    	propeties.push_back(newProperties[i]);
+	    	properties.push_back(newProperties[i]);
 	    	added = true;
 	    }
 	}

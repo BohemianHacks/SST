@@ -136,6 +136,23 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     return(false);
 }
 
+Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
+    std::vector <std::string> splitLayout = splitCsv(layout);
+    for (size_t i = 0; i < splitLayout.size(); i++){
+    	if (splitLayout[i].find('|') != -1){
+    	    std::string property = splitLayout[i].substr(0,splitLayout[i].find('|'));
+    	    splitLayout[i].erase(0,splitLayout[i].find('|')+1);
+    	    uint_fast8_t width = atoi(splitLayout[i]);
+    	    std::transform(property.begin(), property.end(),property.begin(), ::toupper);
+    	    if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
+    	    	properties.push_back(property);
+    	    	widths.push_back(width);
+    	    	std::cout << property << " " << width << std::endl;
+    	    }
+    	}
+    }
+}
+
 void init(){
 numberProperties["OPEN"] = "o0";
 numberProperties["CLOSE"] = "p0";

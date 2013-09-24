@@ -9,6 +9,7 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <iomanip>
 #include <algorithm>
 #include <curl/curl.h>
 

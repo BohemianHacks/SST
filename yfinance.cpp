@@ -158,7 +158,8 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
     	std::transform(symbols[i].begin(), symbols[i].end(),symbols[i].begin(), ::toupper);
     }
     stockList.setProperties(properties);
-    stockList.addProperties(splitCsv(sortProperty));
+    std::vector <std::string> sortProp = splitCsv(sortProperty)
+    stockList.addProperties(sortProp);
     stockList.addStocks(symbols);
 }
 

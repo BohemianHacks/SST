@@ -98,11 +98,9 @@ bool StockList::update(){
 }
 
 bool StockList::setProperties(std::vector <std::string>& newProperties){
-    if (cleanProperties(newProperties)){
-	properties = newProperties;
-	return(true);
-    }
-    return(false);
+    cleanProperties(newProperties);
+    properties = newProperties;
+    return(true);
 }
 
 bool StockList::addProperties(std::vector <std::string>& newProperties){

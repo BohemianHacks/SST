@@ -14,7 +14,7 @@ std::string Stock::operator[](std::string property){
     	if (property == "VOLUME"){
     	    value << std::fixed << volume;
     	}
-    	else if (property == "AVERAGE_VOLUME"){
+    	else if (property == "AVERAGE VOLUME"){
     	    value << std::fixed << avgVol;
     	}
     	else{
@@ -46,7 +46,7 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             	    	if (properties[i] == "VOLUME"){
             	    	    stock.volume = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
-            	    	else if (properties[i] == "AVERAGE_VOLUME"){
+            	    	else if (properties[i] == "AVERAGE VOLUME"){
             	    	    stock.avgVol = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
             	    	else{

@@ -20,6 +20,9 @@ std::string Stock::operator[](std::string property){
     	else{
     	    value << std::fixed << numbers[property]/100.0;
     	}
+    	if (property.find('%') != -1){
+    	    value << '%';
+    	}
     }
     else if (stringProperties.count(property) == 1){
     	value << strings[property];

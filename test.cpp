@@ -6,6 +6,7 @@ int main(){
     yfinance::init();
     std::vector <std::string> properties = yfinance::splitCsv("name,last trade price,%change");
     std::vector <std::string> symbols = yfinance::splitCsv("TSLA,RAI,BAC,SHP.L,YHOO,FISH,GOOG");
+    yfinance::Ticker ticker("name|17,last trade price|7,%change|6",symbols);
     yfinance::StockList stockList;
     stockList.setProperties(properties);
     stockList.addStocks(symbols);

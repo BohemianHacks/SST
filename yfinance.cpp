@@ -136,7 +136,7 @@ stringProperties["NAME"] = "n0";
 stringProperties["SYMBOL"] = "s0";
 }
 
-bool verifyProperties(std::vector <std::string>& properties){
+bool cleanProperties(std::vector <std::string>& properties){
     for (size_t i = 0; i < properties.size(); i++){
         std::transform(properties[i].begin(), properties[i].end(),properties[i].begin(), ::toupper);
         if ((numberProperties.count(properties[i]) == 0) && (stringProperties.count(properties[i]) == 0)){

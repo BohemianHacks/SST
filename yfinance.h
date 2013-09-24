@@ -48,7 +48,7 @@ class StockList{
 void init();
 
 //create valid property list
-bool verifyProperties(std::vector <std::string>& properties);
+bool cleanProperties(std::vector <std::string>& properties);
 
 //create format from property list
 std::string createFormat(const std::vector <std::string>& properties);

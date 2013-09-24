@@ -147,7 +147,7 @@ Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
     	    if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
     	    	properties.push_back(property);
     	    	widths.push_back(width);
-    	    	std::cout << property << " " << width << std::endl;
+    	    	std::cout << property << " " << (int)width << std::endl;
     	    }
     	}
     }

@@ -164,6 +164,7 @@ std::string Ticker::operator[](size_t index){
     std::ostringstream tickerLine;
     for (size_t i = 0; i < properties.size(); i++){
         tickerLine << std::setw(widths[i]) << stockList[stockList.symbols[index]][properties[i]];
+        tickerLine << " ";
     }
     return(tickerLine.str());
 }

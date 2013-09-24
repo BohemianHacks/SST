@@ -136,7 +136,8 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     return(false);
 }
 
-Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
+Ticker::Ticker(std::string& layout, std::string& symbolString){
+    std::vector <std::string> symbols = splitCsv(symbolString);
     std::vector <std::string> splitLayout = splitCsv(layout);
     for (size_t i = 0; i < splitLayout.size(); i++){
     	if (splitLayout[i].find('|') != -1){

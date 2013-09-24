@@ -109,7 +109,7 @@ bool StockList::addProperties(std::vector <std::string>& newProperties){
     bool added = false;
     if (cleanProperties(newProperties)){
 	for (size_t i = 0; i < newProperties.size(); i++){
-	    if (properties.find(newProperties[i]) != -1){
+	    if (std::find(properties.begin(), properties.end(), newProperties[i]) == properties.end()){
 	    	propeties.push_back(newProperties[i]);
 	    	added = true;
 	    }
@@ -123,7 +123,7 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     bool deleted = false;
     if (cleanProperties(newProperties)){
 	for (size_t i = 0; i < newProperties.size(); i++){
-	    if (properties.find(newProperties[i]) != -1){
+	    (std::find(properties.begin(), properties.end(), newProperties[i]) == properties.end()){
 	    	properties.erase(newProperties[i]);
 	    	deleted = true;
 	    }

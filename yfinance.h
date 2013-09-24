@@ -9,6 +9,7 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include <curl/curl.h>
 
 namespace yfinance{
@@ -46,8 +47,11 @@ class StockList{
 //initialize variables
 void init();
 
+//create valid property list
+bool verifyProperties(std::vector <std::string>& properties);
+
 //create format from property list
-std::string createFormat(std::vector <std::string>& properties);
+std::string createFormat(const std::vector <std::string>& properties);
 
 //split a line of csv text into a string vector
 std::vector <std::string> splitCsv(std::string csvLine);

@@ -123,7 +123,7 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     bool deleted = false;
     if (cleanProperties(newProperties)){
 	for (size_t i = 0; i < newProperties.size(); i++){
-	    (std::find(properties.begin(), properties.end(), newProperties[i]) == properties.end()){
+	    if std::find(properties.begin(), properties.end(), newProperties[i]) == properties.end()){
 	    	properties.erase(newProperties[i]);
 	    	deleted = true;
 	    }

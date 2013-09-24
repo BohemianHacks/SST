@@ -58,7 +58,7 @@ class Ticker{
         Ticker(std::string layout, std::vector <std::string>& symbols);
         std::string operator[](size_t index);
         bool setSort(std::string newSort);
-        size_t size(){return(stockList.size());
+        size_t size(){return(stockList.size();)};
         uint_fast16_t interval; //update interval in tenths of a second
         
 };

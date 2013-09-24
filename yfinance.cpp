@@ -142,7 +142,7 @@ Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
     	if (splitLayout[i].find('|') != -1){
     	    std::string property = splitLayout[i].substr(0,splitLayout[i].find('|'));
     	    splitLayout[i].erase(0,splitLayout[i].find('|')+1);
-    	    uint_fast8_t width = atoi(splitLayout[i]);
+    	    uint_fast8_t width = atoi(splitLayout[i].c_str());
     	    std::transform(property.begin(), property.end(),property.begin(), ::toupper);
     	    if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
     	    	properties.push_back(property);

@@ -63,7 +63,7 @@ void StockList::delStocks(const std::vector <std::string>& SYMBOLS){
     for (size_t i = 0; i < SYMBOLS.size(); i++){
         if ((stocks.count(SYMBOLS[i]) == 1) && (std::find(symbols.begin(), symbols.end(), SYMBOLS[i]) != symbols.end())){
             stocks.erase(SYMBOLS[i]);
-            stocks.erase(std::find(symbols.begin(), symbols.end(), SYMBOLS[i]));
+            symbols.erase(std::find(symbols.begin(), symbols.end(), SYMBOLS[i]));
         }
     }
 }

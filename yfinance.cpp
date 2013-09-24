@@ -150,7 +150,7 @@ Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
     	    }
     	}
     	else if (numberProperties.count(splitLayout[i]) == 1){
-    	    sort = splitLayout[i];
+    	    sortProperty = splitLayout[i];
     	}
     }
     for (size_t i = 0; i < symbols.size(); i++){
@@ -162,7 +162,7 @@ Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
 
 std::string Ticker::operator[](size_t index){
     std::ostringstream tickerLine;
-    for (size_t i = 0; i < properties.size()){
+    for (size_t i = 0; i < properties.size(); i++){
         tickerLine << std::setw(widths[i]) << stockList[stockList.symbols[index]][properties[i]];
     }
     return(tickerLine.str());

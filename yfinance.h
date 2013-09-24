@@ -34,18 +34,24 @@ class StockList{
         std::vector <std::string> symbols;
         std::vector <std::string> properties;
     public:
+    	StockList();
     	//adds new stocks in vector of ticker symbols.
-        void add(const std::vector <std::string>& SYMBOLS);
+        void addStocks(const std::vector <std::string>& SYMBOLS);
         //deletes stocks by same method.
-        void del(const std::vector <std::string>& SYMBOLS);
+        void delStocks(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates current price, %change, and color
         size_t size(){return stocks.size();}; //Number of stocks contained
         Stock operator[](std::string symbol){return(stocks[symbol]);};
-        StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES);
+        bool setProperties(std::vector <std::string>& newProperties);
+        bool addProperties(std::vector <std::string>& newProperties);
+        bool delProperties(std::vector <std::string>& newProperties);
 };
 
 //initialize variables
 void init();
+
+//create properties list from formatted string
+std::vector <std::string> parseProperties(std::string propertyString);
 
 //create valid property list
 bool cleanProperties(std::vector <std::string>& properties);

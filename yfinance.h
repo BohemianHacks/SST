@@ -40,7 +40,7 @@ class StockList{
         //deletes stocks by same method.
         void delStocks(const std::vector <std::string>& SYMBOLS);
         bool update(); //updates all stocks contained
-        size_t size(){return stocks.size();}; //Number of stocks contained
+        size_t size(){return(stocks.size());}; //Number of stocks contained
         Stock operator[](std::string symbol){return(stocks[symbol]);};
         bool setProperties(std::vector <std::string>& newProperties);
         bool addProperties(std::vector <std::string>& newProperties);
@@ -58,7 +58,7 @@ class Ticker{
         Ticker(std::string layout, std::vector <std::string>& symbols);
         std::string operator[](size_t index);
         bool setSort(std::string newSort);
-        size_t size(){return(stockList.size();)};
+        size_t size(){return(stockList.size());};
         uint_fast16_t interval; //update interval in tenths of a second
         
 };

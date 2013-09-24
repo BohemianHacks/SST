@@ -26,13 +26,8 @@ std::string Stock::operator[](std::string property){
     }
     return(value.str());
 }
-	
-StockList::StockList(const std::vector <std::string>& SYMBOLS, const std::vector <std::string>& PROPERTIES){
-	properties = PROPERTIES;
-	add(SYMBOLS);
-}
 
-void StockList::add(const std::vector <std::string>& SYMBOLS){
+void StockList::addStocks(const std::vector <std::string>& SYMBOLS){
     std::string rawData;
     if (getData(SYMBOLS,createFormat(properties),rawData)){
     	std::stringstream csvStream(rawData);
@@ -64,6 +59,15 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
     }
 }
 
+void StockList::delStocks(const std::vector <std::string>& SYMBOLS){
+    for (size_t i = 0; i < SYMBOLS.size(); i++){
+        if ((stocks.count(SYMBOLS[i]) == 1) && (symbols.find(SYMBOLS[i]))){
+            stocks.erase(SYMBOLS[i]);
+            stocks.erase(symbols.find(SYMBOLS[i]));
+        }
+    }
+}
+
 bool StockList::update(){
     std::string rawData;
     if (getData(symbols,createFormat(properties),rawData)){
@@ -88,7 +92,45 @@ bool StockList::update(){
             	}
             }
         }
+        return(true);
     }
+    return(false);
+}
+
+bool StockList::setProperties(std::vector <std::string>& newProperties){
+    if (cleanProperties(newProperties)){
+	properties = newProperties
+	return(true);
+    }
+    return(false);
+}
+
+bool StockList::addProperties(std::vector <std::string>& newProperties){
+    bool added = false;
+    if (cleanProperties(newProperties)){
+	for (size_t i = 0; i < newProperties.size(); i++){
+	    if (properties.find(newProperties[i]) != -1){
+	    	propeties.push_back(newProperties[i]);
+	    	added = true;
+	    }
+	}
+	return(added);
+    }
+    return(false);
+}
+
+bool StockList::delProperties(std::vector <std::string>& newProperties){
+    bool deleted = false;
+    if (cleanProperties(newProperties)){
+	for (size_t i = 0; i < newProperties.size(); i++){
+	    if (properties.find(newProperties[i]) != -1){
+	    	properties.erase(newProperties[i]);
+	    	deleted = true;
+	    }
+	}
+	return(deleted);
+    }
+    return(false);
 }
 
 void init(){

@@ -14,7 +14,7 @@ std::string Stock::operator[](std::string property){
     	if (property == "VOLUME"){
     	    value << std::fixed << volume;
     	}
-    	else if (property == "AVERAGE_VOL"){
+    	else if (property == "AVERAGE_VOLUME"){
     	    value << std::fixed << avgVol;
     	}
     	else{
@@ -46,7 +46,7 @@ void StockList::add(const std::vector <std::string>& SYMBOLS){
             	    	if (properties[i] == "VOLUME"){
             	    	    stock.volume = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
-            	    	else if (properties[i] == "AVERAGE_VOL"){
+            	    	else if (properties[i] == "AVERAGE_VOLUME"){
             	    	    stock.avgVol = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
             	    	else{
@@ -76,7 +76,7 @@ bool StockList::update(){
                	    if (properties[i] == "VOLUME"){
             	        stocks[data[0]].volume = (int_fast32_t)atoi(data[i+1].c_str());
             	    }
-            	    else if (properties[i] == "AVERAGE_VOL"){
+            	    else if (properties[i] == "AVERAGE_VOLUME"){
             	        stocks[data[0]].avgVol = (int_fast32_t)atoi(data[i+1].c_str());
             	    }
             	    else{
@@ -93,43 +93,43 @@ bool StockList::update(){
 
 void init(){
 numberProperties["ASK"] = "b2";
-numberProperties["ASK_SIZE"] = "a5";
-numberProperties["AVERAGE_VOL"] = "a2";
+numberProperties["ASK SIZE"] = "a5";
+numberProperties["AVERAGE VOLUME"] = "a2";
 numberProperties["VOLUME"] = "v0";
 numberProperties["BID"] = "b3";
-numberProperties["BID_SIZE"] = "b6";
-numberProperties["BOOK_VALUE_PER_SHARE"] = "b4";
+numberProperties["BID SIZE"] = "b6";
+numberProperties["BOOK VALUE PER SHARE"] = "b4";
 numberProperties["CHANGE"] = "c6";
-numberProperties["CHANGE_PERCENT"] = "p2";
-numberProperties["CHANGE_YEAR_HIGH"] = "k4";
-numberProperties["CHANGE_YEAR_LOW"] = "j5";
-numberProperties["DAY_HIGH"] = "h0";
-numberProperties["DAY_LOW"] = "g0";
-numberProperties["DIVIDEND_PAY_DATE"] = "r1";
-numberProperties["TRAILING_DIVIDEND"] = "d0";
-numberProperties["TRAILING_DIVIDEND_PERCENT"] = "y0";
-numberProperties["DILUTED_EPS"] = "e0";
+numberProperties["CHANGE PERCENT"] = "p2";
+numberProperties["CHANGE YEAR HIGH"] = "k4";
+numberProperties["CHANGE YEAR LOW"] = "j5";
+numberProperties["DAY HIGH"] = "h0";
+numberProperties["DAY LOW"] = "g0";
+numberProperties["DIVIDEND PAY DATE"] = "r1";
+numberProperties["TRAILING DIVIDEND"] = "d0";
+numberProperties["TRAILING DIVIDEND PERCENT"] = "y0";
+numberProperties["DILUTED EPS"] = "e0";
 numberProperties["EBITDA"] = "j4";
-numberProperties["EPS_EST_CURRENT_YEAR"] = "e7";
-numberProperties["EPS_EST_NEXT_QTR"] = "e9";
-numberProperties["EPS_EST_NEXT_YEAR"] = "e8";
-numberProperties["LAST_TRADE_PRICE"] = "l1";
-numberProperties["LAST_TRADE_SIZE"] = "k3";
-numberProperties["YEAR_TARGET_PRICE"] = "t8";
+numberProperties["EPS EST CURRENT YEAR"] = "e7";
+numberProperties["EPS EST NEXT QTR"] = "e9";
+numberProperties["EPS EST NEXT YEAR"] = "e8";
+numberProperties["LAST TRADE PRICE"] = "l1";
+numberProperties["LAST TRADE SIZE"] = "k3";
+numberProperties["YEAR TARGET PRICE"] = "t8";
 numberProperties["OPEN"] = "o0";
 numberProperties["PEG"] = "r5";
 numberProperties["PE"] = "r0";
-numberProperties["PE_RT"] = "h0";
-numberProperties["PERCENT_CHANGE_YEAR_HIGH"] = "k5";
-numberProperties["PERCENT_CHANGE_YEAR_LOW"] = "j6";
+numberProperties["PE RT"] = "h0";
+numberProperties["PERCENT CHANGE YEAR HIGH"] = "k5";
+numberProperties["PERCENT CHANGE YEAR LOW"] = "j6";
 numberProperties["CLOSE"] = "p0";
-numberProperties["PRICE_BOOK"] = "p6";
-stringProperties["MARKET_CAP"] = "j1";
-stringProperties["MARKET_CAP_RT"] = "j3";
+numberProperties["PRICE BOOK"] = "p6";
+stringProperties["MARKET CAP"] = "j1";
+stringProperties["MARKET CAP RT"] = "j3";
 stringProperties["CURRENCY"] = "c4";
-stringProperties["LAST_TRADE_TIME"] = "t1";
-stringProperties["EX_DIVIDEND_DATE"] = "q0";
-stringProperties["LAST_TRADE_DATE"] = "d1";
+stringProperties["LAST TRADE TIME"] = "t1";
+stringProperties["EX DIVIDEND DATE"] = "q0";
+stringProperties["LAST TRADE DATE"] = "d1";
 stringProperties["REVENUE"] = "s6";
 stringProperties["EXCHANGE"] = "x0";
 stringProperties["NAME"] = "n0";

@@ -53,9 +53,12 @@ class Ticker{
         StockList stockList;
         std::vector <uint_fast8_t> widths;
         std::vector <std::string> properties;
+        std::string sortProperty;
     public:
         Ticker(std::string layout, std::vector <std::string>& symbols);
+        bool setSort(std::string newSort);
         uint_fast16_t interval; //update interval in tenths of a second
+        
 };
 
 //initialize variables

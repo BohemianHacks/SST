@@ -147,10 +147,25 @@ Ticker::Ticker(std::string layout, std::vector <std::string>& symbols){
     	    if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
     	    	properties.push_back(property);
     	    	widths.push_back(width);
-    	    	std::cout << property << " " << (int)width << std::endl;
     	    }
     	}
+    	else if (numberProperties.count(splitLayout[i]) == 1){
+    	    sort = splitLayout[i];
+    	}
     }
+    for (size_t i = 0; i < symbols.size(); i++){
+    	std::transform(symbols[i].begin(), symbols[i].end(),symbols[i].begin(), ::toupper);
+    }
+    stockList.setProperties(properties);
+    stockList.addStocks(symbols);
+}
+
+std::string Ticker::operator[](size_t index){
+    std::ostringstream tickerLine;
+    for (size_t i = 0; i < properties.size()){
+        tickerLine << std::setw(widths[i]) << stockList[stockList.symbols[index]][properties[i]];
+    }
+    return(tickerLine.str());
 }
 
 void init(){

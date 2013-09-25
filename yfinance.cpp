@@ -208,7 +208,7 @@ prop.width = 7;
 numberProperties["ASK"] = prop;
 
 prop.label = "Ask Size";
-prop.urlCode = "a5";
+prop.urlCode = "a0";
 prop.width = 8;
 numberProperties["ASK SIZE"] = prop;
 
@@ -223,7 +223,7 @@ prop.width = 9;
 numberProperties["VOLUME"] = prop;
 
 prop.label = "Bid";
-prop.urlCode = "b3";
+prop.urlCode = "b0";
 prop.width = 7;
 numberProperties["BID"] = prop;
 

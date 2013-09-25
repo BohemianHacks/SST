@@ -148,11 +148,11 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
 std::string Ticker::operator[](size_t index){
     std::ostringstream tickerLine;
     for (size_t i = 0; i < properties.size(); i++){
-    	uint_fast8_t width = 0;
-    	if (numberProperties.count(properties[i]) > 0){
+    	int width = 0;
+    	if (numberProperties.count(properties[i]) == 1){
     	    width = numberProperties[properties[i]].width;
     	}
-    	else if (numberProperties.count(properties[i]) > 0){
+    	else if (numberProperties.count(properties[i]) == 1){
     	    width = stringProperties[properties[i]].width;
     	}
         tickerLine << std::setw(width) << stockList[stockList.symbols[index]][properties[i]];

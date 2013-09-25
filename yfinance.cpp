@@ -197,11 +197,6 @@ prop.urlCode = "l1";
 prop.width = 7;
 numberProperties["LAST TRADE PRICE"] = prop;
 
-prop.label = "Trade Size";
-prop.urlCode = "k3";
-prop.width = 10;
-numberProperties["LAST TRADE SIZE"] = prop;
-
 prop.label = "Ask";
 prop.urlCode = "b2";
 prop.width = 7;

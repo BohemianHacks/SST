@@ -10,12 +10,10 @@ std::map <std::string,std::string> stringProperties;
 std::string Stock::operator[](std::string property){
     std::ostringstream value;
     value.precision(2);
+    value << std::fixed
     if (numberProperties.count(property) == 1){
-    	if (property == "VOLUME"){
-    	    value << std::fixed << volume;
-    	}
-    	else if (property == "AVERAGE VOLUME"){
-    	    value << std::fixed << avgVol;
+    	if (property.find("VOLUME") != -1){
+    	    value << numbers[property];
     	}
     	else{
     	    value << std::fixed << numbers[property]/100.0;
@@ -41,11 +39,8 @@ void StockList::addStocks(const std::vector <std::string>& SYMBOLS){
             	Stock stock;
             	for (size_t i = 0; i < properties.size(); i++){
             	    if (numberProperties.count(properties[i]) == 1){
-            	    	if (properties[i] == "VOLUME"){
-            	    	    stock.volume = (int_fast32_t)atoi(data[i+1].c_str());
-            	    	}
-            	    	else if (properties[i] == "AVERAGE VOLUME"){
-            	    	    stock.avgVol = (int_fast32_t)atoi(data[i+1].c_str());
+            	    	if (properties[i].find("VOLUME") != -1){
+            	    	    stock.numbers[properties[i]] = (int_fast32_t)atoi(data[i+1].c_str());
             	    	}
             	    	else{
             	    	    stock.numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i+1].c_str()));
@@ -80,11 +75,8 @@ bool StockList::update(){
             std::vector <std::string> data = splitCsv(csvLine);
             for (size_t i = 0; i < properties.size(); i++){
                 if (numberProperties.count(properties[i]) == 1){
-               	    if (properties[i] == "VOLUME"){
-            	        stocks[data[0]].volume = (int_fast32_t)atoi(data[i+1].c_str());
-            	    }
-            	    else if (properties[i] == "AVERAGE_VOLUME"){
-            	        stocks[data[0]].avgVol = (int_fast32_t)atoi(data[i+1].c_str());
+               	    if (properties[i].find("VOLUME") != -1){
+            	        stocks[data[0]].numbers[properties[i]] = (int_fast32_t)atoi(data[i+1].c_str());
             	    }
             	    else{
             	        stocks[data[0]].numbers[properties[i]] = (int_fast32_t)(100.0*atof(data[i+1].c_str()));

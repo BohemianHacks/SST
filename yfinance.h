@@ -51,7 +51,6 @@ class StockList{
 class Ticker{
     private:
         StockList stockList;
-        std::vector <uint_fast8_t> widths;
         std::vector <std::string> properties;
         std::string sortProperty;
     public:

@@ -55,6 +55,7 @@ class Ticker{
         std::string sortProperty;
     public:
         Ticker(std::string& layout, std::string& symbolString);
+        std::string header();
         std::string operator[](size_t index);
         bool setSort(std::string newSort);
         size_t size(){return(stockList.size());};

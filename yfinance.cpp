@@ -165,33 +165,143 @@ std::string Ticker::operator[](size_t index){
 }
 
 void init(){
-numberProperties["OPEN"] = "o0";
-numberProperties["CLOSE"] = "p0";
-numberProperties["LAST TRADE PRICE"] = "l1";
-numberProperties["LAST TRADE SIZE"] = "k3";
-numberProperties["ASK"] = "b2";
-numberProperties["ASK SIZE"] = "a5";
-numberProperties["AVERAGE VOLUME"] = "a2";
-numberProperties["VOLUME"] = "v0";
-numberProperties["BID"] = "b3";
-numberProperties["BID SIZE"] = "b6";
-numberProperties["BOOK VALUE PER SHARE"] = "b4";
-numberProperties["CHANGE"] = "c6";
-numberProperties["%CHANGE"] = "p2";
-numberProperties["YEAR HIGH"] = "k0";
-numberProperties["YEAR HIGH"] = "j0";
-numberProperties["CHANGE YEAR HIGH"] = "k4";
-numberProperties["CHANGE YEAR LOW"] = "j5";
-numberProperties["%CHANGE YEAR HIGH"] = "k5";
-numberProperties["%CHANGE YEAR LOW"] = "j6";
-numberProperties["YEAR TARGET PRICE"] = "t8";
-numberProperties["DAY HIGH"] = "h0";
-numberProperties["DAY LOW"] = "g0";
-numberProperties["DIVIDEND"] = "d0";
-numberProperties["%DIVIDEND"] = "y0";
-numberProperties["DILUTED EPS"] = "e0";
-numberProperties["EPS CURRENT YEAR"] = "e7";
-numberProperties["EPS NEXT QUARTER"] = "e9";
+stockProperty prop;
+prop.label = "Open";
+prop.urlCode = "o0";
+prop.width = 7;
+numberProperties["OPEN"] = prop;
+
+prop.label = "Close";
+prop.urlCode = "p0";
+prop.width = 7;
+numberProperties["CLOSE"] = prop;
+
+prop.label = "Price";
+prop.urlCode = "l1";
+prop.width = 7;
+numberProperties["LAST TRADE PRICE"] = prop;
+
+prop.label = "Trade Size";
+prop.urlCode = "k3";
+prop.width = 10;
+numberProperties["LAST TRADE SIZE"] = prop;
+
+prop.label = "Ask";
+prop.urlCode = "b2";
+prop.width = 7;
+numberProperties["ASK"] = prop;
+
+prop.label = "Ask Size";
+prop.urlCode = "a5";
+prop.width = 8;
+numberProperties["ASK SIZE"] = prop;
+
+prop.label = "Avg Vol";
+prop.urlCode = "a2";
+prop.width = 9;
+numberProperties["AVERAGE VOLUME"] = prop;
+
+prop.label = "Volume";
+prop.urlCode = "v0";
+prop.width = 9;
+numberProperties["VOLUME"] = prop;
+
+prop.label = "Bid";
+prop.urlCode = "b3";
+prop.width = 7;
+numberProperties["BID"] = prop;
+
+prop.label = "Bid Size";
+prop.urlCode = "b6";
+prop.width = 8;
+numberProperties["BID SIZE"] = prop;
+
+prop.label = "BVPS";
+prop.urlCode = "b4";
+prop.width = 6;
+numberProperties["BOOK VALUE PER SHARE"] = prop;
+
+prop.label = "Change";
+prop.urlCode = "c6";
+prop.width = 6;
+numberProperties["CHANGE"] = prop;
+
+prop.label = "%Change";
+prop.urlCode = "p2";
+prop.width = 6;
+numberProperties["%CHANGE"] = prop;
+
+prop.label = "YR High";
+prop.urlCode = "k0";
+prop.width = 7;
+numberProperties["YEAR HIGH"] = prop;
+
+prop.label = "YR Low";
+prop.urlCode = "j0";
+prop.width = 7;
+numberProperties["YEAR Low"] = prop;
+
+prop.label = "Change Yr High";
+prop.urlCode = "k4";
+prop.width = prop.label.length();
+numberProperties["CHANGE YEAR HIGH"] = prop;
+
+prop.label = "Change Yr Low";
+prop.urlCode = "j5";
+prop.width = prop.label.length();
+numberProperties["CHANGE YEAR LOW"] = prop;
+
+prop.label = "%Change YR High";
+prop.urlCode = "k5";
+prop.width = prop.label.length();
+numberProperties["%CHANGE YEAR HIGH"] = prop;
+
+prop.label = "%Change YR Low";
+prop.urlCode = "j6";
+prop.width = prop.label.length();
+numberProperties["%CHANGE YEAR LOW"] = prop;
+
+prop.label = "Target";
+prop.urlCode = "t8";
+prop.width = 6;
+numberProperties["YEAR TARGET PRICE"] = prop;
+
+prop.label = "High";
+prop.urlCode = "h0";
+prop.width = 6;
+numberProperties["DAY HIGH"] = prop;
+
+prop.label = "Low";
+prop.urlCode = "g0";
+prop.width = 6;
+numberProperties["DAY LOW"] = prop;
+
+prop.label = "Divd";
+prop.urlCode = "d0";
+prop.width = 4;
+numberProperties["DIVIDEND"] = prop;
+
+prop.label = "%Divd";
+prop.urlCode = "y0";
+prop.width = 6;
+numberProperties["%DIVIDEND"] = prop;
+
+prop.label = "EPS(D)";
+prop.urlCode = "e0";
+prop.width = 5;
+numberProperties["DILUTED EPS"] = prop;
+
+prop.label = "EPS(CY)";
+prop.urlCode = "e7";
+prop.width = 5;
+numberProperties["EPS CURRENT YEAR"] = prop;
+
+prop.label = "EPS(NQ)";
+prop.urlCode = "e9";
+prop.width = 5;
+numberProperties["EPS NEXT QUARTER"] = prop;
+
+
 numberProperties["EPS NEXT YEAR"] = "e8";
 numberProperties["PEG"] = "r5";
 numberProperties["PE"] = "r0";

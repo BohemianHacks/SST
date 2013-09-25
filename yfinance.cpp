@@ -279,12 +279,12 @@ numberProperties["YEAR TARGET PRICE"] = prop;
 
 prop.label = "High";
 prop.urlCode = "h0";
-prop.width = 6;
+prop.width = 7;
 numberProperties["DAY HIGH"] = prop;
 
 prop.label = "Low";
 prop.urlCode = "g0";
-prop.width = 6;
+prop.width = 7;
 numberProperties["DAY LOW"] = prop;
 
 prop.label = "Divd";

@@ -158,10 +158,10 @@ std::string Ticker::header(){
     	    width = stringProperties[properties[i]].width;
     	    lbl = stringProperties[properties[i]].label;
     	}
-        labels << std::setw(width) << label;
+        labels << std::setw(width) << lbl;
         tickerLine << " ";
     }
-    return(labels.str);
+    return(labels.str());
 }
 
 std::string Ticker::operator[](size_t index){

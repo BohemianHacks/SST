@@ -159,7 +159,7 @@ std::string Ticker::header(){
     	    lbl = stringProperties[properties[i]].label;
     	}
         labels << std::setw(width) << lbl;
-        tickerLine << " ";
+        labels << "|";
     }
     return(labels.str());
 }

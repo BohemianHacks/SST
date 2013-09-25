@@ -22,8 +22,6 @@ class Stock{
     private:
     	std::map <std::string,int_fast32_t> numbers;
     	std::map <std::string,std::string> strings;
-    	int_fast32_t volume;
-    	int_fast32_t avgVol;
     public:
     	Stock(){};
         std::string operator[](std::string);

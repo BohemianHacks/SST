@@ -10,7 +10,7 @@ std::map <std::string,std::string> stringProperties;
 std::string Stock::operator[](std::string property){
     std::ostringstream value;
     value.precision(2);
-    value << std::fixed
+    value << std::fixed;
     if (numberProperties.count(property) == 1){
     	if (property.find("VOLUME") != -1){
     	    value << numbers[property];

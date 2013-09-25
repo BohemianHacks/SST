@@ -202,11 +202,6 @@ prop.urlCode = "b2";
 prop.width = 7;
 numberProperties["ASK"] = prop;
 
-prop.label = "Ask Size";
-prop.urlCode = "a5";
-prop.width = 8;
-numberProperties["ASK SIZE"] = prop;
-
 prop.label = "Avg Vol";
 prop.urlCode = "a2";
 prop.width = 9;
@@ -221,11 +216,6 @@ prop.label = "Bid";
 prop.urlCode = "b0";
 prop.width = 7;
 numberProperties["BID"] = prop;
-
-prop.label = "Bid Size";
-prop.urlCode = "b6";
-prop.width = 8;
-numberProperties["BID SIZE"] = prop;
 
 prop.label = "BVPS";
 prop.urlCode = "b4";

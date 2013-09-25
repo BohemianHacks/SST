@@ -132,33 +132,30 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
     std::vector <std::string> symbols = splitCsv(symbolString);
     std::vector <std::string> splitLayout = splitCsv(layout);
     for (size_t i = 0; i < splitLayout.size(); i++){
-    	if (splitLayout[i].find('|') != -1){
-    	    std::string property = splitLayout[i].substr(0,splitLayout[i].find('|'));
-    	    splitLayout[i].erase(0,splitLayout[i].find('|')+1);
-    	    uint_fast8_t width = atoi(splitLayout[i].c_str());
-    	    std::transform(property.begin(), property.end(),property.begin(), ::toupper);
-    	    if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
-    	    	properties.push_back(property);
-    	    	widths.push_back(width);
-    	    }
-    	}
-    	else if (numberProperties.count(splitLayout[i]) == 1){
-    	    sortProperty = splitLayout[i];
+    	std::string property = splitLayout[i];
+    	std::transform(property.begin(), property.end(),property.begin(), ::toupper);
+    	if ((numberProperties.count(property) == 1) || (stringProperties.count(property) == 1)){
+    	    properties.push_back(property);
     	}
     }
     for (size_t i = 0; i < symbols.size(); i++){
     	std::transform(symbols[i].begin(), symbols[i].end(),symbols[i].begin(), ::toupper);
     }
     stockList.setProperties(properties);
-    std::vector <std::string> sortProp = splitCsv(sortProperty);
-    stockList.addProperties(sortProp);
     stockList.addStocks(symbols);
 }
 
 std::string Ticker::operator[](size_t index){
     std::ostringstream tickerLine;
     for (size_t i = 0; i < properties.size(); i++){
-        tickerLine << std::setw(widths[i]) << stockList[stockList.symbols[index]][properties[i]];
+    	uint_fast8_t width = 0;
+    	if (numberProperties.count(properties[i]) > 0){
+    	    width = numberProperties[properties[i]].width;
+    	}
+    	else if (numberProperties.count(properties[i]) > 0){
+    	    width = stringProperties[properties[i]].width;
+    	}
+        tickerLine << std::setw(width) << stockList[stockList.symbols[index]][properties[i]];
         tickerLine << " ";
     }
     return(tickerLine.str());

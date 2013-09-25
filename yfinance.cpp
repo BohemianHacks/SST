@@ -244,7 +244,7 @@ numberProperties["CHANGE"] = prop;
 
 prop.label = "%Change";
 prop.urlCode = "p2";
-prop.width = 6;
+prop.width = 7;
 numberProperties["%CHANGE"] = prop;
 
 prop.label = "YR High";

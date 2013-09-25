@@ -7,6 +7,7 @@ int main(int argc, char* argv[]){
     std::string layout = "exchange,symbol,last trade price,%change,pe";
     std::string symbols = "tsla,rai,goog,bac,fish,shp.l,yhoo";
     yfinance::Ticker ticker(layout,symbols);
+    std::cout << ticker.header() << std::endl;
     for (size_t i = 0; i < ticker.size(); i++){
         std::cout << ticker[i] << std::endl;
     }

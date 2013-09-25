@@ -152,7 +152,7 @@ std::string Ticker::operator[](size_t index){
     	if (numberProperties.count(properties[i]) == 1){
     	    width = numberProperties[properties[i]].width;
     	}
-    	else if (numberProperties.count(properties[i]) == 1){
+    	else if (stringProperties.count(properties[i]) == 1){
     	    width = stringProperties[properties[i]].width;
     	}
         tickerLine << std::setw(width) << stockList[stockList.symbols[index]][properties[i]];

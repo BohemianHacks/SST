@@ -63,6 +63,12 @@ class Ticker{
         
 };
 
+struct stockProperty{
+    std::string label;
+    std::string urlCode;
+    uint_fast8_t width;
+};
+
 //initialize variables
 void init();
 

@@ -145,6 +145,25 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
     stockList.addStocks(symbols);
 }
 
+std::string Ticker::header(){
+    std::ostringstream labels;
+    for (size_t i = 0; i < properties.size(); i++){
+    	int width = 0;
+    	std::string lbl;
+    	if (numberProperties.count(properties[i]) == 1){
+    	    width = numberProperties[properties[i]].width;
+    	    lbl = numberProperties[properties[i]].label;
+    	}
+    	else if (stringProperties.count(properties[i]) == 1){
+    	    width = stringProperties[properties[i]].width;
+    	    lbl = stringProperties[properties[i]].label;
+    	}
+        labels << std::setw(width) << label;
+        tickerLine << " ";
+    }
+    return(labels.str);
+}
+
 std::string Ticker::operator[](size_t index){
     std::ostringstream tickerLine;
     for (size_t i = 0; i < properties.size(); i++){

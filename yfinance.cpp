@@ -289,7 +289,7 @@ numberProperties["DAY LOW"] = prop;
 
 prop.label = "Divd";
 prop.urlCode = "d0";
-prop.width = 4;
+prop.width = 5;
 numberProperties["DIVIDEND"] = prop;
 
 prop.label = "%Divd";

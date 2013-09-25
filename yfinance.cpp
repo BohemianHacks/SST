@@ -4,8 +4,8 @@
 namespace yfinance{
 
 std::stringstream logging;
-std::map <std::string,std::string> numberProperties;
-std::map <std::string,std::string> stringProperties;
+std::map <std::string,stockProperty> numberProperties;
+std::map <std::string,stockProperty> stringProperties;
 
 std::string Stock::operator[](std::string property){
     std::ostringstream value;
@@ -288,37 +288,103 @@ numberProperties["%DIVIDEND"] = prop;
 
 prop.label = "EPS(D)";
 prop.urlCode = "e0";
-prop.width = 5;
+prop.width = prop.label.length();
 numberProperties["DILUTED EPS"] = prop;
 
-prop.label = "EPS(CY)";
+prop.label = "EPS(CYR)";
 prop.urlCode = "e7";
-prop.width = 5;
+prop.width = prop.label.length();
 numberProperties["EPS CURRENT YEAR"] = prop;
 
-prop.label = "EPS(NQ)";
+prop.label = "EPS(NQR)";
 prop.urlCode = "e9";
-prop.width = 5;
+prop.width = prop.label.length();
 numberProperties["EPS NEXT QUARTER"] = prop;
 
+prop.label = "EPS(NYR)";
+prop.urlCode = "e8";
+prop.width = prop.label.length();
+numberProperties["EPS NEXT YEAR"] = prop;
 
-numberProperties["EPS NEXT YEAR"] = "e8";
-numberProperties["PEG"] = "r5";
-numberProperties["PE"] = "r0";
-numberProperties["PE RT"] = "h0";
-numberProperties["PRICE BOOK"] = "p6";
-stringProperties["EBITDA"] = "j4";
-stringProperties["DIVIDEND PAY DATE"] = "r1";
-stringProperties["MARKET CAP"] = "j1";
-stringProperties["MARKET CAP RT"] = "j3";
-stringProperties["CURRENCY"] = "c4";
-stringProperties["LAST TRADE TIME"] = "t1";
-stringProperties["EX DIVIDEND DATE"] = "q0";
-stringProperties["LAST TRADE DATE"] = "d1";
-stringProperties["REVENUE"] = "s6";
-stringProperties["EXCHANGE"] = "x0";
-stringProperties["NAME"] = "n0";
-stringProperties["SYMBOL"] = "s0";
+prop.label = "PEG";
+prop.urlCode = "r5";
+prop.width = 5;
+numberProperties["PEG"] = prop;
+
+prop.label = "PE";
+prop.urlCode = "r0";
+prop.width = 7;
+numberProperties["PE"] = prop;
+
+prop.label = "PE RT";
+prop.urlCode = "h0";
+prop.width = 7;
+numberProperties["PE RT"] = prop;
+
+prop.label = "Book";
+prop.urlCode = "p6";
+prop.width = 7;
+numberProperties["PRICE BOOK"] = prop;
+
+prop.label = "EBITDA";
+prop.urlCode = "j4";
+prop.width = 7;
+stringProperties["EBITDA"] = prop;
+
+prop.label = "Divd Date";
+prop.urlCode = "r1";
+prop.width = prop.label.length();
+stringProperties["DIVIDEND PAY DATE"] = prop;
+
+prop.label = "MCap";
+prop.urlCode = "j1";
+prop.width = 7;
+stringProperties["MARKET CAP"] = prop;
+
+prop.label = "MCap RT";
+prop.urlCode = "j3";
+prop.width = 7;
+stringProperties["MARKET CAP RT"] = prop;
+
+prop.label = "Cur";
+prop.urlCode = "c4";
+prop.width = 5;
+stringProperties["CURRENCY"] = prop;
+
+prop.label = "Trade Time";
+prop.urlCode = "t1";
+prop.width = prop.label.length();
+stringProperties["LAST TRADE TIME"] = prop;
+
+prop.label = "Divd Date";
+prop.urlCode = "q0";
+prop.width = prop.label.length();
+stringProperties["EX DIVIDEND DATE"] = prop;
+
+prop.label = "Trade Date";
+prop.urlCode = "d1";
+prop.width = prop.label.length();
+stringProperties["LAST TRADE DATE"] = prop;
+
+prop.label = "Rev";
+prop.urlCode = "s6";
+prop.width = 7;
+stringProperties["REVENUE"] = prop;
+
+prop.label = "Exch";
+prop.urlCode = "x0";
+prop.width = 8;
+stringProperties["EXCHANGE"] = prop;
+
+prop.label = "Name";
+prop.urlCode = "n0";
+prop.width = 17;
+stringProperties["NAME"] = prop;
+
+prop.label = "Sym";
+prop.urlCode = "s0";
+prop.width = 5;
+stringProperties["SYMBOL"] = prop;
 }
 
 bool cleanProperties(std::vector <std::string>& properties){
@@ -339,10 +405,10 @@ std::string createFormat(const std::vector <std::string>& properties){
     format << "s0";
     for (size_t i = 0; i < properties.size(); i++){
     	if (numberProperties.count(properties[i]) == 1){
-    	    format << numberProperties[properties[i]];
+    	    format << numberProperties[properties[i]].urlCode;
     	}
     	else if (stringProperties.count(properties[i]) == 1){
-    	    format << stringProperties[properties[i]];
+    	    format << stringProperties[properties[i]].urlCode;
     	}
     }
     return(format.str());

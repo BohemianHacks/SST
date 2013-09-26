@@ -219,7 +219,7 @@ numberProperties["BID"] = prop;
 
 prop.label = "BVPS";
 prop.urlCode = "b4";
-prop.width = 6;
+prop.width = 7;
 numberProperties["BOOK VALUE PER SHARE"] = prop;
 
 prop.label = "Change";

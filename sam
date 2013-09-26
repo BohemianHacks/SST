@@ -1,16 +1,16 @@
-             Name|   Open|    Ask|    Bid|  Avg Vol|   Volume| Divd|    Rev|
-Tanzanian Royalty    2.98    3.15    0.00    679905    814540  0.00      0 
-Iamgold Corporati    4.89    4.88    0.00   8478140   8004214  0.37 1.558B 
-BlackBerry Limite    8.40    8.02    8.00  29113200  45717680  0.00 11.336B 
-       INITIO INC    0.00    0.00    0.00         0         0  0.00      0 
-Electronic Arts I   26.61   26.88   26.06   3656350   1695600  0.00 3.791B 
-SEGA SAMMY HLDGS     0.00    0.00    0.00       159         0  0.00 4.348B 
-         SEGAVSMD    0.00    0.00    0.00         0         0  0.00    N/A 
-UBIQUITECH SOFTWA    0.34    0.00    0.00     12425     10000  0.00      0 
-athenahealth, Inc  107.71    0.00  102.05    466536    390365  0.00 494.1M 
-USA TALKS.COM INC    0.00    0.00    0.00         0         0  0.00      0 
-              DJI    0.00    0.00    0.00         0         0  0.00    N/A 
-            BRK.A    0.00    0.00    0.00         0         0  0.00    N/A 
-Direxion Small Ca   22.66   22.80   22.56  11296700  13083549  0.00      0 
-Direxion Financia   29.23   28.96   28.70   5938140   7727586  0.00      0 
-International Bus  190.14  189.89    0.00   3744680   2654833  3.60 102.4B 
+             Name|  Cur|   Open|  Price|    Ask|    Bid|  Avg Vol|   Volume| Divd|    Rev|  Close|
+Tanzanian Royalty   USD    2.98    2.85    3.15    0.00    679905    814540  0.00       0    2.93 
+Iamgold Corporati   USD    4.89    4.88    4.88    0.00   8478140   8004214  0.37  1.558B    4.86 
+BlackBerry Limite   USD    8.40    8.00    8.02    8.00  29113200  45717680  0.00 11.336B    8.52 
+       INITIO INC   USD    0.00    0.35    0.00    0.00         0         0  0.00       0    0.35 
+Electronic Arts I   USD   26.61   26.60   26.88   26.06   3656350   1695600  0.00  3.791B   26.55 
+SEGA SAMMY HLDGS    USD    0.00   27.83    0.00    0.00       159         0  0.00  4.348B   27.83 
+         SEGAVSMD   0s6    0.00    0.00    0.00    0.00         0         0  0.00     N/A    0.00 
+UBIQUITECH SOFTWA   USD    0.34    0.34    0.00    0.00     12425     10000  0.00       0    0.36 
+athenahealth, Inc   USD  107.71  106.04    0.00  102.05    466536    390365  0.00  494.1M  108.08 
+USA TALKS.COM INC   USD    0.00    0.00    0.00    0.00         0         0  0.00       0    0.00 
+              DJI          0.00    0.00    0.00    0.00         0         0  0.00     N/A    0.00 
+            BRK.A          0.00    0.00    0.00    0.00         0         0  0.00     N/A    0.00 
+Direxion Small Ca   USD   22.66   22.81   22.80   22.56  11296700  13083549  0.00       0   22.74 
+Direxion Financia   USD   29.23   28.96   28.96   28.70   5938140   7727586  0.00       0   29.32 
+International Bus   USD  190.14  189.47  189.89    0.00   3744680   2654833  3.60  102.4B  189.97 

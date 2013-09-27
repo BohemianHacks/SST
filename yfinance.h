@@ -29,6 +29,7 @@ class Stock{
 
 class StockList{
 	friend class Ticker;
+	friend StockSort;
     private:
         std::map <std::string,Stock> stocks;
         std::vector <std::string> symbols;

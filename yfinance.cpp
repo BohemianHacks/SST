@@ -180,8 +180,6 @@ std::string Ticker::operator[](size_t index){
     return(tickerLine.str());
 }
 
-StockSort::StockSort(StockList sList, std::string property) : property(property) sList(sList){};
-
 bool StockSort::operator()(std::string symbol1, std::string symbol2) {
     if (numberProperties.count(property) == 1){
     	return(sList[symbol1][property] < sList[symbol2][property]);

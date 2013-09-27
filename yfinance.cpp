@@ -491,7 +491,8 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 	return false;
 }
 
-std::string trim(const std::string& str, const std::string& whitespace = " \t"){
+std::string trim(const std::string& str){
+    const std::string whitespace = " \t"
     const auto strBegin = str.find_first_not_of(whitespace);
     if (strBegin == std::string::npos)
         return ""; // no content

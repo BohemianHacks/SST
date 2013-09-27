@@ -184,7 +184,7 @@ std::string Ticker::operator[](size_t index){
 
 bool StockSort::operator()(std::string symbol1, std::string symbol2) {
     if (numberProperties.count(property) == 1){
-    	return(sList[symbol1][property] < sList[symbol2][property]);
+    	return(sList[symbol1].numbers[property] < sList[symbol2].numbers[property]);
     }
     return(false);
 };

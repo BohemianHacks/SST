@@ -332,7 +332,7 @@ prop.urlCode = "j4";
 prop.width = 7;
 stringProperties["EBITDA"] = prop;
 
-prop.label = "Divd Date";
+prop.label = "Divd Pay Date";
 prop.urlCode = "r1";
 prop.width = prop.label.length();
 stringProperties["DIVIDEND PAY DATE"] = prop;
@@ -357,7 +357,7 @@ prop.urlCode = "t1";
 prop.width = prop.label.length();
 stringProperties["LAST TRADE TIME"] = prop;
 
-prop.label = "Divd Date";
+prop.label = "Ex Divd Date";
 prop.urlCode = "q0";
 prop.width = prop.label.length();
 stringProperties["EX DIVIDEND DATE"] = prop;
@@ -444,13 +444,15 @@ std::vector <std::string> splitCsv(std::string csvLine){
             value = csvLine.substr(0, cPos1);
             csvLine.erase(0, cPos1+1);
         }
-        //strip quotes and add to vector
+        //strip quotes and trim spaces before we add to vector
         while (value.find('"') != -1){value.erase(value.find('"'),1);}
+        trim(value);
         lineVector.push_back(value);
     }
-    //strip quotes and add to vector if anything is left
+    //strip quotes, trim spaces, and add to vector if anything is left
     if (csvLine.length() > 0){
         while (csvLine.find('"') != -1){csvLine.erase(csvLine.find('"'),1);}
+        trim(csvLine);
         lineVector.push_back(csvLine);
     }
     return(lineVector);
@@ -487,6 +489,17 @@ bool getData(const std::vector <std::string>& SYMBOLS, const std::string& format
 	curl_easy_cleanup(curl);
 	logging << "yfinance::getData() Could not fetch URL: " << urlBuilder.str() << std::endl;
 	return false;
+}
+
+std::string trim(const std::string& str, const std::string& whitespace = " \t"){
+    const auto strBegin = str.find_first_not_of(whitespace);
+    if (strBegin == std::string::npos)
+        return ""; // no content
+
+    const auto strEnd = str.find_last_not_of(whitespace);
+    const auto strRange = strEnd - strBegin + 1;
+
+    return str.substr(strBegin, strRange);
 }
 
 }

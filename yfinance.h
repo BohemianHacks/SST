@@ -71,7 +71,7 @@ struct stockProperty{
 
 struct StockSort{
     StockSort(StockList sList, std::string property) : property(property) sList(sList){};
-    operator()(std::string symbol1, std::string symbol2);
+    bool operator()(std::string symbol1, std::string symbol2);
     private:
         std::string property;
         StockList sList;

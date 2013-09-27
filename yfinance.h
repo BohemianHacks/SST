@@ -19,6 +19,7 @@ const std::string BASE_URL = "http://download.finance.yahoo.com/d/quotes.csv?s="
 
 class Stock{
 	friend class StockList;
+	friend struct StockSort;
     private:
     	std::map <std::string,int_fast32_t> numbers;
     	std::map <std::string,std::string> strings;
@@ -29,7 +30,6 @@ class Stock{
 
 class StockList{
 	friend class Ticker;
-	friend struct StockSort;
     private:
         std::map <std::string,Stock> stocks;
         std::vector <std::string> symbols;

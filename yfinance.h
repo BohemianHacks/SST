@@ -90,7 +90,7 @@ static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *use
 //Scrape data from yahoo finance and return it to a string
 bool getData(const std::vector <std::string>& symbols, const std::string& format, std::string& readBuffer);
 
-std::string trim(const std::string& str, const std::string& whitespace = " \t");
+std::string trim(const std::string& str);
 
 }
 

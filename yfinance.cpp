@@ -143,7 +143,7 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
     }
     stockList.setProperties(properties);
     stockList.addStocks(symbols);
-    StockSort sorter(std::string("LAST TRADE PRICE"));
+    StockSort sorter(stockList, std::string("LAST TRADE PRICE"));
     std::sort(stockList.symbols.begin(),stockList.symbols.end(),sorter());
 }
 

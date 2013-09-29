@@ -128,8 +128,8 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     return(false);
 }
 
-void sort(std::string property){
-    StockSort sorter(stockList, std::string(property));
+void StockList::sort(std::string property){
+    StockSort sorter(this, std::string(property));
     std::sort(symbols.begin(),symbols.end(),sorter);
 }
 
@@ -186,7 +186,7 @@ std::string Ticker::operator[](size_t index){
     return(tickerLine.str());
 }
 
-bool setSort(std::string newSort){
+bool Ticker::setSort(std::string newSort){
     if (numberProperties.count(newSort) == 1){
         sortProperty = newSort;
         return(true);

@@ -46,7 +46,7 @@ class StockList{
         bool setProperties(std::vector <std::string>& newProperties);
         bool addProperties(std::vector <std::string>& newProperties);
         bool delProperties(std::vector <std::string>& newProperties);
-        bool sort(std::string property);
+        void sort(std::string property);
 };
 
 class Ticker{
@@ -55,7 +55,7 @@ class Ticker{
         std::vector <std::string> properties;
         std::string sortProperty;
     public:
-        Ticker(std::string& layout, std::string& symbolString);
+        Ticker(std::string& layout, std::string& symbolString, std::string sortProperty);
         std::string header();
         std::string operator[](size_t index);
         bool setSort(std::string newSort);

@@ -405,7 +405,7 @@ stringProperties["NAME"] = prop;
 
 prop.label = "Sym";
 prop.urlCode = "s0";
-prop.width = 5;
+prop.width = 7;
 stringProperties["SYMBOL"] = prop;
 }
 

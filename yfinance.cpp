@@ -128,7 +128,12 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
     return(false);
 }
 
-Ticker::Ticker(std::string& layout, std::string& symbolString){
+void sort(std::string property){
+    StockSort sorter(stockList, std::string(property));
+    std::sort(symbols.begin(),symbols.end(),sorter);
+}
+
+Ticker::Ticker(std::string& layout, std::string& symbolString, std::string sortProperty):sortProperty(sortProperty){
     std::vector <std::string> symbols = splitCsv(symbolString);
     std::vector <std::string> splitLayout = splitCsv(layout);
     for (size_t i = 0; i < splitLayout.size(); i++){
@@ -143,8 +148,7 @@ Ticker::Ticker(std::string& layout, std::string& symbolString){
     }
     stockList.setProperties(properties);
     stockList.addStocks(symbols);
-    StockSort sorter(stockList, std::string("LAST TRADE PRICE"));
-    std::sort(stockList.symbols.begin(),stockList.symbols.end(),sorter);
+    stockList.sort(sortProperty);
 }
 
 std::string Ticker::header(){
@@ -180,6 +184,14 @@ std::string Ticker::operator[](size_t index){
         tickerLine << " ";
     }
     return(tickerLine.str());
+}
+
+bool setSort(std::string newSort){
+    if (numberProperties.count(newSort) == 1){
+        sortProperty = newSort;
+        return(true);
+    }
+    return(false);
 }
 
 bool StockSort::operator()(std::string symbol1, std::string symbol2) {

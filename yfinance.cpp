@@ -129,7 +129,7 @@ bool StockList::delProperties(std::vector <std::string>& newProperties){
 }
 
 void StockList::sort(std::string property){
-    StockSort sorter(this, std::string(property));
+    StockSort sorter(*this, std::string(property));
     std::sort(symbols.begin(),symbols.end(),sorter);
 }
 

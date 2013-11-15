@@ -77,7 +77,7 @@ $(document).ready(function(){
 
 	window.setInterval(function() {
 		$("#ticker").timer();
-	}, 1000);
+	}, 5000);
 	
 });
 </script>
@@ -88,7 +88,7 @@ $(document).ready(function(){
 <div id=ticker>
 <form name="addSymbols" action="#" method="POST">
 <input type="text" name="symbols", rows="1", style="width: 80%; border: none"></textarea>
-<input type="submit", class="symbols", style="width: 17%", value="Update"></button>
+<button class="symbols", style="width: 17%">Update</button>
 </form>
 
 <table id="quotes" class="tablesorter">

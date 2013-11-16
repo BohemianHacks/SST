@@ -43,7 +43,7 @@
         
         jQuery.fn.timer = function() {
             var sorting;
-            $("#yourtableId").tablesorter({
+            $("#quotes").tablesorter({
             }).bind("sortEnd", function(sorter) {
                 sorting = sorter.target.config.sortList;
             });

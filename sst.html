@@ -56,23 +56,23 @@ font-weight : bold;
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
+    var symbols = "goog,amgn,rai,xlnx,tsla,iag,bac,qcom";
     $(document).ready(function(){
         jQuery.fn.timer = function() {
-            $.getJSON( "/cgi-bin/test.py?s=goog,amgn,rai,xlnx,tsla,iag,bac,qcom", function(json) {
+            $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
-            for(var i=0; i < json.length; i++){
-                $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
-                if (parseFloat(json[i].change, 10) < 0){
-                    $('#quotes tr:last').css("color", "rgb(255, 0, 0)");
-                }else if (parseFloat(json[i].change, 10) > 0){
-                    $('#quotes tr:last').css("color", "rgb(0, 255, 0)");
-                }else{
-                    $('#quotes tr:last').css("color", "rgb(255, 255, 0)");
-                }
-            }
-        });
-    }	
-
+            	    for(var i=0; i < json.length; i++){
+                        $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
+                        if (parseFloat(json[i].change, 10) < 0){
+                            $('#quotes tr:last').css("color", "rgb(255, 0, 0)");
+                        }else if (parseFloat(json[i].change, 10) > 0){
+                            $('#quotes tr:last').css("color", "rgb(0, 255, 0)");
+                        }else{
+                            $('#quotes tr:last').css("color", "rgb(255, 255, 0)");
+                        }
+                    }
+                });
+            }	
 	window.setInterval(function() {
 		$("#quotes").timer();
 	}, 1000);

@@ -56,21 +56,8 @@ font-weight : bold;
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
-    var symbols = "";
-    $("#addSymbols").click(function(){
-        alert("clicked!");
-        var newSymbols = $("#symbols").val().split(',');
-        for (var i = 0; i < newSymbols.length; i++){
-            if (symbols.indexOf(newSymbols[i]) < 0){
-                if (symbols.length > 0){
-                    symbols = symbols +','+ newSymbols[i];
-                }else{
-                    symbols = newSymbols[i];
-                }
-            }
-        }
-        alert(symbols);
-    });
+    var symbols = "goog,rai,amgn,tsla";
+
     $(document).ready(function(){
     	
         jQuery.fn.timer = function() {

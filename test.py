@@ -1,17 +1,30 @@
-#!/usr/bin/python2.7
-import cgi
 import urllib2
+import cgi
+import StringIO
+import csv
+import json
 
+
+def getData(symbols):
+    url = ("http://download.finance.yahoo.com/d/quotes.csv?s="+symbols+"&f=n0l1p2op")
+    data = urllib2.urlopen(url).read()
+    return data
+
+def getJson(csvData):
+    f = StringIO.StringIO(csvData)
+    reader = csv.DictReader( f, fieldnames = ( "name","last","change","open","close" ))
+    out = json.dumps( [ row for row in reader ] ) 
+    return out
+
+def cgiCall(form):
+    data = ""
+    if form.has_key("s"):
+        if form["s"].value != "":
+            symbols = form["s"].value
+            data = getJson(getData(symbols))
+    return data
 
 form = cgi.FieldStorage()
-data = ""
+print(cgiCall(form))
 
-if form.has_key("s") and form.has_key("f"):
-    if form["s"].value != "" and form["f"].value != "":
-        symbols = form["s"].value
-        format = form["f"].value
-        url = ("http://download.finance.yahoo.com/d/quotes.csv?s="+symbols+"&f="+format)
-        data = urllib2.urlopen(url).read()
-
-print "Content-type: text/html\n"
-print data
+    

@@ -42,9 +42,9 @@
         });
         
         jQuery.fn.timer = function() {
-            var sorting = $("#quotes").get(0).config.sortList;
-            alert(sorting);
             if (symbols.length > 0){
+              var sorting = $("#quotes").get(0).config.sortList;
+              alert(sorting);
               $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
                 $("#quotes").trigger("update");

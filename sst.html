@@ -57,11 +57,11 @@
                             }
                         }
             	    }
-            	    $("#quotes").tablesorter();
-            	    $("#quotes").trigger("update")
-            	        .trigger("sorton", [usersTable.get(0).config.sortList])
-            	        .trigger("appendCache")
-            	        .trigger("applyWidgets");
+            	    var usersTable = $(".tablesorter");
+		            usersTable.trigger("update")
+                    .trigger("sorton", [usersTable.get(0).config.sortList])
+                    .trigger("appendCache")
+                    .trigger("applyWidgets");
                 });
               }
             }	

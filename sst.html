@@ -57,10 +57,13 @@ font-weight : bold;
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
     var symbols = "goog,amgn,rai,xlnx,tsla,iag,bac,qcom";
-    $("#addSymbols").click(function(){
-    	alert($("#symbols").val());
-    });
+
     $(document).ready(function(){
+        
+    	$("#addSymbols").click(function(){
+    	    alert($("#symbols").val());
+        });
+        
         jQuery.fn.timer = function() {
             $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();

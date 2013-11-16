@@ -43,7 +43,8 @@
         });
         
         jQuery.fn.timer = function() {
-            $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
+            if (symbols.length > 0){
+              $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
             	    for(var i=0; i < json.length; i++){
                         if (parseFloat(json[i].last, 10) !== 0.0){
@@ -59,6 +60,7 @@
             	    }
             	    $("#quotes").tablesorter();
                 });
+              }
             }	
 	window.setInterval(function() {
 		$("#quotes").timer();

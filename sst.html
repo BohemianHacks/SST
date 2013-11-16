@@ -58,6 +58,7 @@ font-weight : bold;
 <script>
     var symbols = "goog,amgn,rai,xlnx,tsla,iag,bac,qcom";
     $("#addSymbols").click(function(){
+    	alert(symbols);
         var newSymbols = $("#symbols").val().split(',');
         for (var i = 0; i < newSymbols.length; i++){
             if (symbols.indexOf(newSymbols[i]) < 0){
@@ -68,7 +69,6 @@ font-weight : bold;
                 }
             }
         }
-        alert(symbols);
     });
     $(document).ready(function(){
         jQuery.fn.timer = function() {

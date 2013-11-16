@@ -25,6 +25,7 @@ def cgiCall(form):
     return data
 
 form = cgi.FieldStorage()
-print(cgiCall(form))
+print "Content-type: text/html\n"
+print cgiCall(form)
 
     

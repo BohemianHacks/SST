@@ -57,10 +57,8 @@
                             }
                         }
             	    }
-            	    var usersTable = $(".tablesorter");
-		    usersTable.trigger("update")
-                    .trigger("sorton", [usersTable.get(0).config.sortList])
-                    .trigger("applyWidgets");
+		    $("#quotes").trigger("update");
+		    $("#quotes").trigger("sorton", [usersTable.get(0).config.sortList]);
                 });
               }
             }	

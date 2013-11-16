@@ -58,8 +58,10 @@
                         }
             	    }
                 });
-                $("#quotes").trigger("sorton", usersTable.get(0).config.sortList);
+                
                 $("#quotes").trigger("update");
+                $("#quotes").trigger("sorton", usersTable.get(0).config.sortList);
+                $("#quotes").trigger("applyWidgets");
                 
               }
             }	

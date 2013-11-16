@@ -42,8 +42,8 @@
         });
         
         jQuery.fn.timer = function() {
+            var sorting = $("#quotes").get(0).config.sortList;
             if (symbols.length > 0){
-              var sorting = $("#quotes").get(0).config.sortList;
               $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
                 $("#quotes").trigger("update");
@@ -61,8 +61,8 @@
                         }
             	    }
                 });
-                $("#quotes").trigger("sorton", [sorting]);
               }
+              $("#quotes").trigger("sorton", [sorting]);
             }	
 	window.setInterval(function() {
 		$("#quotes").timer();

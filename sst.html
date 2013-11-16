@@ -56,10 +56,11 @@ font-weight : bold;
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
+    var symbols = "";
     $(document).ready(function(){
-    	var symbols = "";
     	
         $("#addSymbols").click(function(){
+            alert("clicked!");
             var newSymbols = $("#symbols").val().split(',');
             for (var i = 0; i < newSymbols.length; i++){
                 if (symbols.indexOf(newSymbols[i]) < 0){
@@ -70,6 +71,7 @@ font-weight : bold;
                     }
                 }
             }
+            alert(symbols);
         });
     	
         jQuery.fn.timer = function() {

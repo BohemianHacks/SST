@@ -56,13 +56,10 @@ font-weight : bold;
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
-    var symbols = "goog,rai,amgn,tsla";
-
     $(document).ready(function(){
-    	
         jQuery.fn.timer = function() {
             if (symbols.length > 0) {
-                $.getJSON( "/cgi-bin/test.py?s="+symbols, function(json) {
+                $.getJSON( "/cgi-bin/test.py?s="+"goog,rai,amgn,tsla", function(json) {
                     $('#stocks').empty();
                     for(var i=0; i < json.length; i++){
                         $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
@@ -77,11 +74,12 @@ font-weight : bold;
                 });
             }
             
-	window.setInterval(function() {
-		$("#quotes").timer();
-	}, 1000);
+	        window.setInterval(function() {
+		        $("#quotes").timer();
+	        }, 1000);
 	
-});
+	    });
+    }
 </script>
 </head>
 

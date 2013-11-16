@@ -63,6 +63,7 @@ font-weight : bold;
 
 	    jQuery.fn.timer = function() {
 	    	$.getJSON( "/cgi-bin/test.py?s=goog,amgn,rai,xlnx", function(json) {
+	    	alert(json.length);
             	for(var i=0;i<json.length;i++){
                     $('#quotes tr:last').after('<tr><td>'+json[i].name+'</td>'+'<td>'+json[i].last+'</td>'+'<td>'+json[i].change+'</td>'+'<td>'+json[i].open+'</td>'+'<td>'+json[i].close+'</td></tr>');
                     if (change < 0){

@@ -58,9 +58,8 @@
                         }
             	    }
             	    var usersTable = $(".tablesorter");
-		            usersTable.trigger("update")
+		    usersTable.trigger("update")
                     .trigger("sorton", [usersTable.get(0).config.sortList])
-                    .trigger("appendCache")
                     .trigger("applyWidgets");
                 });
               }

@@ -10,7 +10,7 @@
     var symbols = "";
 
     $(document).ready(function(){
-    	$("#quotes").tablesorter();
+        $("#quotes").tablesorter();
         $('#symbols').keydown(function (e){
     		if(e.keyCode == 13){
     		    var newSymbols = $("#symbols").val().split(',');
@@ -48,6 +48,7 @@
             	    for(var i=0; i < json.length; i++){
                         if (parseFloat(json[i].last, 10) !== 0.0){
                             $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
+                            $("#quotes").trigger("update");
                             if (parseFloat(json[i].change, 10) < 0.0){
                                 $('#quotes tr:last').css("color", "rgb(255, 0, 0)");
                             }else if (parseFloat(json[i].change, 10) > 0.0){
@@ -58,8 +59,6 @@
                         }
             	    }
                 });
-                
-                $("#quotes").trigger("update");
                 $("#quotes").trigger("sorton", usersTable.get(0).config.sortList);
                 $("#quotes").trigger("applyWidgets");
                 

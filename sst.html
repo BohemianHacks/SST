@@ -60,15 +60,6 @@ font-weight : bold;
     $("#addSymbols").click(function(){
     	alert(symbols);
         var newSymbols = $("#symbols").val().split(',');
-        for (var i = 0; i < newSymbols.length; i++){
-            if (symbols.indexOf(newSymbols[i]) < 0){
-                if (symbols.length > 0){
-                    symbols = symbols +','+ newSymbols[i];
-                }else{
-                    symbols = newSymbols[i];
-                }
-            }
-        }
     });
     $(document).ready(function(){
         jQuery.fn.timer = function() {

@@ -64,7 +64,7 @@ font-weight : bold;
     	    var newSymbols = $("#symbols").val().split();
     	    for (var i = 0; i < newSymbols.length; i++){
                 if (symbols.indexOf(newSymbols[i].toLowerCase()) < 0){
-                    alert(symbols.indexOf(newSymbols[i].toLowerCase()));
+                    alert(newSymbols[i]);
                     if (symbols.length > 0){
                         symbols = symbols +','+ newSymbols[i].toLowerCase();
                     }else{

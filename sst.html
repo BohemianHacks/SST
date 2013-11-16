@@ -61,12 +61,11 @@ font-weight : bold;
     $(document).ready(function(){
         
     	$("#addSymbols").click(function(){
-    	    alert($("#symbols").val());
     	    var newSymbols = $("#symbols").val().split();
     	    for (var i = 0; i < newSymbols.length; i++){
-                if (symbols.toLowerCase().indexOf(newSymbols[i].toLowerCase()) < 0){
+                if (symbols.indexOf(newSymbols[i].toLowerCase()) < 0){
                     if (symbols.length > 0){
-                        symbols = symbols +','+ newSymbols[i];
+                        symbols = symbols +','+ newSymbols[i].toLowerCase();
                     }else{
                         symbols = newSymbols[i];
                     }

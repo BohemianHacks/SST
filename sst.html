@@ -44,6 +44,7 @@
         jQuery.fn.timer = function() {
             if (symbols.length > 0){
               $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
+                var sorting = $("#quotes").get(0).config.sortList;
                 $('#stocks').empty();
                 $("#quotes").trigger("update");
             	    for(var i=0; i < json.length; i++){
@@ -59,7 +60,8 @@
                             $("#quotes").trigger("update");
                         }
             	    }
-            	    $("#quotes").trigger("sorton", [$("#quotes").get(0).config.sortList]);
+            	    $("#quotes").trigger("sorton", sorting);
+            	    $("#quotes").trigger("update");
                 });
               }
             }	

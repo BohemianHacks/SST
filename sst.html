@@ -58,9 +58,9 @@
                             }
                         }
                         $("#quotes").trigger("update");
+                        $("#quotes").trigger("sorton", [sorting]);
             	    }
                 });
-                $("#quotes").trigger("sorton", [sorting]);
               }
             }	
 	window.setInterval(function() {

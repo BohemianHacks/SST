@@ -8,14 +8,15 @@
 <script>
 
     var symbols = "";
-    $("th").hover(function() {
-    	$( this ).css("color", "#1240AB"));
-    	$( this ).css("background-color", "#4671D5");
-    	
-      }, function() {
-        $( this ).css("color", "#4671D5");
-        $( this ).css("background-color", "#1240AB"));
-    });
+    $( "th" ).hover(
+  function() {
+    $( this ).css("color", "#1240AB");
+    $( this ).css("background-color", "#4671D5");
+  }, function() {
+    $( this ).css("color", "#4671D5");
+    $( this ).css("background-color", "#1240AB");
+  }
+);
     $(document).ready(function(){
     	$("#symbols").focus();
         $("#quotes").tablesorter();

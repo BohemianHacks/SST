@@ -57,22 +57,38 @@ font-weight : bold;
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
-        jQuery.fn.timer = function() {
-            $.getJSON( "/cgi-bin/test.py?s=goog,amgn,rai,xlnx,tsla,iag,bac,qcom", function(json) {
-                $('#stocks').empty();
-            for(var i=0; i < json.length; i++){
-                $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
-                if (parseFloat(json[i].change, 10) < 0){
-                    $('#quotes tr:last').css("color", "rgb(255, 0, 0)");
-                }else if (parseFloat(json[i].change, 10) > 0){
-                    $('#quotes tr:last').css("color", "rgb(0, 255, 0)");
-                }else{
-                    $('#quotes tr:last').css("color", "rgb(255, 255, 0)");
+    	var symbols = "";
+    	
+        $("#addSymbols").click(function(){
+            var newSymbols = $("#symbols").val().split(',');
+            for (var i = 0; i < newSymbols.length; i++){
+                if (symbols.indexOf(newSymbols[i]) < 0){
+                    if (symbols.length > 0){
+                        symbols = symbols +','+ newSymbols[i];
+                    }else{
+                        symbols = newSymbols[i];
+                    }
                 }
             }
         });
-    }	
-
+    	
+        jQuery.fn.timer = function() {
+            if (symbols.length > 0) {
+                $.getJSON( "/cgi-bin/test.py?s="+symbols, function(json) {
+                    $('#stocks').empty();
+                    for(var i=0; i < json.length; i++){
+                        $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');
+                        if (parseFloat(json[i].change, 10) < 0){
+                            $('#quotes tr:last').css("color", "rgb(255, 0, 0)");
+                        }else if (parseFloat(json[i].change, 10) > 0){
+                            $('#quotes tr:last').css("color", "rgb(0, 255, 0)");
+                        }else{
+                            $('#quotes tr:last').css("color", "rgb(255, 255, 0)");
+                        }
+                    }
+                });
+            }
+            
 	window.setInterval(function() {
 		$("#quotes").timer();
 	}, 1000);
@@ -84,8 +100,8 @@ font-weight : bold;
 <body>
 <div id="wrapper" style="text-align: center">
 <div id=ticker>
-<input type="text" name="symbols", rows="1", style="width: 80%; border: none"></textarea>
-<button class="symbols", style="width: 17%">Update</button>
+<input type="text" id="symbols", rows="1", style="width: 80%; border: none"></textarea>
+<button id="addSymbols", style="width: 17%">Update</button>
 
 
 <table id="quotes" class="tablesorter">

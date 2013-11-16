@@ -46,7 +46,6 @@
             if (symbols.length > 0){
               $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
-                $("#quotes").trigger("update");
             	    for(var i=0; i < json.length; i++){
                         if (parseFloat(json[i].last, 10) !== 0.0){
                             $('#stocks').append('<tr><td>'+json[i].name+'</td><td>'+json[i].last+'</td><td>'+json[i].change+'</td><td>'+json[i].open+'</td><td>'+json[i].close+'</td></tr>');

@@ -42,11 +42,7 @@
         });
         
         jQuery.fn.timer = function() {
-            var sorting;
-            $("#quotes").tablesorter({
-            }).bind("sortEnd", function(sorter) {
-                sorting = sorter.target.config.sortList;
-            });
+            var sorting = 
             if (symbols.length > 0){
               $.getJSON( "/cgi-bin/test.py?s=" + symbols, function(json) {
                 $('#stocks').empty();
@@ -64,7 +60,7 @@
                             $("#quotes").trigger("update");
                         }
             	    }
-            	    $("#quotes").trigger("sorton", sorting);
+            	    $("#quotes").trigger("sorton");
             	    $("#quotes").trigger("update");
                 });
               }
